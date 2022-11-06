@@ -1,0 +1,1 @@
+An app to track the energy, vitamins, minerals and other nutrients in foods and meals throughtout the day. Measure your total nutrients consumed weighted against your nutrient needs for the day based on your profile.
