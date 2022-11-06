@@ -1,0 +1,108 @@
+* {
+	background-color: #222;
+	box-sizing: border-box;
+	color: #ddd;
+	font-family: Helvetica, Arial, san-serif;
+}
+
+button {
+    background-color: #111;
+}
+
+body {
+	/* make responsive */
+	margin: 10px;
+}
+
+textarea {
+	resize: none;
+	overflow-y: auto;
+}
+
+.marginRight15 {
+	margin-right: 15px;
+}
+
+.greyBox {
+	padding: 10px;
+	background-color: #333;
+}
+
+.greyBox * {
+	/* make responsive */
+	background-color: #333;
+}
+
+.greyBox input,
+.greyBox textarea {
+	background-color: #222;
+}
+
+.greyBox fieldset,
+.greyBox legend {
+	margin-top: 15px;
+}
+
+.greyBox form label {
+	margin-right: 15px;
+}
+
+.width100 {
+	width: 100%;
+}
+
+.marginTop5 {
+	margin-top: 5px;
+}
+
+#sort p {
+	margin-bottom: 0px;
+}
+
+#sort {
+	margin-bottom: 1em;
+}
+
+#records .record {
+	margin-bottom: 15px;
+}
+
+#records h3,
+#records p {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#records .record::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+#records div {
+	margin-left: 2em;
+}
+
+#records .foodItem {
+	margin-right: 10px;
+	padding: 0px 5px 0px 5px;
+	background-color: #444;
+}
+
+#records .recordLeft {
+	float: left;
+	width: 75%;
+}
+
+#records .recordRight {
+	float: left;
+	width: 25%;
+}
+
+#records .categories {
+	color: #bbb;
+}
+
+.nutritionForDay {
+    float: right;
+    margin-right:2em;
+}

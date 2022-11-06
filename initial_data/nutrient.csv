@@ -1,0 +1,118 @@
+0,2022/11/06 23:59:59,calories ,
+1,2022/11/06 23:59:59,carbohydrates ,
+2,2022/11/06 23:59:59,fiber ,
+3,2022/11/06 23:59:59,proteins ,
+4,2022/11/06 23:59:59,cholestrol ,There are HDLs (good ones) and LDLs (bad ones)
+5,2022/11/06 23:59:59,total_fats ,
+6,2022/11/06 23:59:59,monounsaturated_fats ,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
+Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds."
+7,2022/11/06 23:59:59,polyunsaturated_fats ,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
+Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds."
+8,2022/11/06 23:59:59,saturated_fats ,"Though decades of dietary advice suggested saturated fat was harmful, in recent years that idea has begun to evolve. Several studies suggest that eating diets high in saturated fat do not raise the risk of heart disease."
+9,2022/11/06 23:59:59,trans_fats   ,"Trans fatty acids, more commonly called trans fats, are made by heating liquid vegetable oils in the presence of hydrogen gas and a catalyst, a process called hydrogenation.
+Partially hydrogenating vegetable oils makes them more stable and less likely to become rancid. This process also converts the oil into a solid, which makes them function as margarine or shortening.
+Trans fats are the worst type of fat for the heart, blood vessels, and rest of the body because they:
+Raise bad LDL and lower good HDL"
+10,2022/11/06 23:59:59,omega_3,"These are essential fats the body can't make them from scratch but must get them from food. 
+They are an integral part of cell membranes throughout the body and affect the function of the cell receptors in these membranes. They provide the starting point for making hormones that regulate blood clotting, contraction and relaxation of artery walls, and inflammation. 
+They also bind to receptors in cells that regulate genetic function. Likely due to these effects, omega-3 fats have been shown to help prevent heart disease and stroke, may help control lupus, eczema, and rheumatoid arthritis, and may play protective roles in cancer and other conditions."
+11,2022/11/06 23:59:59,vitamin_a ,"There are two types of vitamin A: preformed (mostly found in animal products) and beta-carotene (produces dark pigments in plant foods). 
+Preformed
+Beta-carotene
+Benefits:
+Protects eye health
+Provides immune support
+Fight inflammation
+Supports skin health and cell growth
+Helps prevent cancer"
+12,2022/11/06 23:59:59,vitamin_b1 ,"Also known as Thiamin. Needed for healthy skin, hair, muscles, and brain."
+13,2022/11/06 23:59:59,vitamin_b2 ,"Also known as Riboflavin. Needed for healthy skin, hair, blood and brain."
+14,2022/11/06 23:59:59,vitamin_b3 ,"Also known as Niacin. Essential for healthy skin, blood cells, brain, and nervous system."
+15,2022/11/06 23:59:59,vitamin_b5 ,"Also known as Pantothenic Acid. Aids in the formation of lipids, neurotransmitters, steroid hormones, and hemoglobin."
+16,2022/11/06 23:59:59,vitamin_b6 ,"Also known as Pyridocal. 
+Reduces risk of heart disease.
+Aids in the regulation of sleep, appetite, and mood
+Improves cognitive abilities
+Increase immune function"
+17,2022/11/06 23:59:59,vitamin_b12 ,"Also known as Cobalamin.
+Lowers risk of heart disease
+Assists in making new cells
+Helps break down fatty acids and amino acids
+Protects nerve cells
+Helps make red blood cells"
+18,2022/11/06 23:59:59,vitamin_C,"Lowers risk of some cancers
+May protect against cataracts in the long term
+Helps make serotonin and norepinephrine
+Acts as an antioxidant
+Bolsters immune system"
+19,2022/11/06 23:59:59,vitamin_D ,"Also known as Calciferol.
+Helps with the formation and strengthening of bones"
+20,2022/11/06 23:59:59,vitamin_E ,"Alpha-tocopherol.
+Acts as an antioxidant
+Protects vitamin A and certain lipids from damage
+May help prevent dementia"
+21,2022/11/06 23:59:59,vitamin_k ,"Supports blood clotting
+May help prevent hip fractures"
+22,2022/11/06 23:59:59,choline ,"Aids in many nerve and brain activities
+Plays a role in metabolizing and transporting fats"
+23,2022/11/06 23:59:59,folic_acid ,"Vital for new cell creation
+Especially important for prenatal child development during pregnancy
+May reduce heart disease risk
+May reduce risk for colon cancer"
+24,2022/11/06 23:59:59,calcium ,"Builds and protects bones and teeth
+Helps with muscle contractions and relaxation
+Aids blood clotting
+Helps maintain healthy blood pressure"
+25,2022/11/06 23:59:59,chloride ,"Balances fluids in the body
+Essential to digestion"
+26,2022/11/06 23:59:59,chromium ,Helps maintain normal blood glucose levels
+27,2022/11/06 23:59:59,copper ,"Plays an important role in iron metabolism
+Helps make red blood cells"
+28,2022/11/06 23:59:59,fluoride ,"Encourages strong bone formation
+Prevents dental cavities"
+29,2022/11/06 23:59:59,iodine ,"Helps set body temperature
+Influences nerve and muscle function, reproduction, and growth
+Prevents goiter"
+30,2022/11/06 23:59:59,iron ,"Helps ferry oxygen throughout the body
+Needed for chemical reactions in the body
+Necessary for making amino acids, collagen, neurotransmitters, and hormones"
+31,2022/11/06 23:59:59,magnesium ,"Works with calcium in muscle contraction, blood clotting, and regulation of blood pressure
+Helps build bones and teeth"
+32,2022/11/06 23:59:59,manganese ,"Helps form bones
+Helps metabolize amino acids, cholesterol, and carbohydrates"
+33,2022/11/06 23:59:59,phosphorus ,"Helps build and protect bones and teeth
+Helps convert food into energy and shuttles nutrients into and out of cells"
+34,2022/11/06 23:59:59,potatssium ,"Balances fluids in the body
+Helps maintain steady heartbeat
+Needed for muscle contractions
+Lowers blood pressure
+May benefit bones"
+35,2022/11/06 23:59:59,selenium ,"Antioxidant (neutralizes unstable molecules that can damage cells)
+Helps regulate thyroid hormone activity"
+36,2022/11/06 23:59:59,sodium ,"Balances fluids in the body
+Impacts blood pressure (modest reductions can lower blood pressure considerably)"
+37,2022/11/06 23:59:59,sulfur ,"Needed for healthy skin, hair, and nails"
+38,2022/11/06 23:59:59,zinc ,"Helps form many enzymes and proteins and create new cells
+Boosts immune system
+Needed for taste and smell
+Expedites wound healing
+With antioxidants, may help delay the progression of age-related macular degeneration"
+39,2022/11/06 23:59:59,creatine ,"Tonic of the gods. 
+
+Adenosine triphosphate (ATP) is an organic compound that provides energy to drive many processes in living cells, such as muscle contraction, nerve impulse propagation, condensate dissolution, and chemical synthesis. Found in all known forms of life, ATP is often referred to as the ""molecular unit of currency"" of intracellular energy transfer. When consumed in metabolic processes, it converts either to adenosine diphosphate (ADP) or to adenosine monophosphate (AMP). Other processes regenerate ATP. The human body recycles its own body weight equivalent in ATP each day. It is also a precursor to DNA and RNA, and is used as a coenzyme.
+
+Creatine causes you to hold a bit more water INSIDE muscle fiber cells. This is NOT the same as water bloating, outside the muscle fiber. This is cell volumization, inside the cell.
+
+From the perspective of biochemistry, ATP is classified as a nucleoside triphosphate, which indicates that it consists of three components: a nitrogenous base (adenine), the sugar ribose, and the triphosphate.
+
+Can improve brain and bone health
+Should avoid taking with caffeine, as the effects of creatine maybe blunted by high doses of caffeine. So take them at different Times"
+40,2022/11/06 23:59:59,caffeine ,"A Central Nervous System stimulant that may reduce fatigue and drowsiness. Generally improve reaction time, wakefulness, concentration and motor coordination. Has been used as second-line treatment for ADHD.
+
+A proven Ergogenic Aid. Improves aerobic and anaerobic performance. Especially Aerobic. Decreases onset of muscle fatigue and central fatigue. Increase basal metabolic rate. Prior to aerobic exercise, increases fat oxidation particularly in people with low physical fitness.
+
+Should have with water as high doses (250mg-300mg) may cause short-term stimulation of urine for individuals who have been deprived of caffeine. May decrease coordination and increase jiteriness."
+41,2022/11/06 23:59:59,good bacteria , best eaten on an empty stomach
+42,2022/11/06 23:59:59,mercury ,not good
+43,2022/11/06 23:59:59,nitrates_and_nitrites ,not good
+44,2022/11/06 23:59:59,artificial_food_colors ,not good

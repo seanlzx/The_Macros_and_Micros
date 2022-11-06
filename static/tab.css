@@ -1,0 +1,24 @@
+/* regarding tabs*/
+.tab {
+    display: none;
+}
+
+.tabButton {
+    background-color: #111;
+}
+
+.tabButtonActive {
+    background-color: #444;
+}
+
+.tab {
+    display: none;
+}
+
+.tabActive {
+    display: block
+}
+
+.tabGroup{
+    margin-bottom:15px;
+}
