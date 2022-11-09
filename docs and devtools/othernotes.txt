@@ -65,3 +65,22 @@ CSV to SQLite
 
     /* beautify outputs */
     sqlite> .mode column
+
+
+SELECT ch.id AS header_id, ch.name AS header, c.id AS category_id, c.name AS category 
+FROM category c, category_header ch, category_to_category_header ctch
+WHERE ctch.category_id = c.id
+AND ctch.category_header_id = ch.id  
+;
+
+SELECT 
+	nh.id AS header_id, nh.name AS header, n.id AS nutrient_id, n.name AS nutrient_name, 
+	n.description AS description, dri.rda AS rda, dri.ul AS ul
+FROM
+	nutrient n JOIN nutrient_to_nutrient_header ntnh
+	ON n.id = ntnh.nutrient_id
+	JOIN nutrient_header nh
+	ON nh.id = ntnh.nutrient_header_id
+	JOIN dri
+	ON dri.nutrient_id = n.id
+	;

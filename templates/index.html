@@ -41,9 +41,21 @@
 				<div class="greyBox">
 					<h3 class="marginTop5">Add Meal</h3>
 					<form action="/addMeal" method="post">
+                        <input class="width100" autocomplete="off" required name="name" type="text"/>
+						<textarea
+							class="width100"
+							autocomplete="off"
+							name="description"
+							rows="4"
+							cols="50"
+							maxlength="1000"
+						></textarea>
+
 						<div id="foodForm">
 							<button onclick="addFood()" type="button">Add Food</button>
 						</div>
+
+                        <input class="width100" type="submit" value="submit" />
 					</form>
 				</div>
 			</div>
@@ -69,72 +81,25 @@
 						></textarea>
 
 						<fieldset>
-                            {% for category in category_dict%}
-                            <span>{{category}}</span>
+							<legend><b>categories</b></legend>
+                            {% for header in category_hierarchy %}
+								
+								<legend><b>{{category_hierarchy[header]['name']}}</b></legend>
+								
+                                {% for category in category_hierarchy[header]['category_list'] %}
+								<input
+									type="checkbox"
+									id="addFood{{category.id}}"
+									name="category"
+									value="{{category.name}}"
+								/><label for="addFood{{category.id}}">{{category.name}}</label>
+                                {% endfor %}
+                                <hr>
                             {% endfor %}
-							<legend>categories</legend>
-							<fieldset>
-								<legend>
-									<input
-										type="checkbox"
-										id="addFood1"
-										name="category"
-										value="fruit"
-									/><label for="addFood1"></label>
-								</legend>
-
-								<input
-									type="checkbox"
-									id="addFood2"
-									name="category"
-									value="vegetable"
-								/><label for="addFood2">vegetable</label>
-								<input
-									type="checkbox"
-									id="addFood3"
-									name="category"
-									value="meat"
-								/><label for="addFood3">meat</label>
-								<input
-									type="checkbox"
-									id="addFood4"
-									name="category"
-									value="cereal"
-								/><label for="addFood4">cereal</label>
-							</fieldset>
-							<fieldset>
-								<legend>
-									<input
-										type="checkbox"
-										id="addFood1"
-										name="category"
-										value="fruit"
-									/><label for="addFood1">fruit</label>
-								</legend>
-
-								<input
-									type="checkbox"
-									id="addFood2"
-									name="category"
-									value="vegetable"
-								/><label for="addFood2">vegetable</label>
-								<input
-									type="checkbox"
-									id="addFood3"
-									name="category"
-									value="meat"
-								/><label for="addFood3">meat</label>
-								<input
-									type="checkbox"
-									id="addFood4"
-									name="category"
-									value="cereal"
-								/><label for="addFood4">cereal</label>
-							</fieldset>
 						</fieldset>
 
 						<fieldset>
-							<legend>price ranges (prices per 100grams)</legend>
+							<legend><b>price ranges</b> (prices per 100grams)</legend>
 
 							<input
 								autocomplete="off"
@@ -157,7 +122,9 @@
 						</fieldset>
 
 						<fieldset>
-							<legend>nutrients (grams per 100grams)</legend>
+							<legend><b>nutrients</b> (grams per 100grams)</legend>
+
+                            <p>place 0 if the value is unknown</p>
 
 							<legend>macros</legend>
 

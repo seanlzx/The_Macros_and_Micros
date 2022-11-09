@@ -80,6 +80,7 @@ def addFood():
         print(nutritionDict)
         print(f'category: {categoryList}')
 
+    # the page url will be /addFood which will cause route problems, so should do a redirect to index instead?
     return render_template("index.html")
 
 
@@ -87,22 +88,29 @@ def addFood():
 def index():
     c = get_db().cursor()
     
-    raw_category = c.execute('SELECT name, id FROM category')
-    category_dict = listOfTuplesToListOfDict(raw_category, ['name','id'])
+    raw_header = c.execute('SELECT id, name FROM category_header')
+    header_dict = listOfTuplesToListOfDict(raw_header, ['id', 'name'])
     
-    raw_ctp = c.execute('SELECT p.id AS p_id, p.name AS p_name, c.id AS c_id, c.name AS c_name FROM category p, category c, category_to_parent ctp WHERE p.id = ctp.parent_id AND c.id = ctp.child_id;')
-    ctp_dict = listOfTuplesToListOfDict(raw_ctp, ['parent_id', 'parent_name', 'child_id', 'child_name']) 
+    raw_header_category_join = c.execute('''
+        SELECT ch.id AS header_id, ch.name AS header, c.id AS category_id, c.name AS category
+        FROM category c
+        JOIN category_header ch
+        ON c.category_header_id = ch.id;
+        '''
+    )
+    header_category_join_dict = listOfTuplesToListOfDict(raw_header_category_join, ['header_id', 'header', 'category_id', 'category'])
     
-    # for child category get parent
-    for category in category_dict:
-        print(f"child: {category['name']}", end=' ')
-        for ctp in ctp_dict:
-            if ctp['child_id'] == category['id']:
-                print(f"\tparent: {ctp['parent_name']}",end=' ')
-        print('')        
+    category_hierarchy = {}
+    for header in header_dict:
+        category_hierarchy[header['id']] = {'name':header['name'], 'category_list': []}
 
+    for category in header_category_join_dict:
+        category_hierarchy[category['header_id']]['category_list'].append({'id':category['category_id'], 'name':category['category']})
+        
+    print(category_hierarchy)
+    
     # find the best way to arrange the categories
     
-    return render_template("index.html", category_dict=category_dict)
+    return render_template("index.html", category_hierarchy=category_hierarchy)
 
 

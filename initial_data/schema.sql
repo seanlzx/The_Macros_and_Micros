@@ -12,7 +12,9 @@ CREATE UNIQUE INDEX food_idx_id ON food (id);
 CREATE TABLE category (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    category_header_id INTEGER NOT NULL,
+    FOREIGN KEY (category_header_id) REFERENCES category_header(id)
 );
 
 CREATE TABLE food_to_category (
@@ -32,19 +34,34 @@ CREATE TABLE category_to_parent (
     FOREIGN KEY (child_id) REFERENCES category(id)
 );
 
+CREATE TABLE category_header (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL
+);
+
 CREATE TABLE nutrient (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
     name TEXT NOT NULL,
-    description TEXT
+    description TEXT,
+    nutrient_header_id INTEGER NOT NULL,
+    FOREIGN KEY (nutrient_header_id) REFERENCES nutrient_header(id) 
+);
+
+CREATE TABLE nutrient_header (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL
 );
 
 -- Dietary Reference Intakes (DRIs) name refers to the DRI group (infants, children, males, females, pregnancy, lactation of various ages)
+-- null for rda and ul means not determined
 CREATE TABLE dri (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
     group_name TEXT NOT NULL,
     nutrient_id INTEGER NOT NULL,
+    rda REAL,
+    ul REAL,
     FOREIGN KEY (nutrient_id) REFERENCES nutrient(id)
 );
 

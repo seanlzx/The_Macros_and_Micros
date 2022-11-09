@@ -66,3 +66,13 @@ function tabAction(id) {
     // toggles tab display
     clickedTab.className = clickedTab.className == "tab" ? "tabActive" : "tab";
 }
+
+function mg2g(id){
+    let n = document.getElementById(id).value;
+    document.getElementById(id).value = n*0.001;
+}
+
+function μg2g(id){
+    let n = document.getElementById(id).value;
+    document.getElementById(id).value = n*0.000001;
+}
