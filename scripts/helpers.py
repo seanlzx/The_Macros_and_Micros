@@ -43,3 +43,23 @@ def tupleToDict(tuple, listOfKeys):
     for key, item in zip(listOfKeys, tuple):
         dict[key] = item
     return dict
+
+# this is a stupider function to help the below function
+def keys_and_dict_to_dict(keys, dict):
+    new_dict = {}
+    for key in keys:
+        new_dict[key] =  dict[key]
+    return new_dict
+
+# this is a stupid function, takes a header dict relation to another dictionary and returns a nesting rearrangement
+def header_nesting(header_dict_list, child_dict_list, keys):
+    nest = {}
+    for header_dict_list in header_dict_list:
+        nest[header_dict_list["id"]] = {"name": header_dict_list["name"], "list": []}
+
+    for child_dict in child_dict_list:
+        nest[child_dict["header_id"]]["list"].append(
+            keys_and_dict_to_dict(keys, child_dict)
+        )
+    return nest    
+        

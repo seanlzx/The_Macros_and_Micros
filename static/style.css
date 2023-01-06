@@ -106,3 +106,12 @@ textarea {
     float: right;
     margin-right:2em;
 }
+
+.nutrient{
+    width: 90px;
+}
+
+.nutrientSpan{
+    white-space: nowrap;
+    margin-right:15px;
+}

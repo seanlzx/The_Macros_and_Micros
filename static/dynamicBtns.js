@@ -20,7 +20,7 @@ function addFood(){
     `
     <div id='food${id}'>
         <input id='foodNameInput${id}' onchange='valueUpdate("foodNameInput${id}")' placeholder="food" list="foodList" name="food"/>
-        <input id='foodQuantityInput${id}' onchange='valueUpdate("foodQuantityInput${id}")'  placeholder="quantity (grams)" type='number' name="foodQuantity" step='0.1'>
+        <input id='foodQuantityInput${id}' onchange='valueUpdate("foodQuantityInput${id}")'  placeholder="quantity (grams)" type='number' name="foodQuantity" step='1'>
         <button onclick='removeElement("food${id}")' type="button">x</button>
     </div>
     `
@@ -42,6 +42,7 @@ function addCategory(){
     document.getElementById('categoryForm').innerHTML = document.getElementById('categoryForm').innerHTML + categoryFormat 
 }
 
+// this is to ensure the values do not dissapear if you add another element (p.s. it's dumb but before I learnt to add items dynamically I just took the innerHTML added the new item, and replaced the original innerHTML, the onchange is needed to ensure the dom's innerHTML also contained the value)
 function valueUpdate(id){
     document.getElementById(id).setAttribute('value', document.getElementById(id).value)
 }
@@ -51,3 +52,4 @@ function removeElement(id){
     console.log(element)
     element.remove();
 }
+

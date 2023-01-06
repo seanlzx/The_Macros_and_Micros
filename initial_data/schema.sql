@@ -123,8 +123,9 @@ CREATE TABLE meal (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
     user_id INTEGER NOT NULL,
-    name TEXT NOT NULL,
-    description TEXT NOT NULL,
+    name TEXT,
+    description TEXT,
+    time_of_meal TEXT,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 

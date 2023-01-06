@@ -12,12 +12,38 @@ or if app is named app
 # nutrients, should have notes, id, preffered timing (1000, 2300, brkfast, lunch, supper, post workout, pre workout)
 c.execute()
 
+# create a view for nutrients and list foods in order of amount per gram
+
 c.execute("INSERT INTO food VALUES('eggs', 5000)")
 
 # commits the current transaction
 conn.commit()
 
+when deleting from database, remember to delete the 'to' tables as while.
+or just make an active/-inactive column instead
 
+# food catergories
+
+# 
+
+# food class
+# include calories, porteins, fats, carbs; vitamins; minerals; other chemicals (caffeine, alchohol) notes on storage, preparation
+
+# nutrition class
+# various types of fats (omega 3, trans fat, saturated fat,) types of sugars, types of anti oxidants, fibre
+
+# meal class
+# include timing, list of foods, meal category (breakfast, lunch, dinner, pre strength training, )
+
+# daily value
+# include minimum and suggested amounts BASED ON WEIGHT and GENDER, should give warning if possible harmful overdose amount
+
+# daily and meal nutrition goals
+# configurable view to adjust goal amounts of macros and micros and others(antioxidants, caffeine, omega 3)
+
+# daily consumption log, a list of meals and their total daily value
+
+list to add preworkout, postworkout, heavyday, lightday, cardioday, breakfast, lunch, supper,
 
 from datetime import datetime
 datetime.now().strftime("%Y/%m/%d %H:%M:%S")
@@ -36,7 +62,7 @@ CSV to SQLite
     if existing table has an auto incrementing primary key
         --import the csv without the id column into a temporary table
         .import example.csv temp_table;
-        INSERT INTO existing(column1, column2) SELECT * FROM temp_table(column1, column2);
+        INSERT INTO example(column1, column2) SELECT * FROM temp_table(column1, column2);
 
     /* beautify outputs */
     sqlite> .mode column

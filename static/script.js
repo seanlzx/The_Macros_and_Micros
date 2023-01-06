@@ -1,14 +1,4 @@
 "use strict";
-// ensure inputs and text area placeholders
-let form_inputs = document.querySelectorAll("input");
-for (let i of form_inputs) {
-	i.placeholder = i.name;
-}
-
-let form_text_areas = document.querySelectorAll("textarea");
-for (let i of form_text_areas) {
-	i.placeholder = i.name;
-}
 
 /* 
     in HTML ensure this hierachy
@@ -18,8 +8,6 @@ for (let i of form_text_areas) {
         the innerHTML of the buttons should be the same as the id of the tab divs
 */
 
-console.log();
-
 let tabGroupList = document.getElementsByClassName("tabGroup");
 
 let tabButtonList = []
@@ -28,9 +16,6 @@ for (let tabGroup of tabGroupList){
     tabButtonList.push(...tabGroup.querySelectorAll(":scope > button"));
     tabList.push(...tabGroup.querySelectorAll(":scope > div"));
 }
-
-console.log(tabButtonList)
-
 
 for (let tabButton of tabButtonList) {
     tabButton.id = `${tabButton.innerHTML}TabButton`;
@@ -68,11 +53,31 @@ function tabAction(id) {
 }
 
 function mg2g(id){
-    let n = document.getElementById(id).value;
-    document.getElementById(id).value = n*0.001;
+    let n = document.getElementById(`nutrient${id}`).value;
+    document.getElementById(`nutrient${id}`).value = n*0.001;
+    document.getElementById(`unitConvertBtns${id}`).style.display = 'none';
+    document.getElementById(`unit${id}`).innerHTML = 'grams';
+    document.getElementById(`undo_mg2g${id}`).style.display = 'inline';
 }
 
 function μg2g(id){
-    let n = document.getElementById(id).value;
-    document.getElementById(id).value = n*0.000001;
+    let n = document.getElementById(`nutrient${id}`).value;
+    document.getElementById(`nutrient${id}`).value = n*0.000001;
+    document.getElementById(`unitConvertBtns${id}`).style.display = 'none';
+    document.getElementById(`unit${id}`).innerHTML = 'grams';
+    document.getElementById(`undo_μg2g${id}`).style.display = 'inline';
+}
+
+function undo_mg2g(id){
+    let n = document.getElementById(`nutrient${id}`).value;
+    document.getElementById(`nutrient${id}`).value = n*1000;
+    document.getElementById(`undo_mg2g${id}`).style.display = 'none';
+    document.getElementById(`unitConvertBtns${id}`).style.display = 'inline';
+}
+
+function undo_μg2g(id){
+    let n = document.getElementById(`nutrient${id}`).value;
+    document.getElementById(`nutrient${id}`).value = n*1000000;
+    document.getElementById(`undo_μg2g${id}`).style.display = 'none';
+    document.getElementById(`unitConvertBtns${id}`).style.display = 'inline';
 }
