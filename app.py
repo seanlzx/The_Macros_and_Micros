@@ -1,7 +1,8 @@
+import sys
 from contextlib import suppress
 from os import supports_bytes_environ
 
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request
 
 from scripts.helpers import *
 
@@ -9,10 +10,13 @@ DATABASE = "nutrition.db"
 
 app = Flask(__name__)
 
+
 # development variables, should eventually get rid of the hardcode
 userid = 0
 driGroupName = "male 19-30"
 
+# made into a global variable so index() can fill the list, and addFood() can use it, yea pretty hackyy
+nutritionKeyList = []
 
 @app.teardown_appcontext
 def close_connectioncall(exception):
@@ -20,77 +24,45 @@ def close_connectioncall(exception):
 
 @app.route("/addMeal", methods=['POST','GET'])
 def addMeal():
-    return render_template('index.html')
+    c = get_db().cursor()
+    return redirect("/")
     #ensure the format for hour and minute have zero padding
 
 @app.route("/addFood", methods=["POST", "GET"])
 def addFood():
+    c = get_db().cursor()
     if request.method == "POST":
 
-        infoKeyList = ["name", "description", "currentPrice", "lowPrice", "highPrice"]
+        infoKeyList = ["name", "description", "price"]
         infoDict = getFormListValues(infoKeyList)
 
-        nutritionKeyList = [
-            "calories",
-            "carbohydrates",
-            "proteins",
-            "fiber",
-            "total_fats",
-            "monounsaturated_fats",
-            "polyunsaturated_fats",
-            "saturated_fats",
-            "trans_fats",
-            "omega_3",
-            "vitamin_a",
-            "vitamin_b1",
-            "vitamin_b2",
-            "vitamin_b3",
-            "vitamin_b5",
-            "vitamin_b6",
-            "vitamin_b12",
-            "vitamin_D",
-            "vitamin_E",
-            "vitamin_k",
-            "choline",
-            "folic_acid",
-            "calcium",
-            "chloride",
-            "chromium",
-            "copper",
-            "fluoride",
-            "iodine",
-            "iron",
-            "magnesium",
-            "manganese",
-            "phosphorus",
-            "potatssium",
-            "selenium",
-            "sodium",
-            "sulfur",
-            "zinc",
-            "cholestrol",
-            "creatine",
-            "caffeine",
-            "good_bacteria",
-            "mercury",
-            "nitrates_and_nitrites",
-            "Artificial_food_colors",
-        ]
+        # find a way to 
+        if all(key in infoDict for key in ["name", "description"]):
+
         nutritionDict = getFormListValues(nutritionKeyList)
 
-        # get checkbox values
         categoryList = request.form.getlist("category")
-        print(infoDict)
-        print(nutritionDict)
+        print(f"infoDict: {infoDict}")
         print(f"category: {categoryList}")
+        print(f"nutritionDict: {nutritionDict}")
 
-    # the page url will be /addFood which will cause route problems, so should do a redirect to index instead?
-    return render_template("index.html")
+        # quite simply check that infoDict has all the keys required
+       
+            print("this is a valid submission")
+
+    # the page url will be /addFood which will cause route problems, so should do a redirect to index instead? yeap
+    return redirect("/")
+
+@app.route("/addCombo", methods=["POST", "GET"])
+def addCombo():
+    c = get_db().cursor()
+    
+    return redirect("/")
 
 @app.route("/")
 def index():
     c = get_db().cursor()
-
+    
     # produce category_hierarchy
     raw_header_list = c.execute("SELECT id, name FROM category_header")
     header_dict_list = listOfTuplesToListOfDict(raw_header_list, ["id", "name"])
@@ -137,7 +109,8 @@ def index():
         ["id", "name", "description", "group_name", "rda", "ul"],
     )
     
-    print("ppop")
-    print(nutrient_nest)
+    for group in nutrient_nest:
+        for list in nutrient_nest[group]['list']:
+            nutritionKeyList.append(list['name'])
 
     return render_template("index.html", category_nest=category_nest, nutrient_nest=nutrient_nest)

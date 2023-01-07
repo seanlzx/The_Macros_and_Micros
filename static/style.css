@@ -115,3 +115,12 @@ textarea {
     white-space: nowrap;
     margin-right:15px;
 }
+
+footer, footer *{
+    background-color: #111;
+}
+
+footer{
+    margin-top: 80px;
+    padding: 10px;
+}

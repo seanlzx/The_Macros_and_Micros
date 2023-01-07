@@ -67,3 +67,18 @@ Ways to prevent elements from having the same IDs in the page that has many fiel
 2. allows elements to have the same ID as long as their not neighbours, but ensure when query selecting them, that the selector field can distinguish them properly etc querySelector("
 
 3. pertaining to the above way, there are professional websites(such as youtube) which have multiple elements with the same ID in a single page, probably due to the elements being generated, however thsi is bad practice so. same as above, but rather than using IDs make use of classes
+
+a good way to go about planning a project
+	barebones prototype: bare bones of front end html, and whatever bare minimum necessary js
+	than design and create the database
+		ensure pks and fks, uniques, best data types, not nulls, timestamps,
+		ensure good relationships
+		ensure no redundancies
+		create indexes where desired
+	get the backend to request data for the frontend to display
+	a functional prototype: than work on making the front end dynamic and workable
+	than attempt connecting front end to database
+		make use of console logs first so you don’t fuckup the database too much
+		for queries to data base, first make use of prints in the backend
+	than can nicen up the html, add styling, and whatever fancy JS tricks
+	can worry about indexes for the database later

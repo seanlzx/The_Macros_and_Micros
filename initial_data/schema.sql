@@ -4,6 +4,7 @@ CREATE TABLE food (
     user_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     description TEXT,
+    price REAL,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
@@ -79,25 +80,6 @@ CREATE INDEX food_to_nutrient_idx_food_id ON food_to_nutrient (food_id);
 CREATE INDEX food_to_nutrient_idx_nutrient_id ON food_to_nutrient (nutrient_id);
 CREATE INDEX food_to_nutrient_idx_quantity ON food_to_nutrient (quantity);
 
-CREATE TABLE price (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    timestamp TEXT NOT NULL,
-    price REAL NOT NULL
-    
-);
-
-CREATE INDEX price_idx_price ON price (price);
-
-CREATE TABLE food_to_price (
-    food_id INTEGER,
-    price_id INTEGER,
-    FOREIGN KEY (food_id) REFERENCES food(id),
-    FOREIGN KEY (price_id) REFERENCES price(id)
-);
-
-CREATE INDEX food_to_price_idx_food_id ON food_to_price (food_id);
-CREATE UNIQUE INDEX food_to_price_idx_price_id ON food_to_price (price_id);
-
 CREATE TABLE combo (
     id INTEGER PRIMARY KEY NOT NULL,
     timestamp TEXT NOT NULL,
@@ -144,5 +126,6 @@ CREATE TABLE user (
     weight real NOT NULL,
     height real NOT NULL,
     gender TEXT NOT NULL,
-    age INTEGER NOT NULL
+    age INTEGER NOT NULL,
+    user_type INTEGER NOT NULL
 );

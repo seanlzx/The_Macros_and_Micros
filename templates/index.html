@@ -23,15 +23,15 @@
 			<span class="marginRight15"></span>
 
 			<button>Add Food</button>
-			<button>Edit Food</button>
+			<button>Manage Food</button>
 			<span class="marginRight15"></span>
 
 			<button>Add Combo</button>
-			<button>Edit Combo</button>
+			<button>Manage Combo</button>
 			<span class="marginRight15"></span>
 
 			<button>Add Category</button>
-			<button>Edit Category</button>
+			<button>Manage Category</button>
             <span class="marginRight15"></span>
             
 
@@ -73,13 +73,14 @@
                             type='number'
                             name='minute'
                             min='00'
+                            step = "10"
                             max='59'
                             style='width:70px'
                             required
                         />
 
 						<div id="foodForm">
-							<button onclick="addFood()" type="button">Add Food</button>
+							<button onclick="addMealAddFood()" type="button">Add Food</button>
 						</div>
 
 						<input class="width100" type="submit" value="submit" />
@@ -116,33 +117,21 @@
 							{% for category in category_nest[header]['list'] %}
 							<input
 								type="checkbox"
-								id="addFood{{category.id}}"
+								id="addFoodCategory{{category.id}}"
 								name="category"
 								value="{{category.name}}"
-							/><label for="addFood{{category.id}}">{{category.name}}</label>
+							/><label for="addFoodCategory{{category.id}}">{{category.name}}</label>
 							{% endfor %}
 							<hr />
 							{% endfor %}
 						</fieldset>
 
 						<fieldset>
-							<legend><b>price ranges</b> (prices per 100grams)</legend>
+							<legend><b>price</b> (price per 100grams)</legend>
 
 							<input
 								autocomplete="off"
-								name="currentPrice"
-								type="number"
-								step="0.01"
-							/>
-							<input
-								autocomplete="off"
-								name="lowPrice"
-								type="number"
-								step="0.01"
-							/>
-							<input
-								autocomplete="off"
-								name="highPrice"
+								name="price"
 								type="number"
 								step="0.01"
 							/>
@@ -157,6 +146,7 @@
 
 							{% for nutrient in nutrient_nest[header]['list']%}
 							<span class="nutrientSpan">
+                                <!--Note the &#013; in the title attribute value string is for newlines-->
 								<input
 									id="nutrient{{nutrient.id}}"
 									class="nutrient"
@@ -164,15 +154,7 @@
 									name="{{nutrient.name}}"
 									type="number"
 									step="0.000001"
-									title="
-Name: {{nutrient.name}}
-
-For {{nutrient.group_name}}
-    RDA: {{nutrient.rda}} grams
-    UL: {{nutrient.ul}} grams
-
-Description: {{nutrient.description}}
-                                            "
+									title="Name: {{nutrient.name}}&#013;&#013;For {{nutrient.group_name}}&#013;    RDA: {{nutrient.rda}} grams&#013;    UL: {{nutrient.ul}} grams&#013;&#013;Description:&#013;{{nutrient.description}}"
 								/>
                                 <span id='unit{{nutrient.id}}'>grams</span>
                                 <span id='unitConvertBtns{{nutrient.id}}'>
@@ -203,35 +185,106 @@ Description: {{nutrient.description}}
 				</div>
 			</div>
 
-			<div id="Edit Food">
+			<div id="Manage Food">
 				<div class="greyBox">
-					<h3 class="marginTop5">Edit Food</h3>
-                    <input id="editFoodSearch" placeholder="food" list="foodList" name="food" spellcheck="false" data-ms-editor="true">
-                    <button id="editFoodSearchButton">Load Data</button>
+					<h3 class="marginTop5">Manage Food</h3>
+                    <input id="manageFoodSearch" placeholder="food" list="foodList" name="food" spellcheck="false" data-ms-editor="true">
+                    <button id="manageFoodSearchButton">Manage Food</button>
                 </div>
 			</div>
 
 			<div id="Add Combo">
 				<div class="greyBox">
 					<h3 class="marginTop5">Add Combo</h3>
+
+                    <form action="/addCombo" method="post">
+						<input
+							class="width100"
+							autocomplete="off"
+							required
+							name="name"
+							type="text"
+						/>
+						<textarea
+							class="width100"
+							autocomplete="off"
+							name="description"
+							rows="4"
+							cols="50"
+							maxlength="1000"
+						></textarea>
+
+                        <!--backend will combine data, hour and time and store as one value-->
+
+						<div id="comboFoodForm">
+							<button onclick="addComboAddFood()" type="button">Add Food</button>
+						</div>
+
+						<input class="width100" type="submit" value="submit" />
+					</form>
 				</div>
 			</div>
 
-			<div id="Edit Combo">
+			<div id="Manage Combo">
 				<div class="greyBox">
-					<h3 class="marginTop5">Edit Combo</h3>
+					<h3 class="marginTop5">Manage Combo</h3>
+                    <input id="manageComboSearch" placeholder="Combo" list="comboList" name="combo" spellcheck="false" data-ms-editor="true">
+                    <button id="manageComboSearchButton">Manage Combo</button>
 				</div>
 			</div>
 
 			<div id="Add Category">
 				<div class="greyBox">
 					<h3 class="marginTop5">Add Category</h3>
+                    <form action="/addCategory" method="post">
+						<input
+							class="width100"
+							autocomplete="off"
+							required
+							name="name"
+							type="text"
+						/>
+
+						<fieldset title="Select a header for organization in &quot;Add Meal&quot; form">
+							<legend><b>category headers</b></legend>
+							{% for header in category_nest %}
+                            
+                            <!--quick note: header is the header_id-->
+                            
+                            <input type="checkbox" id="addCategoryHeader{{header}}" name="category" value="{{category_nest[header]['name']}}" placeholder="category">
+                            <label for="addCategoryHeader{{header}}">{{category_nest[header]['name']}}</label>
+                            {% endfor %}
+						</fieldset>
+
+                        <fieldset title="Parent categories of a child will be auto checked in &quot;Add Meal&quot; form">
+							<legend><b>parent categories</b></legend>
+							{% for header in category_nest %}
+
+							<legend><b>{{category_nest[header]['name']}}</b></legend>
+
+							{% for category in category_nest[header]['list'] %}
+							<input
+								type="checkbox"
+								id="addCategoryParent{{category.id}}"
+								name="parent"
+								value="{{category.name}}"
+							/><label for="addCategoryParent{{category.id}}">{{category.name}}</label>
+							{% endfor %}
+							<hr />
+							{% endfor %}
+						</fieldset>
+
+						<br />
+						<input class="width100" type="submit" value="submit" />
+					</form>
 				</div>
 			</div>
 
-			<div id="Edit Category">
+			<div id="Manage Category">
 				<div class="greyBox">
-					<h3 class="marginTop5">Edit Category</h3>
+					<h3 class="marginTop5">Manage Category</h3>
+                    <input id="manageCategorySearch" placeholder="category" list="categoryList" name="cateogry" spellcheck="false" data-ms-editor="true">
+                    <button id="manageCategorySearchButton">Manage Category</button>
 				</div>
 			</div>
 		</div>
@@ -284,28 +337,36 @@ Description: {{nutrient.description}}
 			<div class="nutritionForDay">nutritional information for day</div>
 		</div>
 
-		<div class="footer">
+		<footer>
 			<a href="https://en.wikipedia.org/wiki/List_of_culinary_fruits"
 				><p>List of fruits and their types</p></a
 			>
 			<a href="https://en.wikipedia.org/wiki/List_of_vegetables"
 				><p>List of vegetables and their types</p></a
 			>
-		</div>
+		</footer>
 
-		<datalist id="foodList">
-			<option value="foodexample1"></option>
-			<option value="foodexample2"></option>
-		</datalist>
 
-		<datalist id="categoryList">
-			<option value="catexample1"></option>
-			<option value="catexample2"></option>
-		</datalist>
 
-		<script src="/static/script.js"></script>
-		<script src="/static/dynamicBtns.js"></script>
-		<script src="/static/implicitAttributes.js"></script>
-		<script src="/static/editFood.js"></script>
+        <div class="this div is just to get rid of clutter">
+            <datalist id="foodList">
+                <option value="foodexample1"></option>
+                <option value="foodexample2"></option>
+            </datalist>
+    
+            <datalist id="categoryList">
+                <option value="catexample1"></option>
+                <option value="catexample2"></option>
+            </datalist>
+
+            <script src="/static/script.js"></script>
+            <script src="/static/implicitAttributes.js"></script>
+            <script src="/static/dynamicButtonStuff.js"></script>
+
+            <script src="/static/addMeal.js"></script>
+            <script src="/static/addFood.js"></script>
+            <script src="/static/manageFood.js"></script>
+            <script src="/static/addCombo.js"></script>
+        </div>
 	</body>
 </html>
