@@ -1,5 +1,6 @@
 import sys
 from contextlib import suppress
+from datetime import datetime
 from os import supports_bytes_environ
 
 from flask import Flask, redirect, render_template, request
@@ -12,8 +13,8 @@ app = Flask(__name__)
 
 
 # development variables, should eventually get rid of the hardcode
-userid = 0
-driGroupName = "male 19-30"
+hardCodeUserId = 0
+hardCodeDriGroupName = "male 19-30"
 
 # made into a global variable so index() can fill the list, and addFood() can use it, yea pretty hackyy
 nutritionKeyList = []
@@ -37,8 +38,9 @@ def addFood():
         infoDict = getFormListValues(infoKeyList)
 
         # find a way to 
-        if all(key in infoDict for key in ["name", "description"]):
-
+        if not all(key in infoDict for key in ["name", "description"]):
+            return apology("Form insufficient info")
+            
         nutritionDict = getFormListValues(nutritionKeyList)
 
         categoryList = request.form.getlist("category")
@@ -47,8 +49,11 @@ def addFood():
         print(f"nutritionDict: {nutritionDict}")
 
         # quite simply check that infoDict has all the keys required
-       
-            print("this is a valid submission")
+        c.execute("""INSERT INTO food 
+                (timestamp, user_id, name, description,price) 
+                VALUES (?, ?, ?, ?, ?)""", 
+                (datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                hardCodeUserId, infoDict['name'], infoDict['description'])
 
     # the page url will be /addFood which will cause route problems, so should do a redirect to index instead? yeap
     return redirect("/")
@@ -98,6 +103,8 @@ def index():
             ON n.id = dri.nutrient_id; 
             """
     )
+    
+    print()
     header_nutrient_dri_join_dict_list = listOfTuplesToListOfDict(
         raw_header_nutrient_dri_join_list,
         ["header_id", "id", "name", "description", "group_name", "rda", "ul"],
