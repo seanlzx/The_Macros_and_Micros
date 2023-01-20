@@ -2,7 +2,10 @@ import sqlite3
 from os import path
 from pathlib import Path
 
-from flask import g, request
+from flask import g, render_template, request
+
+hardCodeUserId = 0
+hardCodeDriGroupName = "male 19-30"
 
 parent = Path(path.dirname(path.abspath(__file__))).parent.absolute()
 DATABASE = path.join(parent,"nutrition.db")
@@ -37,6 +40,8 @@ def listOfTuplesToListOfDict(listOfTuples, listOfKeys):
         list.append(tupleToDict(tuple, listOfKeys))
     return list
         
+def apology(message):
+    return render_template("apology.html", message=message)
         
 def tupleToDict(tuple, listOfKeys):
     dict = {}
@@ -63,3 +68,64 @@ def header_nesting(header_dict_list, child_dict_list, keys):
         )
     return nest    
         
+def loadFoodFormData():
+    dict = {}
+    
+    db = get_db()
+    c = db.cursor()
+    
+    # produce category_hierarchy
+    raw_header_list = c.execute("SELECT id, name FROM category_header")
+    header_dict_list = listOfTuplesToListOfDict(raw_header_list, ["id", "name"])
+
+    raw_header_category_join_list = c.execute(
+        """
+            SELECT ch.id AS header_id, c.id AS category_id, c.name AS category
+            FROM category c
+            JOIN category_header ch
+            ON c.category_header_id = ch.id;
+        """
+    )
+    header_category_join_dict_list = listOfTuplesToListOfDict(
+        raw_header_category_join_list, ["header_id", "id", "name"]
+    )
+
+    dict["category_nest"] = header_nesting(
+        header_dict_list, header_category_join_dict_list, ["id", "name"]
+    )
+
+    # produce nutrient_hierarchy
+    raw_header_list = c.execute("SELECT id, name FROM nutrient_header")
+    header_dict_list = listOfTuplesToListOfDict(raw_header_list, ["id", "name"])
+
+    raw_header_nutrient_dri_join_list = c.execute(
+        """
+            SELECT nh.id AS header_id, n.id AS id, n.name AS name, n.description AS description, 
+            dri.group_name AS group_name, dri.rda AS rda, dri.ul AS ul
+            FROM nutrient n
+            JOIN nutrient_header nh
+            ON n.nutrient_header_id = nh. id
+            JOIN dri
+            ON n.id = dri.nutrient_id
+			WHERE dri.group_name = ?; 
+            """,
+        (hardCodeDriGroupName,),
+    )
+
+    header_nutrient_dri_join_dict_list = listOfTuplesToListOfDict(
+        raw_header_nutrient_dri_join_list,
+        ["header_id", "id", "name", "description", "group_name", "rda", "ul"],
+    )
+
+    dict["nutrient_nest"] = header_nesting(
+        header_dict_list,
+        header_nutrient_dri_join_dict_list,
+        ["id", "name", "description", "group_name", "rda", "ul"],
+    )
+
+    dict["foodList"] = [food[0] for food in c.execute("SELECT name FROM food")]
+    dict["categoryList"] = [category[0] for category in c.execute("SELECT name FROM category")]
+
+    db.close()
+
+    return dict

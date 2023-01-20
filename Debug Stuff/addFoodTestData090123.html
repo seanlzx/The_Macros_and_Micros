@@ -1,0 +1,4822 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--define keywords for search engines-->
+		<meta name="keyword" content="nutrition, nutrients, diet" />
+
+		<!--Define the author-->
+		<meta name="author" content="Sean Lee" />
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie-edge" />
+		<title>Nutrition Calculator</title>
+		<link rel="stylesheet" href="/static/style.css" />
+		<link rel="stylesheet" href="/static/tab.css" />
+
+		<!--DELETEME for debug purposes-->
+		<!-- <meta http-equiv='refresh' content='30'/> -->
+	</head>
+	<body>
+		<div class="tabGroup">
+			<button
+				id="Add MealTabButton"
+				class="tabButton"
+				onclick='tabAction("Add Meal")'
+			>
+				Add Meal
+			</button>
+			<span class="marginRight15"></span>
+
+			<button
+				id="Add FoodTabButton"
+				class="tabButtonActive"
+				onclick='tabAction("Add Food")'
+			>
+				Add Food
+			</button>
+			<button
+				id="Manage FoodTabButton"
+				class="tabButton"
+				onclick='tabAction("Manage Food")'
+			>
+				Manage Food
+			</button>
+			<span class="marginRight15"></span>
+
+			<button
+				id="Add ComboTabButton"
+				class="tabButton"
+				onclick='tabAction("Add Combo")'
+			>
+				Add Combo
+			</button>
+			<button
+				id="Manage ComboTabButton"
+				class="tabButton"
+				onclick='tabAction("Manage Combo")'
+			>
+				Manage Combo
+			</button>
+			<span class="marginRight15"></span>
+
+			<button
+				id="Add CategoryTabButton"
+				class="tabButton"
+				onclick='tabAction("Add Category")'
+			>
+				Add Category
+			</button>
+			<button
+				id="Manage CategoryTabButton"
+				class="tabButton"
+				onclick='tabAction("Manage Category")'
+			>
+				Manage Category
+			</button>
+			<span class="marginRight15"></span>
+
+			<div id="Add Meal" class="tab">
+				<div class="greyBox">
+					<h3 class="marginTop5">Add Meal</h3>
+					<form action="/addMeal" method="post">
+						<input
+							class="width100"
+							autocomplete="off"
+							required=""
+							name="name"
+							type="text"
+							placeholder="name"
+							title="name"
+						/>
+						<textarea
+							class="width100"
+							autocomplete="off"
+							name="description"
+							rows="4"
+							cols="50"
+							maxlength="1000"
+							placeholder="description"
+							title="description"
+							spellcheck="false"
+							data-ms-editor="true"
+							value=""
+						></textarea>
+
+						<!--backend will combine data, hour and time and store as one value-->
+						<input
+							type="date"
+							name="date"
+							required=""
+							placeholder="date"
+							title="date"
+						/>
+						<input
+							type="number"
+							name="hour"
+							min="00"
+							max="23"
+							style="width: 70px"
+							required=""
+							placeholder="hour"
+							title="hour"
+						/>
+						<input
+							type="number"
+							name="minute"
+							min="00"
+							step="10"
+							max="59"
+							style="width: 70px"
+							required=""
+							placeholder="minute"
+							title="minute"
+						/>
+
+						<div id="foodForm">
+							<button onclick="addMealAddFood()" type="button">Add Food</button>
+						</div>
+
+						<input
+							class="width100"
+							type="submit"
+							value="submit"
+							placeholder=""
+							title=""
+						/>
+					</form>
+				</div>
+			</div>
+
+			<div id="Add Food" class="tabActive">
+				<div class="greyBox">
+					<h3 class="marginTop5">Add Food</h3>
+					<form action="/addFood" method="post">
+						<input
+							class="width100"
+							autocomplete="off"
+							required=""
+							name="name"
+							type="text"
+							placeholder="name"
+							title="name"
+							value="Fuji Apple Sheng Shiong"
+						/>
+						<textarea
+							class="width100"
+							autocomplete="off"
+							name="description"
+							rows="4"
+							cols="50"
+							maxlength="1000"
+							placeholder="description"
+							title="description"
+							spellcheck="false"
+							data-ms-editor="true"
+                            value="The Fuji apple is an apple cultivar developed by growers at Tohoku Research Station in Fujisaki, Aomori, Japan, in the late 1930s, and brought to market in 1962. It originated as a cross between two American apple varieties—the Red Delicious and old Virginia Ralls Janet (sometimes cited as "Rawls Jennet") apples. According to the US Apple Association website it is one of the nine most popular apple cultivars in the United States Its name is derived from the first part of the town where it was developed: Fujisaki.
+
+                            Though not the most nutritionalty rich, contains some good antioxidants, great source of fiber to aid in digestion pre supper or dinner.
+                            
+                            The price per 100 grams for this entry is based on Sheng Shiong's 5 for 3.45 deal"
+						></textarea>
+
+						<fieldset>
+							<legend><b>categories</b></legend>
+
+							<legend><b>type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory0"
+								name="category"
+								value="drink"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory0">drink</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory1"
+								name="category"
+								value="dish"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory1">dish</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory2"
+								name="category"
+								value="ingredient"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory2">ingredient</label>
+
+							<hr />
+
+							<legend><b>origin</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory3"
+								name="category"
+								value="animal origin"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory3">animal origin</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory4"
+								name="category"
+								value="plant origin"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory4">plant origin</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory5"
+								name="category"
+								value="fungal origin"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory5">fungal origin</label>
+
+							<hr />
+
+							<legend><b>animal classifiction</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory7"
+								name="category"
+								value="fish"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory7">fish</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory8"
+								name="category"
+								value="mammal"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory8">mammal</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory9"
+								name="category"
+								value="bird"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory9">bird</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory10"
+								name="category"
+								value="reptile"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory10">reptile</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory11"
+								name="category"
+								value="insect"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory11">insect</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory12"
+								name="category"
+								value="crustaceans and mollusks"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory12">crustaceans and mollusks</label>
+
+							<hr />
+
+							<legend><b>animal products</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory6"
+								name="category"
+								value="meats"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory6">meats</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory13"
+								name="category"
+								value="dairy"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory13">dairy</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory14"
+								name="category"
+								value="milks"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory14">milks</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory15"
+								name="category"
+								value="cheeses"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory15">cheeses</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory16"
+								name="category"
+								value="eggs"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory16">eggs</label>
+
+							<hr />
+
+							<legend><b>vegan</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory17"
+								name="category"
+								value="cereals"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory17">cereals</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory25"
+								name="category"
+								value="mushrooms"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory25">mushrooms</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory26"
+								name="category"
+								value="legume and nut"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory26">legume and nut</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory32"
+								name="category"
+								value="fruit"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory32">fruit</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory53"
+								name="category"
+								value="vegetable"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory53">vegetable</label>
+
+							<hr />
+
+							<legend><b>vegetable type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory18"
+								name="category"
+								value="leafy"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory18">leafy</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory19"
+								name="category"
+								value="gourd and squash"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory19">gourd and squash</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory20"
+								name="category"
+								value="chili peppers"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory20">chili peppers</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory21"
+								name="category"
+								value="flowers"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory21">flowers</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory22"
+								name="category"
+								value="bulb and stem"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory22">bulb and stem</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory23"
+								name="category"
+								value="root"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory23">root</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory24"
+								name="category"
+								value="sea vegetable"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory24">sea vegetable</label>
+
+							<hr />
+
+							<legend><b>fruit type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory33"
+								name="category"
+								value="pome or accessory"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory33">pome or accessory</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory34"
+								name="category"
+								value="drupe or stone"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory34">drupe or stone</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory35"
+								name="category"
+								value="berry"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory35">berry</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory36"
+								name="category"
+								value="citrus"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory36">citrus</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory37"
+								name="category"
+								value="pepo and melon"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory37">pepo and melon</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory38"
+								name="category"
+								value="multiple fruits"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory38">multiple fruits</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory39"
+								name="category"
+								value="capsules"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory39">capsules</label>
+
+							<hr />
+
+							<legend><b>others</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory27"
+								name="category"
+								value="fats and oil"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory27">fats and oil</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory28"
+								name="category"
+								value="sweets and sugar"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory28">sweets and sugar</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory29"
+								name="category"
+								value="herb and spice"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory29">herb and spice</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory30"
+								name="category"
+								value="condiment"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory30">condiment</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory31"
+								name="category"
+								value="supplement"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory31">supplement</label>
+
+							<hr />
+
+							<legend><b>seasons</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory40"
+								name="category"
+								value="spring"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory40">spring</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory41"
+								name="category"
+								value="summer"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory41">summer</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory42"
+								name="category"
+								value="fall"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory42">fall</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory43"
+								name="category"
+								value="winter"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory43">winter</label>
+
+							<hr />
+
+							<legend><b>meal type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory44"
+								name="category"
+								value="preworkout"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory44">preworkout</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory45"
+								name="category"
+								value="postworkout"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory45">postworkout</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory46"
+								name="category"
+								value="breakfast"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory46">breakfast</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory47"
+								name="category"
+								value="lunch"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory47">lunch</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory48"
+								name="category"
+								value="dinner"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory48">dinner</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory49"
+								name="category"
+								value="supper"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory49">supper</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory50"
+								name="category"
+								value="snack"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory50">snack</label>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory51"
+								name="category"
+								value="desert"
+								placeholder="category"
+								title="category"
+								checked=""
+							/><label for="addFoodCategory51">desert</label>
+
+							<hr />
+
+							<legend><b>restaraunt</b></legend>
+
+							<input
+								type="checkbox"
+								id="addFoodCategory52"
+								name="category"
+								value="macdonalds"
+								placeholder="category"
+								title="category"
+							/><label for="addFoodCategory52">macdonalds</label>
+
+							<hr />
+						</fieldset>
+
+						<fieldset>
+							<legend><b>price</b> (price per 100grams)</legend>
+
+							<input
+								autocomplete="off"
+								name="price"
+								type="number"
+								step="0.01"
+								placeholder="price"
+								title="price"
+								value="0.36"
+							/>
+						</fieldset>
+
+						<fieldset>
+							<legend><b>nutrients</b> (grams per 100grams)</legend>
+
+							<p>place 0 if the value is unknown</p>
+
+							<legend>macros</legend>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient0"
+									class="nutrient"
+									autocomplete="off"
+									name="calories "
+									type="number"
+									step="0.000001"
+									title="Name: calories 
+
+For male 19-30
+    RDA: 2700.0 grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="calories "
+									value="63"
+								/>
+								<span id="unit0">grams</span>
+								<span id="unitConvertBtns0">
+									<button
+										onclick="mg2g('0')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('0')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g0"
+									onclick="undo_mg2g('0')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g0"
+									onclick="undo_μg2g('0')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient1"
+									class="nutrient"
+									autocomplete="off"
+									name="carbohydrates "
+									type="number"
+									step="0.000001"
+									title="Name: carbohydrates 
+
+For male 19-30
+    RDA: 130.0 grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="carbohydrates "
+									value="15.22"
+								/>
+								<span id="unit1">grams</span>
+								<span id="unitConvertBtns1">
+									<button
+										onclick="mg2g('1')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('1')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g1"
+									onclick="undo_mg2g('1')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g1"
+									onclick="undo_μg2g('1')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient2"
+									class="nutrient"
+									autocomplete="off"
+									name="fiber "
+									type="number"
+									step="0.000001"
+									title="Name: fiber 
+
+For male 19-30
+    RDA: 38.0 grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="fiber "
+									value="2.10"
+								/>
+								<span id="unit2">grams</span>
+								<span id="unitConvertBtns2">
+									<button
+										onclick="mg2g('2')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('2')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g2"
+									onclick="undo_mg2g('2')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g2"
+									onclick="undo_μg2g('2')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient3"
+									class="nutrient"
+									autocomplete="off"
+									name="proteins "
+									type="number"
+									step="0.000001"
+									title="Name: proteins 
+
+For male 19-30
+    RDA: 56.0 grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="proteins "
+									value="0.20"
+								/>
+								<span id="unit3">grams</span>
+								<span id="unitConvertBtns3">
+									<button
+										onclick="mg2g('3')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('3')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g3"
+									onclick="undo_mg2g('3')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g3"
+									onclick="undo_μg2g('3')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<legend>fat</legend>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient4"
+									class="nutrient"
+									autocomplete="off"
+									name="cholestrol "
+									type="number"
+									step="0.000001"
+									title="Name: cholestrol 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+There are HDLs (good ones) and LDLs (bad ones)"
+									placeholder="cholestrol "
+								/>
+								<span id="unit4">grams</span>
+								<span id="unitConvertBtns4">
+									<button
+										onclick="mg2g('4')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('4')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g4"
+									onclick="undo_mg2g('4')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g4"
+									onclick="undo_μg2g('4')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient5"
+									class="nutrient"
+									autocomplete="off"
+									name="total_fats "
+									type="number"
+									step="0.000001"
+									title="Name: total_fats 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="total_fats "
+								/>
+								<span id="unit5">grams</span>
+								<span id="unitConvertBtns5">
+									<button
+										onclick="mg2g('5')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('5')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g5"
+									onclick="undo_mg2g('5')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g5"
+									onclick="undo_μg2g('5')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient6"
+									class="nutrient"
+									autocomplete="off"
+									name="monounsaturated_fats "
+									type="number"
+									step="0.000001"
+									title="Name: monounsaturated_fats 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
+Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds."
+									placeholder="monounsaturated_fats "
+								/>
+								<span id="unit6">grams</span>
+								<span id="unitConvertBtns6">
+									<button
+										onclick="mg2g('6')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('6')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g6"
+									onclick="undo_mg2g('6')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g6"
+									onclick="undo_μg2g('6')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient7"
+									class="nutrient"
+									autocomplete="off"
+									name="polyunsaturated_fats "
+									type="number"
+									step="0.000001"
+									title="Name: polyunsaturated_fats 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
+Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds."
+									placeholder="polyunsaturated_fats "
+								/>
+								<span id="unit7">grams</span>
+								<span id="unitConvertBtns7">
+									<button
+										onclick="mg2g('7')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('7')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g7"
+									onclick="undo_mg2g('7')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g7"
+									onclick="undo_μg2g('7')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient8"
+									class="nutrient"
+									autocomplete="off"
+									name="saturated_fats "
+									type="number"
+									step="0.000001"
+									title="Name: saturated_fats 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+Though decades of dietary advice suggested saturated fat was harmful, in recent years that idea has begun to evolve. Several studies suggest that eating diets high in saturated fat do not raise the risk of heart disease."
+									placeholder="saturated_fats "
+								/>
+								<span id="unit8">grams</span>
+								<span id="unitConvertBtns8">
+									<button
+										onclick="mg2g('8')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('8')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g8"
+									onclick="undo_mg2g('8')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g8"
+									onclick="undo_μg2g('8')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient9"
+									class="nutrient"
+									autocomplete="off"
+									name="trans_fats   "
+									type="number"
+									step="0.000001"
+									title="Name: trans_fats   
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+Trans fatty acids, more commonly called trans fats, are made by heating liquid vegetable oils in the presence of hydrogen gas and a catalyst, a process called hydrogenation.
+Partially hydrogenating vegetable oils makes them more stable and less likely to become rancid. This process also converts the oil into a solid, which makes them function as margarine or shortening.
+Trans fats are the worst type of fat for the heart, blood vessels, and rest of the body because they:
+Raise bad LDL and lower good HDL"
+									placeholder="trans_fats   "
+								/>
+								<span id="unit9">grams</span>
+								<span id="unitConvertBtns9">
+									<button
+										onclick="mg2g('9')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('9')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g9"
+									onclick="undo_mg2g('9')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g9"
+									onclick="undo_μg2g('9')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient10"
+									class="nutrient"
+									autocomplete="off"
+									name="omega_3"
+									type="number"
+									step="0.000001"
+									title="Name: omega_3
+
+For male 19-30
+    RDA: 375.0 grams
+    UL: None grams
+
+Description:
+These are essential fats the body can't make them from scratch but must get them from food. 
+They are an integral part of cell membranes throughout the body and affect the function of the cell receptors in these membranes. They provide the starting point for making hormones that regulate blood clotting, contraction and relaxation of artery walls, and inflammation. 
+They also bind to receptors in cells that regulate genetic function. Likely due to these effects, omega-3 fats have been shown to help prevent heart disease and stroke, may help control lupus, eczema, and rheumatoid arthritis, and may play protective roles in cancer and other conditions."
+									placeholder="omega_3"
+								/>
+								<span id="unit10">grams</span>
+								<span id="unitConvertBtns10">
+									<button
+										onclick="mg2g('10')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('10')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g10"
+									onclick="undo_mg2g('10')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g10"
+									onclick="undo_μg2g('10')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient47"
+									class="nutrient"
+									autocomplete="off"
+									name="linoleic_acid"
+									type="number"
+									step="0.000001"
+									title="Name: linoleic_acid
+
+For male 19-30
+    RDA: 17.0 grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="linoleic_acid"
+								/>
+								<span id="unit47">grams</span>
+								<span id="unitConvertBtns47">
+									<button
+										onclick="mg2g('47')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('47')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g47"
+									onclick="undo_mg2g('47')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g47"
+									onclick="undo_μg2g('47')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient48"
+									class="nutrient"
+									autocomplete="off"
+									name="a-linolenic acid"
+									type="number"
+									step="0.000001"
+									title="Name: a-linolenic acid
+
+For male 19-30
+    RDA: 1.6 grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="a-linolenic acid"
+								/>
+								<span id="unit48">grams</span>
+								<span id="unitConvertBtns48">
+									<button
+										onclick="mg2g('48')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('48')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g48"
+									onclick="undo_mg2g('48')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g48"
+									onclick="undo_μg2g('48')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<legend>vitamin</legend>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient11"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_a "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_a 
+
+For male 19-30
+    RDA: 0.0009 grams
+    UL: 0.003 grams
+
+Description:
+There are two types of vitamin A: preformed (mostly found in animal products) and beta-carotene (produces dark pigments in plant foods). 
+Preformed
+Beta-carotene
+Benefits:
+Protects eye health
+Provides immune support
+Fight inflammation
+Supports skin health and cell growth
+Helps prevent cancer"
+									placeholder="vitamin_a "
+									value="2"
+								/>
+								<span id="unit11">grams</span>
+								<span id="unitConvertBtns11" style="display: none">
+									<button
+										onclick="mg2g('11')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('11')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g11"
+									onclick="undo_mg2g('11')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: inline"
+									id="undo_μg2g11"
+									onclick="undo_μg2g('11')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient18"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_C"
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_C
+
+For male 19-30
+    RDA: 0.09 grams
+    UL: 2.0 grams
+
+Description:
+Lowers risk of some cancers
+May protect against cataracts in the long term
+Helps make serotonin and norepinephrine
+Acts as an antioxidant
+Bolsters immune system"
+									placeholder="vitamin_C"
+								/>
+								<span id="unit18">grams</span>
+								<span id="unitConvertBtns18">
+									<button
+										onclick="mg2g('18')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('18')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g18"
+									onclick="undo_mg2g('18')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g18"
+									onclick="undo_μg2g('18')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient19"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_D "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_D 
+
+For male 19-30
+    RDA: 1.5e-05 grams
+    UL: 0.0001 grams
+
+Description:
+Also known as Calciferol.
+Helps with the formation and strengthening of bones"
+									placeholder="vitamin_D "
+								/>
+								<span id="unit19">grams</span>
+								<span id="unitConvertBtns19">
+									<button
+										onclick="mg2g('19')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('19')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g19"
+									onclick="undo_mg2g('19')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g19"
+									onclick="undo_μg2g('19')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient20"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_E "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_E 
+
+For male 19-30
+    RDA: 0.015 grams
+    UL: 1.0 grams
+
+Description:
+Alpha-tocopherol.
+Acts as an antioxidant
+Protects vitamin A and certain lipids from damage
+May help prevent dementia"
+									placeholder="vitamin_E "
+									value="0.18"
+								/>
+								<span id="unit20">grams</span>
+								<span id="unitConvertBtns20" style="display: none">
+									<button
+										onclick="mg2g('20')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('20')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g20"
+									onclick="undo_mg2g('20')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g20"
+									onclick="undo_μg2g('20')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient21"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_k "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_k 
+
+For male 19-30
+    RDA: 0.00012 grams
+    UL: None grams
+
+Description:
+Supports blood clotting
+May help prevent hip fractures"
+									placeholder="vitamin_k "
+									value="1"
+								/>
+								<span id="unit21">grams</span>
+								<span id="unitConvertBtns21" style="display: none">
+									<button
+										onclick="mg2g('21')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('21')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g21"
+									onclick="undo_mg2g('21')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: inline"
+									id="undo_μg2g21"
+									onclick="undo_μg2g('21')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient22"
+									class="nutrient"
+									autocomplete="off"
+									name="choline "
+									type="number"
+									step="0.000001"
+									title="Name: choline 
+
+For male 19-30
+    RDA: 0.55 grams
+    UL: 3.5 grams
+
+Description:
+Aids in many nerve and brain activities
+Plays a role in metabolizing and transporting fats"
+									placeholder="choline "
+									value="3.40"
+								/>
+								<span id="unit22">grams</span>
+								<span id="unitConvertBtns22" style="display: none">
+									<button
+										onclick="mg2g('22')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('22')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g22"
+									onclick="undo_mg2g('22')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g22"
+									onclick="undo_μg2g('22')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient23"
+									class="nutrient"
+									autocomplete="off"
+									name="folic_acid "
+									type="number"
+									step="0.000001"
+									title="Name: folic_acid 
+
+For male 19-30
+    RDA: 0.0004 grams
+    UL: 0.001 grams
+
+Description:
+Vital for new cell creation
+Especially important for prenatal child development during pregnancy
+May reduce heart disease risk
+May reduce risk for colon cancer"
+									placeholder="folic_acid "
+									value="3"
+								/>
+								<span id="unit23">grams</span>
+								<span id="unitConvertBtns23" style="display: none">
+									<button
+										onclick="mg2g('23')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('23')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g23"
+									onclick="undo_mg2g('23')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: inline"
+									id="undo_μg2g23"
+									onclick="undo_μg2g('23')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient45"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b7"
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b7
+
+For male 19-30
+    RDA: 3e-05 grams
+    UL: None grams
+
+Description:
+Also known as biotin"
+									placeholder="vitamin_b7"
+								/>
+								<span id="unit45">grams</span>
+								<span id="unitConvertBtns45">
+									<button
+										onclick="mg2g('45')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('45')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g45"
+									onclick="undo_mg2g('45')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g45"
+									onclick="undo_μg2g('45')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<legend>b vitamins</legend>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient12"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b1 "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b1 
+
+For male 19-30
+    RDA: 0.0012 grams
+    UL: None grams
+
+Description:
+Also known as Thiamin. Needed for healthy skin, hair, muscles, and brain."
+									placeholder="vitamin_b1 "
+									value="0.01"
+								/>
+								<span id="unit12">grams</span>
+								<span id="unitConvertBtns12" style="display: none">
+									<button
+										onclick="mg2g('12')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('12')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g12"
+									onclick="undo_mg2g('12')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g12"
+									onclick="undo_μg2g('12')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient13"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b2 "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b2 
+
+For male 19-30
+    RDA: 0.0013 grams
+    UL: None grams
+
+Description:
+Also known as Riboflavin. Needed for healthy skin, hair, blood and brain."
+									placeholder="vitamin_b2 "
+									value="0.03"
+								/>
+								<span id="unit13">grams</span>
+								<span id="unitConvertBtns13" style="display: none">
+									<button
+										onclick="mg2g('13')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('13')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g13"
+									onclick="undo_mg2g('13')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g13"
+									onclick="undo_μg2g('13')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient14"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b3 "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b3 
+
+For male 19-30
+    RDA: 0.016 grams
+    UL: 0.035 grams
+
+Description:
+Also known as Niacin. Essential for healthy skin, blood cells, brain, and nervous system."
+									placeholder="vitamin_b3 "
+									value="0.07"
+								/>
+								<span id="unit14">grams</span>
+								<span id="unitConvertBtns14" style="display: none">
+									<button
+										onclick="mg2g('14')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('14')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g14"
+									onclick="undo_mg2g('14')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g14"
+									onclick="undo_μg2g('14')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient15"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b5 "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b5 
+
+For male 19-30
+    RDA: 0.005 grams
+    UL: None grams
+
+Description:
+Also known as Pantothenic Acid. Aids in the formation of lipids, neurotransmitters, steroid hormones, and hemoglobin."
+									placeholder="vitamin_b5 "
+									value="0.05"
+								/>
+								<span id="unit15">grams</span>
+								<span id="unitConvertBtns15" style="display: none">
+									<button
+										onclick="mg2g('15')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('15')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g15"
+									onclick="undo_mg2g('15')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g15"
+									onclick="undo_μg2g('15')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient16"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b6 "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b6 
+
+For male 19-30
+    RDA: 0.0013 grams
+    UL: 0.1 grams
+
+Description:
+Also known as Pyridocal. 
+Reduces risk of heart disease.
+Aids in the regulation of sleep, appetite, and mood
+Improves cognitive abilities
+Increase immune function"
+									placeholder="vitamin_b6 "
+									value="0.05"
+								/>
+								<span id="unit16">grams</span>
+								<span id="unitConvertBtns16" style="display: none">
+									<button
+										onclick="mg2g('16')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('16')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g16"
+									onclick="undo_mg2g('16')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g16"
+									onclick="undo_μg2g('16')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient17"
+									class="nutrient"
+									autocomplete="off"
+									name="vitamin_b12 "
+									type="number"
+									step="0.000001"
+									title="Name: vitamin_b12 
+
+For male 19-30
+    RDA: 2.4e-06 grams
+    UL: None grams
+
+Description:
+Also known as Cobalamin.
+Lowers risk of heart disease
+Assists in making new cells
+Helps break down fatty acids and amino acids
+Protects nerve cells
+Helps make red blood cells"
+									placeholder="vitamin_b12 "
+								/>
+								<span id="unit17">grams</span>
+								<span id="unitConvertBtns17">
+									<button
+										onclick="mg2g('17')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('17')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g17"
+									onclick="undo_mg2g('17')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g17"
+									onclick="undo_μg2g('17')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<legend>minerals</legend>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient24"
+									class="nutrient"
+									autocomplete="off"
+									name="calcium "
+									type="number"
+									step="0.000001"
+									title="Name: calcium 
+
+For male 19-30
+    RDA: 1.0 grams
+    UL: 2.5 grams
+
+Description:
+Builds and protects bones and teeth
+Helps with muscle contractions and relaxation
+Aids blood clotting
+Helps maintain healthy blood pressure"
+									placeholder="calcium "
+									value="7"
+								/>
+								<span id="unit24">grams</span>
+								<span id="unitConvertBtns24" style="display: none">
+									<button
+										onclick="mg2g('24')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('24')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g24"
+									onclick="undo_mg2g('24')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g24"
+									onclick="undo_μg2g('24')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient25"
+									class="nutrient"
+									autocomplete="off"
+									name="chloride "
+									type="number"
+									step="0.000001"
+									title="Name: chloride 
+
+For male 19-30
+    RDA: 2.3 grams
+    UL: 3.6 grams
+
+Description:
+Balances fluids in the body
+Essential to digestion"
+									placeholder="chloride "
+								/>
+								<span id="unit25">grams</span>
+								<span id="unitConvertBtns25">
+									<button
+										onclick="mg2g('25')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('25')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g25"
+									onclick="undo_mg2g('25')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g25"
+									onclick="undo_μg2g('25')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient26"
+									class="nutrient"
+									autocomplete="off"
+									name="chromium "
+									type="number"
+									step="0.000001"
+									title="Name: chromium 
+
+For male 19-30
+    RDA: 3.5e-05 grams
+    UL: None grams
+
+Description:
+Helps maintain normal blood glucose levels"
+									placeholder="chromium "
+								/>
+								<span id="unit26">grams</span>
+								<span id="unitConvertBtns26">
+									<button
+										onclick="mg2g('26')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('26')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g26"
+									onclick="undo_mg2g('26')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g26"
+									onclick="undo_μg2g('26')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient27"
+									class="nutrient"
+									autocomplete="off"
+									name="copper "
+									type="number"
+									step="0.000001"
+									title="Name: copper 
+
+For male 19-30
+    RDA: 0.0009 grams
+    UL: 0.01 grams
+
+Description:
+Plays an important role in iron metabolism
+Helps make red blood cells"
+									placeholder="copper "
+									value="0.03"
+								/>
+								<span id="unit27">grams</span>
+								<span id="unitConvertBtns27" style="display: none">
+									<button
+										onclick="mg2g('27')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('27')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g27"
+									onclick="undo_mg2g('27')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g27"
+									onclick="undo_μg2g('27')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient28"
+									class="nutrient"
+									autocomplete="off"
+									name="fluoride "
+									type="number"
+									step="0.000001"
+									title="Name: fluoride 
+
+For male 19-30
+    RDA: 0.004 grams
+    UL: 0.01 grams
+
+Description:
+Encourages strong bone formation
+Prevents dental cavities"
+									placeholder="fluoride "
+								/>
+								<span id="unit28">grams</span>
+								<span id="unitConvertBtns28">
+									<button
+										onclick="mg2g('28')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('28')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g28"
+									onclick="undo_mg2g('28')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g28"
+									onclick="undo_μg2g('28')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient29"
+									class="nutrient"
+									autocomplete="off"
+									name="iodine "
+									type="number"
+									step="0.000001"
+									title="Name: iodine 
+
+For male 19-30
+    RDA: 0.00015 grams
+    UL: 0.0011 grams
+
+Description:
+Helps set body temperature
+Influences nerve and muscle function, reproduction, and growth
+Prevents goiter"
+									placeholder="iodine "
+								/>
+								<span id="unit29">grams</span>
+								<span id="unitConvertBtns29">
+									<button
+										onclick="mg2g('29')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('29')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g29"
+									onclick="undo_mg2g('29')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g29"
+									onclick="undo_μg2g('29')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient30"
+									class="nutrient"
+									autocomplete="off"
+									name="iron "
+									type="number"
+									step="0.000001"
+									title="Name: iron 
+
+For male 19-30
+    RDA: 0.008 grams
+    UL: 0.045 grams
+
+Description:
+Helps ferry oxygen throughout the body
+Needed for chemical reactions in the body
+Necessary for making amino acids, collagen, neurotransmitters, and hormones"
+									placeholder="iron "
+									value="0.10"
+								/>
+								<span id="unit30">grams</span>
+								<span id="unitConvertBtns30" style="display: none">
+									<button
+										onclick="mg2g('30')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('30')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g30"
+									onclick="undo_mg2g('30')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g30"
+									onclick="undo_μg2g('30')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient31"
+									class="nutrient"
+									autocomplete="off"
+									name="magnesium "
+									type="number"
+									step="0.000001"
+									title="Name: magnesium 
+
+For male 19-30
+    RDA: 0.4 grams
+    UL: 0.35 grams
+
+Description:
+Works with calcium in muscle contraction, blood clotting, and regulation of blood pressure
+Helps build bones and teeth"
+									placeholder="magnesium "
+									value="5"
+								/>
+								<span id="unit31">grams</span>
+								<span id="unitConvertBtns31" style="display: none">
+									<button
+										onclick="mg2g('31')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('31')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g31"
+									onclick="undo_mg2g('31')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g31"
+									onclick="undo_μg2g('31')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient32"
+									class="nutrient"
+									autocomplete="off"
+									name="manganese "
+									type="number"
+									step="0.000001"
+									title="Name: manganese 
+
+For male 19-30
+    RDA: 0.0023 grams
+    UL: 0.011 grams
+
+Description:
+Helps form bones
+Helps metabolize amino acids, cholesterol, and carbohydrates"
+									placeholder="manganese "
+									value="0.03"
+								/>
+								<span id="unit32">grams</span>
+								<span id="unitConvertBtns32" style="display: none">
+									<button
+										onclick="mg2g('32')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('32')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g32"
+									onclick="undo_mg2g('32')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g32"
+									onclick="undo_μg2g('32')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient33"
+									class="nutrient"
+									autocomplete="off"
+									name="phosphorus "
+									type="number"
+									step="0.000001"
+									title="Name: phosphorus 
+
+For male 19-30
+    RDA: 0.7 grams
+    UL: 4.0 grams
+
+Description:
+Helps build and protect bones and teeth
+Helps convert food into energy and shuttles nutrients into and out of cells"
+									placeholder="phosphorus "
+									value="13"
+								/>
+								<span id="unit33">grams</span>
+								<span id="unitConvertBtns33" style="display: none">
+									<button
+										onclick="mg2g('33')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('33')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g33"
+									onclick="undo_mg2g('33')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g33"
+									onclick="undo_μg2g('33')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient34"
+									class="nutrient"
+									autocomplete="off"
+									name="potatssium "
+									type="number"
+									step="0.000001"
+									title="Name: potatssium 
+
+For male 19-30
+    RDA: 3.4 grams
+    UL: None grams
+
+Description:
+Balances fluids in the body
+Helps maintain steady heartbeat
+Needed for muscle contractions
+Lowers blood pressure
+May benefit bones"
+									placeholder="potatssium "
+									value="109"
+								/>
+								<span id="unit34">grams</span>
+								<span id="unitConvertBtns34" style="display: none">
+									<button
+										onclick="mg2g('34')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('34')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g34"
+									onclick="undo_mg2g('34')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g34"
+									onclick="undo_μg2g('34')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient35"
+									class="nutrient"
+									autocomplete="off"
+									name="selenium "
+									type="number"
+									step="0.000001"
+									title="Name: selenium 
+
+For male 19-30
+    RDA: 5.5e-05 grams
+    UL: 0.0004 grams
+
+Description:
+Antioxidant (neutralizes unstable molecules that can damage cells)
+Helps regulate thyroid hormone activity"
+									placeholder="selenium "
+								/>
+								<span id="unit35">grams</span>
+								<span id="unitConvertBtns35">
+									<button
+										onclick="mg2g('35')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('35')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g35"
+									onclick="undo_mg2g('35')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g35"
+									onclick="undo_μg2g('35')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient36"
+									class="nutrient"
+									autocomplete="off"
+									name="sodium "
+									type="number"
+									step="0.000001"
+									title="Name: sodium 
+
+For male 19-30
+    RDA: 1.5 grams
+    UL: None grams
+
+Description:
+Balances fluids in the body
+Impacts blood pressure (modest reductions can lower blood pressure considerably)"
+									placeholder="sodium "
+									value="1"
+								/>
+								<span id="unit36">grams</span>
+								<span id="unitConvertBtns36" style="display: none">
+									<button
+										onclick="mg2g('36')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('36')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g36"
+									onclick="undo_mg2g('36')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g36"
+									onclick="undo_μg2g('36')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient37"
+									class="nutrient"
+									autocomplete="off"
+									name="sulfur "
+									type="number"
+									step="0.000001"
+									title="Name: sulfur 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+Needed for healthy skin, hair, and nails"
+									placeholder="sulfur "
+								/>
+								<span id="unit37">grams</span>
+								<span id="unitConvertBtns37">
+									<button
+										onclick="mg2g('37')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('37')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g37"
+									onclick="undo_mg2g('37')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g37"
+									onclick="undo_μg2g('37')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient38"
+									class="nutrient"
+									autocomplete="off"
+									name="zinc "
+									type="number"
+									step="0.000001"
+									title="Name: zinc 
+
+For male 19-30
+    RDA: 0.011 grams
+    UL: 0.04 grams
+
+Description:
+Helps form many enzymes and proteins and create new cells
+Boosts immune system
+Needed for taste and smell
+Expedites wound healing
+With antioxidants, may help delay the progression of age-related macular degeneration"
+									placeholder="zinc "
+									value="0.04"
+								/>
+								<span id="unit38">grams</span>
+								<span id="unitConvertBtns38" style="display: none">
+									<button
+										onclick="mg2g('38')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('38')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: inline"
+									id="undo_mg2g38"
+									onclick="undo_mg2g('38')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g38"
+									onclick="undo_μg2g('38')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient46"
+									class="nutrient"
+									autocomplete="off"
+									name="molybdenum"
+									type="number"
+									step="0.000001"
+									title="Name: molybdenum
+
+For male 19-30
+    RDA: 4.5e-05 grams
+    UL: 0.002 grams
+
+Description:
+None"
+									placeholder="molybdenum"
+								/>
+								<span id="unit46">grams</span>
+								<span id="unitConvertBtns46">
+									<button
+										onclick="mg2g('46')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('46')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g46"
+									onclick="undo_mg2g('46')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g46"
+									onclick="undo_μg2g('46')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient49"
+									class="nutrient"
+									autocomplete="off"
+									name="nickel"
+									type="number"
+									step="0.000001"
+									title="Name: nickel
+
+For male 19-30
+    RDA: None grams
+    UL: 0.001 grams
+
+Description:
+None"
+									placeholder="nickel"
+								/>
+								<span id="unit49">grams</span>
+								<span id="unitConvertBtns49">
+									<button
+										onclick="mg2g('49')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('49')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g49"
+									onclick="undo_mg2g('49')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g49"
+									onclick="undo_μg2g('49')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient50"
+									class="nutrient"
+									autocomplete="off"
+									name="boron"
+									type="number"
+									step="0.000001"
+									title="Name: boron
+
+For male 19-30
+    RDA: None grams
+    UL: 0.02 grams
+
+Description:
+None"
+									placeholder="boron"
+								/>
+								<span id="unit50">grams</span>
+								<span id="unitConvertBtns50">
+									<button
+										onclick="mg2g('50')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('50')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g50"
+									onclick="undo_mg2g('50')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g50"
+									onclick="undo_μg2g('50')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient51"
+									class="nutrient"
+									autocomplete="off"
+									name="arsenic"
+									type="number"
+									step="0.000001"
+									title="Name: arsenic
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="arsenic"
+								/>
+								<span id="unit51">grams</span>
+								<span id="unitConvertBtns51">
+									<button
+										onclick="mg2g('51')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('51')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g51"
+									onclick="undo_mg2g('51')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g51"
+									onclick="undo_μg2g('51')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient52"
+									class="nutrient"
+									autocomplete="off"
+									name="chromium"
+									type="number"
+									step="0.000001"
+									title="Name: chromium
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="chromium"
+								/>
+								<span id="unit52">grams</span>
+								<span id="unitConvertBtns52">
+									<button
+										onclick="mg2g('52')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('52')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g52"
+									onclick="undo_mg2g('52')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g52"
+									onclick="undo_μg2g('52')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient53"
+									class="nutrient"
+									autocomplete="off"
+									name="silicon"
+									type="number"
+									step="0.000001"
+									title="Name: silicon
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="silicon"
+								/>
+								<span id="unit53">grams</span>
+								<span id="unitConvertBtns53">
+									<button
+										onclick="mg2g('53')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('53')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g53"
+									onclick="undo_mg2g('53')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g53"
+									onclick="undo_μg2g('53')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient54"
+									class="nutrient"
+									autocomplete="off"
+									name="sulfate"
+									type="number"
+									step="0.000001"
+									title="Name: sulfate
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+None"
+									placeholder="sulfate"
+								/>
+								<span id="unit54">grams</span>
+								<span id="unitConvertBtns54">
+									<button
+										onclick="mg2g('54')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('54')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g54"
+									onclick="undo_mg2g('54')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g54"
+									onclick="undo_μg2g('54')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient55"
+									class="nutrient"
+									autocomplete="off"
+									name="vanadium"
+									type="number"
+									step="0.000001"
+									title="Name: vanadium
+
+For male 19-30
+    RDA: None grams
+    UL: 0.0018 grams
+
+Description:
+None"
+									placeholder="vanadium"
+								/>
+								<span id="unit55">grams</span>
+								<span id="unitConvertBtns55">
+									<button
+										onclick="mg2g('55')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('55')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g55"
+									onclick="undo_mg2g('55')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g55"
+									onclick="undo_μg2g('55')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<legend>others</legend>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient39"
+									class="nutrient"
+									autocomplete="off"
+									name="creatine "
+									type="number"
+									step="0.000001"
+									title='Name: creatine 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+Tonic of the gods. 
+
+Adenosine triphosphate (ATP) is an organic compound that provides energy to drive many processes in living cells, such as muscle contraction, nerve impulse propagation, condensate dissolution, and chemical synthesis. Found in all known forms of life, ATP is often referred to as the "molecular unit of currency" of intracellular energy transfer. When consumed in metabolic processes, it converts either to adenosine diphosphate (ADP) or to adenosine monophosphate (AMP). Other processes regenerate ATP. The human body recycles its own body weight equivalent in ATP each day. It is also a precursor to DNA and RNA, and is used as a coenzyme.
+
+Creatine causes you to hold a bit more water INSIDE muscle fiber cells. This is NOT the same as water bloating, outside the muscle fiber. This is cell volumization, inside the cell.
+
+From the perspective of biochemistry, ATP is classified as a nucleoside triphosphate, which indicates that it consists of three components: a nitrogenous base (adenine), the sugar ribose, and the triphosphate.
+
+Can improve brain and bone health
+Should avoid taking with caffeine, as the effects of creatine maybe blunted by high doses of caffeine. So take them at different Times'
+									placeholder="creatine "
+								/>
+								<span id="unit39">grams</span>
+								<span id="unitConvertBtns39">
+									<button
+										onclick="mg2g('39')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('39')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g39"
+									onclick="undo_mg2g('39')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g39"
+									onclick="undo_μg2g('39')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient40"
+									class="nutrient"
+									autocomplete="off"
+									name="caffeine "
+									type="number"
+									step="0.000001"
+									title="Name: caffeine 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+A Central Nervous System stimulant that may reduce fatigue and drowsiness. Generally improve reaction time, wakefulness, concentration and motor coordination. Has been used as second-line treatment for ADHD.
+
+A proven Ergogenic Aid. Improves aerobic and anaerobic performance. Especially Aerobic. Decreases onset of muscle fatigue and central fatigue. Increase basal metabolic rate. Prior to aerobic exercise, increases fat oxidation particularly in people with low physical fitness.
+
+Should have with water as high doses (250mg-300mg) may cause short-term stimulation of urine for individuals who have been deprived of caffeine. May decrease coordination and increase jiteriness."
+									placeholder="caffeine "
+								/>
+								<span id="unit40">grams</span>
+								<span id="unitConvertBtns40">
+									<button
+										onclick="mg2g('40')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('40')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g40"
+									onclick="undo_mg2g('40')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g40"
+									onclick="undo_μg2g('40')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient41"
+									class="nutrient"
+									autocomplete="off"
+									name="good_bacteria "
+									type="number"
+									step="0.000001"
+									title="Name: good_bacteria 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+ best eaten on an empty stomach"
+									placeholder="good_bacteria "
+								/>
+								<span id="unit41">grams</span>
+								<span id="unitConvertBtns41">
+									<button
+										onclick="mg2g('41')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('41')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g41"
+									onclick="undo_mg2g('41')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g41"
+									onclick="undo_μg2g('41')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient42"
+									class="nutrient"
+									autocomplete="off"
+									name="mercury "
+									type="number"
+									step="0.000001"
+									title="Name: mercury 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+not good"
+									placeholder="mercury "
+								/>
+								<span id="unit42">grams</span>
+								<span id="unitConvertBtns42">
+									<button
+										onclick="mg2g('42')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('42')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g42"
+									onclick="undo_mg2g('42')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g42"
+									onclick="undo_μg2g('42')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient43"
+									class="nutrient"
+									autocomplete="off"
+									name="nitrates_and_nitrites "
+									type="number"
+									step="0.000001"
+									title="Name: nitrates_and_nitrites 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+not good"
+									placeholder="nitrates_and_nitrites "
+								/>
+								<span id="unit43">grams</span>
+								<span id="unitConvertBtns43">
+									<button
+										onclick="mg2g('43')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('43')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g43"
+									onclick="undo_mg2g('43')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g43"
+									onclick="undo_μg2g('43')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+
+							<span class="nutrientSpan">
+								<!--Note the &#013; in the title attribute value string is for newlines-->
+								<input
+									id="nutrient44"
+									class="nutrient"
+									autocomplete="off"
+									name="artificial_food_colors "
+									type="number"
+									step="0.000001"
+									title="Name: artificial_food_colors 
+
+For male 19-30
+    RDA: None grams
+    UL: None grams
+
+Description:
+not good"
+									placeholder="artificial_food_colors "
+								/>
+								<span id="unit44">grams</span>
+								<span id="unitConvertBtns44">
+									<button
+										onclick="mg2g('44')"
+										title="convert milligrams to grams"
+										type="button"
+									>
+										<b>mg</b>
+									</button>
+									<button
+										onclick="μg2g('44')"
+										title="convert micrograms to grams"
+										type="button"
+									>
+										<b>μg</b>
+									</button>
+								</span>
+								<button
+									style="display: none"
+									id="undo_mg2g44"
+									onclick="undo_mg2g('44')"
+									type="button"
+								>
+									<b>undo mg👉g</b>
+								</button>
+								<button
+									style="display: none"
+									id="undo_μg2g44"
+									onclick="undo_μg2g('44')"
+									type="button"
+								>
+									<b>undo μg👉g</b>
+								</button>
+							</span>
+						</fieldset>
+
+						<br />
+						<input
+							class="width100"
+							type="submit"
+							value="submit"
+							placeholder=""
+							title=""
+						/>
+						<editor-squiggler
+							><style>
+								@media print {
+									.ms-editor-squiggles-container {
+										display: none !important;
+									}
+								}
+								.ms-editor-squiggles-container {
+									all: initial;
+								}
+							</style>
+							<div class="ms-editor-squiggles-container"></div
+						></editor-squiggler>
+					</form>
+				</div>
+			</div>
+
+			<div id="Manage Food" class="tab">
+				<div class="greyBox">
+					<h3 class="marginTop5">Manage Food</h3>
+					<input
+						id="manageFoodSearch"
+						placeholder="food"
+						list="foodList"
+						name="food"
+						spellcheck="false"
+						data-ms-editor="true"
+						title="food"
+					/>
+					<button id="manageFoodSearchButton">Manage Food</button>
+				</div>
+			</div>
+
+			<div id="Add Combo" class="tab">
+				<div class="greyBox">
+					<h3 class="marginTop5">Add Combo</h3>
+
+					<form action="/addCombo" method="post">
+						<input
+							class="width100"
+							autocomplete="off"
+							required=""
+							name="name"
+							type="text"
+							placeholder="name"
+							title="name"
+						/>
+						<textarea
+							class="width100"
+							autocomplete="off"
+							name="description"
+							rows="4"
+							cols="50"
+							maxlength="1000"
+							placeholder="description"
+							title="description"
+							spellcheck="false"
+							data-ms-editor="true"
+						></textarea>
+
+						<!--backend will combine data, hour and time and store as one value-->
+
+						<div id="comboFoodForm">
+							<button onclick="addComboAddFood()" type="button">
+								Add Food
+							</button>
+						</div>
+
+						<input
+							class="width100"
+							type="submit"
+							value="submit"
+							placeholder=""
+							title=""
+						/>
+					</form>
+				</div>
+			</div>
+
+			<div id="Manage Combo" class="tab">
+				<div class="greyBox">
+					<h3 class="marginTop5">Manage Combo</h3>
+					<input
+						id="manageComboSearch"
+						placeholder="combo"
+						list="comboList"
+						name="combo"
+						spellcheck="false"
+						data-ms-editor="true"
+						title="combo"
+					/>
+					<button id="manageComboSearchButton">Manage Combo</button>
+				</div>
+			</div>
+
+			<div id="Add Category" class="tab">
+				<div class="greyBox">
+					<h3 class="marginTop5">Add Category</h3>
+					<form action="/addCategory" method="post">
+						<input
+							class="width100"
+							autocomplete="off"
+							required=""
+							name="name"
+							type="text"
+							placeholder="name"
+							title="name"
+						/>
+
+						<fieldset
+							title='Select a header for organization in "Add Meal" form'
+						>
+							<legend><b>category headers</b></legend>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader0"
+								name="category"
+								value="type"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader0">type</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader1"
+								name="category"
+								value="origin"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader1">origin</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader2"
+								name="category"
+								value="animal classifiction"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader2">animal classifiction</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader3"
+								name="category"
+								value="animal products"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader3">animal products</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader4"
+								name="category"
+								value="vegan"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader4">vegan</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader5"
+								name="category"
+								value="vegetable type"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader5">vegetable type</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader6"
+								name="category"
+								value="fruit type"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader6">fruit type</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader7"
+								name="category"
+								value="others"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader7">others</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader8"
+								name="category"
+								value="seasons"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader8">seasons</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader9"
+								name="category"
+								value="meal type"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader9">meal type</label>
+
+							<!--quick note: header is the header_id-->
+
+							<input
+								type="checkbox"
+								id="addCategoryHeader10"
+								name="category"
+								value="restaraunt"
+								placeholder="category"
+								title="category"
+							/>
+							<label for="addCategoryHeader10">restaraunt</label>
+						</fieldset>
+
+						<fieldset
+							title='Parent categories of a child will be auto checked in "Add Meal" form'
+						>
+							<legend><b>parent categories</b></legend>
+
+							<legend><b>type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent0"
+								name="parent"
+								value="drink"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent0">drink</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent1"
+								name="parent"
+								value="dish"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent1">dish</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent2"
+								name="parent"
+								value="ingredient"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent2">ingredient</label>
+
+							<hr />
+
+							<legend><b>origin</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent3"
+								name="parent"
+								value="animal origin"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent3">animal origin</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent4"
+								name="parent"
+								value="plant origin"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent4">plant origin</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent5"
+								name="parent"
+								value="fungal origin"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent5">fungal origin</label>
+
+							<hr />
+
+							<legend><b>animal classifiction</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent7"
+								name="parent"
+								value="fish"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent7">fish</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent8"
+								name="parent"
+								value="mammal"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent8">mammal</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent9"
+								name="parent"
+								value="bird"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent9">bird</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent10"
+								name="parent"
+								value="reptile"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent10">reptile</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent11"
+								name="parent"
+								value="insect"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent11">insect</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent12"
+								name="parent"
+								value="crustaceans and mollusks"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent12"
+								>crustaceans and mollusks</label
+							>
+
+							<hr />
+
+							<legend><b>animal products</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent6"
+								name="parent"
+								value="meats"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent6">meats</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent13"
+								name="parent"
+								value="dairy"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent13">dairy</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent14"
+								name="parent"
+								value="milks"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent14">milks</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent15"
+								name="parent"
+								value="cheeses"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent15">cheeses</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent16"
+								name="parent"
+								value="eggs"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent16">eggs</label>
+
+							<hr />
+
+							<legend><b>vegan</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent17"
+								name="parent"
+								value="cereals"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent17">cereals</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent25"
+								name="parent"
+								value="mushrooms"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent25">mushrooms</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent26"
+								name="parent"
+								value="legume and nut"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent26">legume and nut</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent32"
+								name="parent"
+								value="fruit"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent32">fruit</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent53"
+								name="parent"
+								value="vegetable"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent53">vegetable</label>
+
+							<hr />
+
+							<legend><b>vegetable type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent18"
+								name="parent"
+								value="leafy"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent18">leafy</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent19"
+								name="parent"
+								value="gourd and squash"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent19">gourd and squash</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent20"
+								name="parent"
+								value="chili peppers"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent20">chili peppers</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent21"
+								name="parent"
+								value="flowers"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent21">flowers</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent22"
+								name="parent"
+								value="bulb and stem"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent22">bulb and stem</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent23"
+								name="parent"
+								value="root"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent23">root</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent24"
+								name="parent"
+								value="sea vegetable"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent24">sea vegetable</label>
+
+							<hr />
+
+							<legend><b>fruit type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent33"
+								name="parent"
+								value="pome or accessory"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent33">pome or accessory</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent34"
+								name="parent"
+								value="drupe or stone"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent34">drupe or stone</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent35"
+								name="parent"
+								value="berry"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent35">berry</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent36"
+								name="parent"
+								value="citrus"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent36">citrus</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent37"
+								name="parent"
+								value="pepo and melon"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent37">pepo and melon</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent38"
+								name="parent"
+								value="multiple fruits"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent38">multiple fruits</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent39"
+								name="parent"
+								value="capsules"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent39">capsules</label>
+
+							<hr />
+
+							<legend><b>others</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent27"
+								name="parent"
+								value="fats and oil"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent27">fats and oil</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent28"
+								name="parent"
+								value="sweets and sugar"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent28">sweets and sugar</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent29"
+								name="parent"
+								value="herb and spice"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent29">herb and spice</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent30"
+								name="parent"
+								value="condiment"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent30">condiment</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent31"
+								name="parent"
+								value="supplement"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent31">supplement</label>
+
+							<hr />
+
+							<legend><b>seasons</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent40"
+								name="parent"
+								value="spring"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent40">spring</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent41"
+								name="parent"
+								value="summer"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent41">summer</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent42"
+								name="parent"
+								value="fall"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent42">fall</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent43"
+								name="parent"
+								value="winter"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent43">winter</label>
+
+							<hr />
+
+							<legend><b>meal type</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent44"
+								name="parent"
+								value="preworkout"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent44">preworkout</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent45"
+								name="parent"
+								value="postworkout"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent45">postworkout</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent46"
+								name="parent"
+								value="breakfast"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent46">breakfast</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent47"
+								name="parent"
+								value="lunch"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent47">lunch</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent48"
+								name="parent"
+								value="dinner"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent48">dinner</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent49"
+								name="parent"
+								value="supper"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent49">supper</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent50"
+								name="parent"
+								value="snack"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent50">snack</label>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent51"
+								name="parent"
+								value="desert"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent51">desert</label>
+
+							<hr />
+
+							<legend><b>restaraunt</b></legend>
+
+							<input
+								type="checkbox"
+								id="addCategoryParent52"
+								name="parent"
+								value="macdonalds"
+								placeholder="parent"
+								title="parent"
+							/><label for="addCategoryParent52">macdonalds</label>
+
+							<hr />
+						</fieldset>
+
+						<br />
+						<input
+							class="width100"
+							type="submit"
+							value="submit"
+							placeholder=""
+							title=""
+						/>
+					</form>
+				</div>
+			</div>
+
+			<div id="Manage Category" class="tab">
+				<div class="greyBox">
+					<h3 class="marginTop5">Manage Category</h3>
+					<input
+						id="manageCategorySearch"
+						placeholder="cateogry"
+						list="categoryList"
+						name="cateogry"
+						spellcheck="false"
+						data-ms-editor="true"
+						title="cateogry"
+					/>
+					<button id="manageCategorySearchButton">Manage Category</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="tabGroup">
+			<button id="sortTabButton" class="tabButton" onclick='tabAction("sort")'>
+				sort
+			</button>
+			<div id="sort" class="tab">
+				<div class="greyBox">
+					<form>
+						from:
+						<input
+							autocomplete="off"
+							name="date"
+							placeholder="date"
+							type="date"
+							title="date"
+						/>
+						to:
+						<input
+							autocomplete="off"
+							name="date"
+							placeholder="date"
+							type="date"
+							title="date"
+						/>
+						<span class="marginRight15"></span>
+
+						<button>newest</button>
+						<button>oldest</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--meals-->
+		<div id="records">
+			<h3>30 10 2022</h3>
+			<div class="record">
+				<span class="recordLeft">
+					<h3>meal 1 name<button>edit</button></h3>
+
+					<p class="description">description</p>
+
+					<span class="foodItem"> food1 </span>
+					<span class="foodItem"> food2 </span>
+					<span class="foodItem"> food3 </span>
+				</span>
+				<span class="recordRight">
+					<p>nutritional information for meal</p>
+				</span>
+			</div>
+
+			<div class="nutritionForDay">nutritional information for day</div>
+		</div>
+
+		<footer>
+			<a href="https://en.wikipedia.org/wiki/List_of_culinary_fruits"
+				><p>List of fruits and their types</p></a
+			>
+			<a href="https://en.wikipedia.org/wiki/List_of_vegetables"
+				><p>List of vegetables and their types</p></a
+			>
+		</footer>
+
+		<div class="this div is just to get rid of clutter">
+			<datalist id="foodList">
+				<option value="foodexample1"></option>
+				<option value="foodexample2"></option>
+			</datalist>
+
+			<datalist id="categoryList">
+				<option value="catexample1"></option>
+				<option value="catexample2"></option>
+			</datalist>
+
+			<script src="/static/script.js"></script>
+			<script src="/static/implicitAttributes.js"></script>
+			<script src="/static/dynamicButtonStuff.js"></script>
+
+			<script src="/static/addMeal.js"></script>
+			<script src="/static/addFood.js"></script>
+			<script src="/static/manageFood.js"></script>
+			<script src="/static/addCombo.js"></script>
+		</div>
+
+		<div>
+			<div class="vtResetstyles">
+				<div
+					id="vtoverlay"
+					class="vtoverlay vthidden w3-animate-right w3-container"
+				>
+					<div class="vtmain vthidden" id="vtmain">
+						<div class="vtcontactus">
+							<a id="linktest" href="https://www.virustotal.com">
+								<img
+									class="vtlogo-popup"
+									style="width: 32px; height: 32px"
+									src="chrome-extension://efbjojhplkelaegfbieplglfidafgoka/icons/vt-logo.svg"
+								/>
+							</a>
+							<a href="https://www.virustotal.com">VT4Browsers </a>
+						</div>
+						<span id="vtclose"><strong>X</strong></span>
+						<div class="vttextpopup vthidden" id="statustext">
+							<div class="vtscanstatus" id="vtscanstatus"></div>
+							<div class="vtprogress vthidden" id="vtprogress">100%</div>
+							<br id="brfile" />
+							<div class="vtscanstatus" id="vtscanfilelink"></div>
+						</div>
+						<div class="vttextpopup vthidden" id="widgettext">
+							<div id="vtwidgetError"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				id="vt-augment-container"
+				class="vtzindex vt-augment drawer"
+				style="background: rgb(49, 61, 90)"
+			></div>
+		</div>
+		<span class="vttooltiptext vthidden"
+			>&nbsp;Click to open VirusTotal report&nbsp;<br />with VT Augment</span
+		><style></style>
+	</body>
+</html>

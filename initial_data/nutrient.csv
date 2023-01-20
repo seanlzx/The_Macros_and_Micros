@@ -3,8 +3,8 @@ id,timestamp,name,description,nutrient_header_id
 1,2022/11/06 23:59:59,carbohydrates ,,0
 2,2022/11/06 23:59:59,fiber ,,0
 3,2022/11/06 23:59:59,proteins ,,0
-4,2022/11/06 23:59:59,cholestrol ,There are HDLs (good ones) and LDLs (bad ones),1
 5,2022/11/06 23:59:59,total_fats ,,1
+4,2022/11/06 23:59:59,cholestrol ,There are HDLs (good ones) and LDLs (bad ones),1
 6,2022/11/06 23:59:59,monounsaturated_fats ,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
 Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds.",1
 7,2022/11/06 23:59:59,polyunsaturated_fats ,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 

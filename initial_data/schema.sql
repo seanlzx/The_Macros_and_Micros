@@ -14,7 +14,7 @@ CREATE TABLE category (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
     name TEXT NOT NULL,
-    category_header_id INTEGER NOT NULL,
+    category_header_id INTEGER NOT NULL UNIQUE,
     FOREIGN KEY (category_header_id) REFERENCES category_header(id)
 );
 
@@ -25,8 +25,8 @@ CREATE TABLE food_to_category (
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 
-CREATE UNIQUE INDEX food_to_category_idx_food_id ON food_to_category (food_id);
-CREATE UNIQUE INDEX food_to_category_idx_category_id ON food_to_category (category_id);
+CREATE INDEX food_to_category_idx_food_id ON food_to_category (food_id);
+CREATE INDEX food_to_category_idx_category_id ON food_to_category (category_id);
 
 CREATE TABLE category_to_parent (
     parent_id INTEGER NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE category_header (
 CREATE TABLE nutrient (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL UNIQUE,
     description TEXT,
     nutrient_header_id INTEGER NOT NULL,
     FOREIGN KEY (nutrient_header_id) REFERENCES nutrient_header(id) 
@@ -71,7 +71,6 @@ CREATE TABLE food_to_nutrient (
     food_id INTEGER NOT NULL,
     nutrient_id INTEGER NOT NULL,
     quantity REAL,
-    quantity_estimated REAL,
     FOREIGN KEY (food_id) REFERENCES food(id),
     FOREIGN KEY (nutrient_id) REFERENCES nutrient(id)
 );

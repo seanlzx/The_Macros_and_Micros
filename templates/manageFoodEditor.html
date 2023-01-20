@@ -1,0 +1,100 @@
+<h3 class="marginTop5">Edit Food</h3>
+<form action="/editFood" method="post">
+	<input class="width100" autocomplete="off" required name="name" type="text" />
+	<textarea
+		class="width100"
+		autocomplete="off"
+		name="description"
+		rows="4"
+		cols="50"
+		maxlength="1000"
+	></textarea>
+
+	<fieldset>
+		<legend><b>categories</b></legend>
+		{% for header in category_nest %}
+
+		<legend><b>{{category_nest[header]['name']}}</b></legend>
+
+		{% for category in category_nest[header]['list'] %}
+		<input
+			type="checkbox"
+			id="editFoodCategory{{category.id}}"
+			name="category"
+			value="{{category.name}}"
+		/><label for="editFoodCategory{{category.id}}">{{category.name}}</label>
+		{% endfor %}
+		<hr />
+		{% endfor %}
+	</fieldset>
+
+	<fieldset>
+		<legend><b>price</b> (price per 100grams)</legend>
+
+		<input autocomplete="off" name="price" type="number" step="0.01" />
+	</fieldset>
+
+	<fieldset>
+        <legend><b>nutrients</b> (grams per 100grams)</legend>
+
+        <p>place 0 if the value is unknown</p>
+        {% for header in nutrient_nest %}
+        <legend>{{nutrient_nest[header]['name']}}</legend>
+
+        {% for nutrient in nutrient_nest[header]['list']%}
+        <span class="nutrientSpan">
+            <!--Note the &#013; in the title attribute value string is for newlines-->
+            <input
+                id="editor_nutrient{{nutrient.id}}"
+                class="nutrient"
+                autocomplete="off"
+                name="{{nutrient.name}}"
+                type="number"
+                step="any"
+                title="Name: {{nutrient.name}}&#013;&#013;For {{nutrient.group_name}}&#013;    RDA: {{nutrient.rda}} grams&#013;    UL: {{nutrient.ul}} grams&#013;&#013;Description:&#013;{{nutrient.description}}"
+            />
+            <span id="editor_unit{{nutrient.id}}">grams</span>
+            <span id="editor_unitConvertBtns{{nutrient.id}}">
+                <button
+                    onclick="editor_mg2g('{{nutrient.id}}')"
+                    title="convert milligrams to grams"
+                    type="button"
+                >
+                    <b>mg</b>
+                </button>
+                <button
+                    onclick="editor_μg2g('{{nutrient.id}}')"
+                    title="convert micrograms to grams"
+                    type="button"
+                >
+                    <b>μg</b>
+                </button>
+            </span>
+            <button
+                style="display: none"
+                id="editor_undo_mg2g{{nutrient.id}}"
+                onclick="editor_undo_mg2g('{{nutrient.id}}')"
+                type="button"
+            >
+                <b>undo mg👉g</b>
+            </button>
+            <button
+                style="display: none"
+                id="editor_undo_μg2g{{nutrient.id}}"
+                onclick="editor_undo_μg2g('{{nutrient.id}}')"
+                type="button"
+            >
+                <b>undo μg👉g</b>
+            </button>
+        </span>
+        {% endfor %} {% endfor %}
+    </fieldset>
+
+	<br />
+	<input class="width100" type="submit" value="submit" />
+</form>
+
+<script>
+    runDisUponLoadingOfForm()
+    debugPurposesOnly()
+</script>

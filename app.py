@@ -11,113 +11,190 @@ DATABASE = "nutrition.db"
 
 app = Flask(__name__)
 
-
 # development variables, should eventually get rid of the hardcode
 hardCodeUserId = 0
 hardCodeDriGroupName = "male 19-30"
 
-# made into a global variable so index() can fill the list, and addFood() can use it, yea pretty hackyy
-nutritionKeyList = []
 
 @app.teardown_appcontext
 def close_connectioncall(exception):
     close_connection(exception)
 
-@app.route("/addMeal", methods=['POST','GET'])
+
+@app.route("/addMeal", methods=["POST", "GET"])
 def addMeal():
     c = get_db().cursor()
     return redirect("/")
-    #ensure the format for hour and minute have zero padding
+    # ensure the format for hour and minute have zero padding
+
 
 @app.route("/addFood", methods=["POST", "GET"])
 def addFood():
-    c = get_db().cursor()
+    db = get_db()
+    c = db.cursor()
     if request.method == "POST":
+        # processing of some data from the database that the below code may use
+        categoryToIdDict = {}
+        nutrientToIdDict = {}
+        for category in c.execute("SELECT name, id FROM category"):
+            categoryToIdDict[category[0]] = category[1]
 
+        for nutrient in c.execute("SELECT name, id FROM nutrient"):
+            nutrientToIdDict[nutrient[0]] = nutrient[1]
+
+        # below is just retrieval from request adn a bit of validation
         infoKeyList = ["name", "description", "price"]
         infoDict = getFormListValues(infoKeyList)
 
-        # find a way to 
-        if not all(key in infoDict for key in ["name", "description"]):
+        if not all(key in infoDict for key in ["name"]):
             return apology("Form insufficient info")
-            
-        nutritionDict = getFormListValues(nutritionKeyList)
 
         categoryList = request.form.getlist("category")
-        print(f"infoDict: {infoDict}")
-        print(f"category: {categoryList}")
-        print(f"nutritionDict: {nutritionDict}")
+        nutrientDict = getFormListValues(list(nutrientToIdDict.keys()))
 
-        # quite simply check that infoDict has all the keys required
-        c.execute("""INSERT INTO food 
-                (timestamp, user_id, name, description,price) 
-                VALUES (?, ?, ?, ?, ?)""", 
-                (datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                hardCodeUserId, infoDict['name'], infoDict['description'])
+        # below is the actual insert into SQL
+        c.execute(
+            """INSERT INTO food 
+                 (timestamp, user_id, name, description,price) 
+                 VALUES (?, ?, ?, ?, ?)""",
+            (
+                datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                hardCodeUserId,
+                infoDict["name"],
+                infoDict["description"],
+                infoDict["price"],
+            ),
+        )
+
+        food_id = c.lastrowid
+
+        for category in categoryList:
+            c.execute(
+                """INSERT INTO food_to_category
+                    (food_id, category_id) VALUES (?, ?)
+                    """,
+                (food_id, categoryToIdDict[category]),
+            )
+
+        for nutrient in nutrientDict:
+            c.execute(
+                """INSERT INTO food_to_nutrient
+                    (food_id, nutrient_id, quantity) VALUES (?, ?, ?)
+                    """,
+                (food_id, nutrientToIdDict[nutrient], nutrientDict[nutrient]),
+            )
+    db.commit()
+    db.close()
 
     # the page url will be /addFood which will cause route problems, so should do a redirect to index instead? yeap
     return redirect("/")
 
+
+@app.route("/manageFoodSearchResults")
+def manageFoodSearchResults():
+    db = get_db()
+    c = db.cursor()
+
+    input = request.args.get("search")
+
+    # early declaration just to ensure it's not unbound
+    food_results = {}
+
+    if input:
+        raw_food_results = c.execute(
+            "SELECT id, timestamp, name, description FROM food WHERE name LIKE ?",
+            (f"%{input}%",),
+        )
+
+    else:
+        raw_food_results = c.execute(
+            "SELECT id, timestamp, name, description FROM food"
+        )
+
+    food_results = listOfTuplesToListOfDict(
+        raw_food_results, ["id", "timestamp", "name", "description"]
+    )
+
+    for food in food_results:
+        raw_categories = c.execute(
+            """
+            SELECT c.id AS id, c.name AS name
+            FROM category c
+            JOIN food_to_category ftc
+            ON c.id = ftc.category_id
+            WHERE ftc.food_id = ?;
+            """,
+            (food["id"],),
+        )
+
+        categories = listOfTuplesToListOfDict(raw_categories, ["id", "name"])
+        food["categories"] = categories
+
+        raw_nutrients = c.execute(
+            """
+            SELECT n.id AS id, n.name AS name, ftn.quantity AS quantity 
+            FROM nutrient n
+            JOIN food_to_nutrient ftn
+            ON n.id = ftn.nutrient_id
+            WHERE ftn.food_id = ?;                                             
+            """,
+            (food["id"],),
+        )
+
+        nutrients = listOfTuplesToListOfDict(raw_nutrients, ["id", "name", "quantity"])
+        food["nutrients"] = nutrients
+
+    db.close
+    return render_template("manageFoodSearchResults.html", food_results=food_results)
+
+
+@app.route("/manageFoodLoadEditor")
+def manageFoodLoadEditor():
+    db = get_db()
+    c = db.cursor()
+
+    foodFormData = loadFoodFormData()
+
+    category_nest = foodFormData["category_nest"]
+    nutrient_nest = foodFormData["nutrient_nest"]
+    foodList = foodFormData["foodList"]
+    categoryList = foodFormData["categoryList"]
+
+    id = request.args.get("id")
+
+    # if id:
+
+    db.close
+    return render_template(
+        "manageFoodEditor.html",
+        category_nest=category_nest,
+        nutrient_nest=nutrient_nest,
+        foodList=foodList,
+        categoryList=categoryList,
+    )
+
+
 @app.route("/addCombo", methods=["POST", "GET"])
 def addCombo():
     c = get_db().cursor()
-    
+
     return redirect("/")
+
 
 @app.route("/")
 def index():
-    c = get_db().cursor()
-    
-    # produce category_hierarchy
-    raw_header_list = c.execute("SELECT id, name FROM category_header")
-    header_dict_list = listOfTuplesToListOfDict(raw_header_list, ["id", "name"])
 
-    raw_header_category_join_list = c.execute(
-        """
-            SELECT ch.id AS header_id, c.id AS category_id, c.name AS category
-            FROM category c
-            JOIN category_header ch
-            ON c.category_header_id = ch.id;
-        """
-    )
-    header_category_join_dict_list = listOfTuplesToListOfDict(
-        raw_header_category_join_list, ["header_id", "id", "name"]
-    )
+    foodFormData = loadFoodFormData()
 
-    category_nest = header_nesting(
-        header_dict_list, header_category_join_dict_list, ["id", "name"]
-    )
+    category_nest = foodFormData["category_nest"]
+    nutrient_nest = foodFormData["nutrient_nest"]
+    foodList = foodFormData["foodList"]
+    categoryList = foodFormData["categoryList"]
 
-    # produce nutrient_hierarchy
-    raw_header_list = c.execute("SELECT id, name FROM nutrient_header")
-    header_dict_list = listOfTuplesToListOfDict(raw_header_list, ["id", "name"])
-
-    raw_header_nutrient_dri_join_list = c.execute(
-        """
-            SELECT nh.id AS header_id, n.id AS id, n.name AS name, n.description AS description, 
-            dri.group_name AS group_name, dri.rda AS rda, dri.ul AS ul
-            FROM nutrient n
-            JOIN nutrient_header nh
-            ON n.nutrient_header_id = nh. id
-            JOIN dri
-            ON n.id = dri.nutrient_id; 
-            """
+    return render_template(
+        "index.html",
+        category_nest=category_nest,
+        nutrient_nest=nutrient_nest,
+        foodList=foodList,
+        categoryList=categoryList,
     )
-    
-    print()
-    header_nutrient_dri_join_dict_list = listOfTuplesToListOfDict(
-        raw_header_nutrient_dri_join_list,
-        ["header_id", "id", "name", "description", "group_name", "rda", "ul"],
-    )
-
-    nutrient_nest = header_nesting(
-        header_dict_list,
-        header_nutrient_dri_join_dict_list,
-        ["id", "name", "description", "group_name", "rda", "ul"],
-    )
-    
-    for group in nutrient_nest:
-        for list in nutrient_nest[group]['list']:
-            nutritionKeyList.append(list['name'])
-
-    return render_template("index.html", category_nest=category_nest, nutrient_nest=nutrient_nest)
