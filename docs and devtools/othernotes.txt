@@ -1,27 +1,15 @@
-run flask
+🏃‍♂️run flask
 	flask --app app
 or if app is named app
 	flask
-debug mode 
+
+🩺debug mode 
 	flask --app app --debug run
 or if app is named app
 	flask --debug run
 
 # doing a select statement should auto commit any changes above??
 
-# nutrients, should have notes, id, preffered timing (1000, 2300, brkfast, lunch, supper, post workout, pre workout)
-c.execute()
-
-c.execute("INSERT INTO food VALUES('eggs', 5000)")
-
-# commits the current transaction
-conn.commit()
-
-
-
-from datetime import datetime
-datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-2022/11/06 23:59:59
 
 CSV to SQLite
     if table already exist
@@ -41,24 +29,6 @@ CSV to SQLite
     /* beautify outputs */
     sqlite> .mode column
 
-
-SELECT ch.id AS header_id, ch.name AS header, c.id AS category_id, c.name AS category 
-FROM category c, category_header ch, category_to_category_header ctch
-WHERE ctch.category_id = c.id
-AND ctch.category_header_id = ch.id  
-;
-
-SELECT 
-	nh.id AS header_id, nh.name AS header, n.id AS nutrient_id, n.name AS nutrient_name, 
-	n.description AS description, dri.rda AS rda, dri.ul AS ul
-FROM
-	nutrient n JOIN nutrient_to_nutrient_header ntnh
-	ON n.id = ntnh.nutrient_id
-	JOIN nutrient_header nh
-	ON nh.id = ntnh.nutrient_header_id
-	JOIN dri
-	ON dri.nutrient_id = n.id
-	;
 	
 Ways to prevent elements from having the same IDs in the page that has many fields that may be similar (e.g. a site that has two name inputs for login form and register form)
 
