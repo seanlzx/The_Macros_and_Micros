@@ -5,16 +5,20 @@ CREATE TABLE food (
     name TEXT NOT NULL,
     description TEXT,
     price REAL,
+    active INTEGER NOT NULL DEFAULT 1,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TABLE sqlite_sequence(name, seq);
 CREATE UNIQUE INDEX food_idx_id ON food (id);
 
 CREATE TABLE category (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
     name TEXT NOT NULL,
-    category_header_id INTEGER NOT NULL UNIQUE,
+    category_header_id INTEGER NOT NULL,
+    active INTEGER NOT NULL DEFAULT 1,
+    user_id INTEGER NOT NULL,
     FOREIGN KEY (category_header_id) REFERENCES category_header(id)
 );
 
@@ -43,10 +47,12 @@ CREATE TABLE category_header (
 CREATE TABLE nutrient (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     timestamp TEXT NOT NULL,
-    name TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     description TEXT,
     nutrient_header_id INTEGER NOT NULL,
-    FOREIGN KEY (nutrient_header_id) REFERENCES nutrient_header(id) 
+    active INTEGER NOT NULL DEFAULT 1,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (nutrient_header_id) REFERENCES nutrient_header(id)
 );
 
 CREATE TABLE nutrient_header (
@@ -63,6 +69,8 @@ CREATE TABLE dri (
     nutrient_id INTEGER NOT NULL,
     rda REAL,
     ul REAL,
+    active INTEGER NOT NULL DEFAULT 1,
+    user_id INTEGER NOT NULL,
     FOREIGN KEY (nutrient_id) REFERENCES nutrient(id)
 );
 
@@ -85,6 +93,7 @@ CREATE TABLE combo (
     user_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     description TEXT,
+    active INTEGER NOT NULL DEFAULT 1,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
@@ -100,14 +109,16 @@ CREATE TABLE combo_to_food (
     FOREIGN KEY (food_id) REFERENCES food(id)
 );
 
-CREATE TABLE meal (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+CREATE TABLE IF NOT EXISTS meal (
+    id INTEGER NOT NULL,
     timestamp TEXT NOT NULL,
     user_id INTEGER NOT NULL,
     name TEXT,
     description TEXT,
     time_of_meal TEXT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    active INTEGER NOT NULL DEFAULT 1,
+    PRIMARY KEY(id AUTOINCREMENT),
+    FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
 CREATE TABLE meal_to_food (
@@ -126,5 +137,6 @@ CREATE TABLE user (
     height real NOT NULL,
     gender TEXT NOT NULL,
     age INTEGER NOT NULL,
-    user_type INTEGER NOT NULL
+    user_type INTEGER NOT NULL,
+    active INTEGER NOT NULL DEFAULT 1
 );
