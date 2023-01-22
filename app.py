@@ -49,16 +49,14 @@ def addFood():
         categoryList = request.form.getlist("category")
         nutrientDict = getFormListValues(list(nutrientToIdDict.keys()))
 
+        # backend verification of data
         if not all(key in infoDict for key in ["name"]):
             return apology("Form insufficient info")
         
-        # the below if statements, to check if price and nutrient inputs are numerical is to be tested
-        # insert a pythonic way to check that all nutrient values are numerical
         if not infoDict["price"].isnumeric():
             return apology("Price has to be numeric")
         
-        # chances are the below might not work cause the html form will send string, so try isnumeric
-        if not all(isinstance(nutrientDict[nutrient], int) for nutrient in nutrientDict):
+        if not all(nutrientDict[nutrient].isnumeric() for nutrient in nutrientDict):
             return apology("Nutrient Input has to be numeric")
 
         # below is the actual insert into SQL

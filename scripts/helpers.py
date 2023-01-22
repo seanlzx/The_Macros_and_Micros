@@ -10,8 +10,6 @@ hardCodeDriGroupName = "male 19-30"
 parent = Path(path.dirname(path.abspath(__file__))).parent.absolute()
 DATABASE = path.join(parent,"nutrition.db")
 
-print(DATABASE)
-
 def getFormListValues(list):
     dict = {}
     for str in list:
