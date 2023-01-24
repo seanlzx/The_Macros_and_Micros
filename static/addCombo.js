@@ -1,4 +1,5 @@
-function addComboAddFood(){
+"use strict";
+function addCombo_AddFood(){
     let id = generateIdNum();
 
     let foodFormat = 

@@ -1,3 +1,4 @@
+"use strict";
 function debugPurposesOnly(){
     let allTextInputs = document.querySelectorAll("input[type='text']");
 
@@ -31,7 +32,7 @@ function debugPurposesOnly(){
         })
     } 
     
-    for (textarea of document.querySelectorAll("textarea")) {
+    for (let textarea of document.querySelectorAll("textarea")) {
         textarea.addEventListener("change", (event) => {
             event.target.setAttribute("value", event.target.value);
         });

@@ -1,3 +1,4 @@
+"use strict";
 function mg2g(id){
     let n = document.getElementById(`nutrient${id}`).value;
     document.getElementById(`nutrient${id}`).value = n*0.001;

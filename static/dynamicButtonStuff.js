@@ -1,3 +1,5 @@
+"use strict";
+
 let numbersUsed = [];
 
 function generateIdNum(){

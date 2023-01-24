@@ -1,3 +1,5 @@
+"use strict";
+
 document.querySelector("#manageFoodSearchButton").addEventListener("click", ()=>{
     let manageFoodSearch = document.querySelector("#manageFoodSearch")
 
@@ -15,10 +17,6 @@ document.querySelector("#manageFoodSearchButton").addEventListener("click", ()=>
 })
 
 function manageFoodLoadEditor(id){
-    console.log(id)
-
-    // let manageFoodEditor = id
-
     $.ajax({
         url:"/manageFoodLoadEditor",
         type: "get",

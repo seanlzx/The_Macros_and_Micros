@@ -1,6 +1,7 @@
 <h3 class="marginTop5">Edit Food</h3>
-<form action="/editFood" method="post">
-	<input class="width100" autocomplete="off" required name="name" type="text" />
+<form action="/manageFood_editor_submit" method="post">
+    <input name="id" value="{{food_data.id}}" readonly/>
+	<input class="width100" autocomplete="off" required name="name" type="text" value="{{food_data.name}}"/>
 	<textarea
 		class="width100"
 		autocomplete="off"
@@ -8,7 +9,7 @@
 		rows="4"
 		cols="50"
 		maxlength="1000"
-	></textarea>
+	>{{food_data.description}}</textarea>
 
 	<fieldset>
 		<legend><b>categories</b></legend>
@@ -22,6 +23,9 @@
 			id="editFoodCategory{{category.id}}"
 			name="category"
 			value="{{category.name}}"
+                {% if category.id in food_data.categories %}
+                    checked
+                {% endif %}  
 		/><label for="editFoodCategory{{category.id}}">{{category.name}}</label>
 		{% endfor %}
 		<hr />
@@ -31,7 +35,7 @@
 	<fieldset>
 		<legend><b>price</b> (price per 100grams)</legend>
 
-		<input autocomplete="off" name="price" type="number" step="0.01" />
+		<input autocomplete="off" name="price" type="number" step="0.01" value="{{food_data.price}}"/>
 	</fieldset>
 
 	<fieldset>
@@ -52,7 +56,8 @@
                 type="number"
                 step="any"
                 title="Name: {{nutrient.name}}&#013;&#013;For {{nutrient.group_name}}&#013;    RDA: {{nutrient.rda}} grams&#013;    UL: {{nutrient.ul}} grams&#013;&#013;Description:&#013;{{nutrient.description}}"
-            />
+                value="{{ food_data.nutrients[nutrient.id] }}"
+                />
             <span id="editor_unit{{nutrient.id}}">grams</span>
             <span id="editor_unitConvertBtns{{nutrient.id}}">
                 <button
@@ -91,7 +96,8 @@
     </fieldset>
 
 	<br />
-	<input class="width100" type="submit" value="submit" />
+	<input class="width50" type="submit" value="update" />
+    <input class="width50" type="button" value="disable" />
 </form>
 
 <script>

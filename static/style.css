@@ -51,6 +51,15 @@ textarea {
 	width: 100%;
 }
 
+.width50 {
+    position:relative;
+	width: 30%;
+}
+
+input[value="disable"]{
+    background-color: #a22;
+}
+
 .marginTop5 {
 	margin-top: 5px;
 }
@@ -145,6 +154,13 @@ footer{
 
 .darkBox .name{
     font-weight: bold;
+}
+
+.darkBox .username{
+    text-decoration: underline;
+    color: #aaa;
+    font-weight:normal;
+    font-style: italic;
 }
 
 .darkBox .timestamp{

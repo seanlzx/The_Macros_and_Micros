@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 let hourInput = document.querySelector("form[action='/addMeal'] input[name='hour']")
 let minuteInput = document.querySelector("form[action='/addMeal'] input[name='minute']")
 

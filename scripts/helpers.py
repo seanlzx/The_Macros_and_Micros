@@ -66,11 +66,8 @@ def header_nesting(header_dict_list, child_dict_list, keys):
         )
     return nest    
         
-def loadFoodFormData():
+def loadFoodFormData(c):
     dict = {}
-    
-    db = get_db()
-    c = db.cursor()
     
     # produce category_hierarchy
     raw_header_list = c.execute("SELECT id, name FROM category_header")
@@ -123,7 +120,5 @@ def loadFoodFormData():
 
     dict["foodList"] = [food[0] for food in c.execute("SELECT name FROM food")]
     dict["categoryList"] = [category[0] for category in c.execute("SELECT name FROM category")]
-
-    db.close()
 
     return dict
