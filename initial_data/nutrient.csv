@@ -3,7 +3,7 @@ id,timestamp,name,description,nutrient_header_id,active,user_id
 1,2022/11/06 23:59:59,carbohydrates ,,0,1,1
 2,2022/11/06 23:59:59,fiber ,,0,1,1
 3,2022/11/06 23:59:59,proteins ,,0,1,1
-5,2022/11/06 23:59:59,total_fats ,,1,1,1
+5,2022/11/06 23:59:58,total_fats ,,1,1,1
 4,2022/11/06 23:59:59,cholestrol ,There are HDLs (good ones) and LDLs (bad ones),1,1,1
 6,2022/11/06 23:59:59,monounsaturated_fats ,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
 Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds.",1,1,1
@@ -26,11 +26,11 @@ Provides immune support
 Fight inflammation
 Supports skin health and cell growth
 Helps prevent cancer",2,1,1
-12,2022/11/06 23:59:59,vitamin_b1 ,"Also known as Thiamin. Needed for healthy skin, hair, muscles, and brain.",3,1,1
-13,2022/11/06 23:59:59,vitamin_b2 ,"Also known as Riboflavin. Needed for healthy skin, hair, blood and brain.",3,1,1
-14,2022/11/06 23:59:59,vitamin_b3 ,"Also known as Niacin. Essential for healthy skin, blood cells, brain, and nervous system.",3,1,1
-15,2022/11/06 23:59:59,vitamin_b5 ,"Also known as Pantothenic Acid. Aids in the formation of lipids, neurotransmitters, steroid hormones, and hemoglobin.",3,1,1
-16,2022/11/06 23:59:59,vitamin_b6 ,"Also known as Pyridocal. 
+12,2022/11/06 23:59:57,vitamin_b1 ,"Also known as Thiamin. Needed for healthy skin, hair, muscles, and brain.",3,1,1
+13,2022/11/06 23:59:57,vitamin_b2 ,"Also known as Riboflavin. Needed for healthy skin, hair, blood and brain.",3,1,1
+14,2022/11/06 23:59:57,vitamin_b3 ,"Also known as Niacin. Essential for healthy skin, blood cells, brain, and nervous system.",3,1,1
+15,2022/11/06 23:59:57,vitamin_b5 ,"Also known as Pantothenic Acid. Aids in the formation of lipids, neurotransmitters, steroid hormones, and hemoglobin.",3,1,1
+16,2022/11/06 23:59:57,vitamin_b6 ,"Also known as Pyridocal. 
 Reduces risk of heart disease.
 Aids in the regulation of sleep, appetite, and mood
 Improves cognitive abilities
@@ -117,7 +117,7 @@ Should have with water as high doses (250mg-300mg) may cause short-term stimulat
 42,2022/11/06 23:59:59,mercury ,not good,5,1,1
 43,2022/11/06 23:59:59,nitrates_and_nitrites ,not good,5,1,1
 44,2022/11/06 23:59:59,artificial_food_colors ,not good,5,1,1
-45,2022/11/06 23:59:59,vitamin_b7,Also known as biotin,2,1,1
+45,2022/11/06 23:59:58,vitamin_b7,Also known as biotin,3,1,1
 46,2022/11/06 23:59:59,molybdenum,,4,1,1
 47,2022/11/06 23:59:59,"linoleic acid
 ",,1,1,1
@@ -126,7 +126,6 @@ Should have with water as high doses (250mg-300mg) may cause short-term stimulat
 49,2022/11/06 23:59:59,nickel,,4,1,1
 50,2022/11/06 23:59:59,boron,,4,1,1
 51,2022/11/06 23:59:59,arsenic,,4,1,1
-52,2022/11/06 23:59:59,chromium,,4,1,1
 53,2022/11/06 23:59:59,Silicon,,4,1,1
 54,2022/11/06 23:59:59,sulfate,,4,1,1
 55,2022/11/06 23:59:59,vanadium,,4,1,1

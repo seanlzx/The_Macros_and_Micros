@@ -78,7 +78,8 @@ def loadFoodFormData(c):
             SELECT ch.id AS header_id, c.id AS category_id, c.name AS category
             FROM category c
             JOIN category_header ch
-            ON c.category_header_id = ch.id;
+            ON c.category_header_id = ch.id
+            ORDER BY c.timestamp, c.id;
         """
     )
     header_category_join_dict_list = listOfTuplesToListOfDict(
@@ -102,7 +103,8 @@ def loadFoodFormData(c):
             ON n.nutrient_header_id = nh. id
             JOIN dri
             ON n.id = dri.nutrient_id
-			WHERE dri.group_name = ?; 
+			WHERE dri.group_name = ?
+            ORDER BY n.timestamp, n.id; 
             """,
         (hardCodeDriGroupName,),
     )
