@@ -119,8 +119,6 @@ def loadFoodFormData(c):
         header_nutrient_dri_join_dict_list,
         ["id", "name", "description", "group_name", "rda", "ul"],
     )
-
-    dict["foodList"] = [food[0] for food in c.execute("SELECT name FROM food")]
-    dict["categoryList"] = [category[0] for category in c.execute("SELECT name FROM category")]
-
+    
     return dict
+

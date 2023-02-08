@@ -97,10 +97,13 @@
 
 	<br />
 	<input class="width50" type="submit" value="update" />
-    <input class="width50" type="button" value="disable" />
+</form>
+<form action="/manageFood_editor_deactivate" method="post">
+    <input name="id" value="{{food_data.id}}" readonly hidden/>
+    <input class="width50" type="submit" value="deactivate" />
 </form>
 
 <script>
     runDisUponLoadingOfForm()
-    debugPurposesOnly()
+    addUpdateValueEvent();
 </script>

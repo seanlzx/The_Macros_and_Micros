@@ -1,0 +1,60 @@
+<div id="Add Meal">
+    <div class="greyBox">
+        <h3 class="marginTop5">Add Meal</h3>
+        <form action="/addMeal" method="post">
+            <input
+                class="width100"
+                autocomplete="off"
+                required
+                name="name"
+                type="text"
+            />
+            <textarea
+                class="width100"
+                autocomplete="off"
+                name="description"
+                rows="4"
+                cols="50"
+                maxlength="1000"
+            ></textarea>
+
+            <!--backend will combine data, hour and time and store as one value-->
+            <input type="date" name="date" required />
+            <input
+                type="number"
+                name="hour"
+                min="00"
+                max="23"
+                style="width: 70px"
+                required
+            />
+            <input
+                type="number"
+                name="minute"
+                min="00"
+                step="10"
+                max="59"
+                style="width: 70px"
+                required
+            />
+
+            <div id="foodForm">
+                <button onclick="addMealAddFood()" type="button">Add Food</button>
+
+                <div id="food12">
+                    <input id='foodNameInput12' onchange='valueUpdate("foodNameInput12")' type="text" placeholder="food" list="foodList" name="food"/>
+                    <button onclick='searchForFood12' type="button">search</button>
+                    <button onclick='removeElement("food12")' type="button">x</button>
+                    <div class="result_container"><div>
+                </div>
+            </div>
+
+            <input class="width100" type="submit" value="submit" />
+        </form>
+    </div>
+</div>
+<script src="/static/addMeal.js"></script>
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>

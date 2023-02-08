@@ -1,15 +1,13 @@
 # pprint just to print things nicely
 import pprint
-import sys
-from contextlib import suppress
 from datetime import datetime
-from os import supports_bytes_environ
 
-from flask import Blueprint, abort, redirect, render_template, request
-# might just use render apology() instead?
-from jinja2 import TemplateNotFound
+from flask import Blueprint, redirect, render_template, request
 
 from scripts.helpers import *
+
+# might just use render apology() instead?
+
 
 food = Blueprint("food", __name__, template_folder="templates")
 
@@ -27,9 +25,8 @@ def addFood():
         for nutrient in c.execute("SELECT name, id FROM nutrient"):
             nutrientToIdDict[nutrient[0]] = nutrient[1]
 
-        # below is just retrieval from request adn a bit of validation
-        infoKeyList = ["name", "description", "price"]
-        infoDict = getFormListValues(infoKeyList)
+        # below is just retrieval from request and a bit of validation
+        infoDict = getFormListValues(["name", "description", "price"])
         
         categoryList = request.form.getlist("category")
         nutrientDict = getFormListValues(list(nutrientToIdDict.keys()))
@@ -101,6 +98,7 @@ def manageFoodSearchResults():
             JOIN user u 
             ON f.user_id = u.id 
             WHERE f.name LIKE ?
+            AND f.active = 1
             """,
             (f"%{input}%",),
         )
@@ -112,6 +110,7 @@ def manageFoodSearchResults():
             FROM food f 
             JOIN user u 
             ON f.user_id = u.id
+            WHERE f.active = 1
             """
         )
 
@@ -162,8 +161,7 @@ def manageFoodLoadEditor():
 
     category_nest = foodFormData["category_nest"]
     nutrient_nest = foodFormData["nutrient_nest"]
-    foodList = foodFormData["foodList"]
-    categoryList = foodFormData["categoryList"]
+    
 
     db = get_db()
     c = db.cursor()
@@ -204,8 +202,6 @@ def manageFoodLoadEditor():
         "manageFoodEditor.html",
         category_nest=category_nest,
         nutrient_nest=nutrient_nest,
-        foodList=foodList,
-        categoryList=categoryList,
         food_data = food_data
     )
 
@@ -277,6 +273,20 @@ def manageFood_editor_submit():
                     """,
                 (food_id, nutrientToIdDict[nutrient], nutrientDict[nutrient]),
             )
+            
+    db.commit()
+    db.close()
+
+    # the page url will be /addFood which will cause route problems, so should do a redirect to index instead? yeap
+    return redirect("/")
+
+@food.route("/manageFood_editor_deactivate", methods=["POST"])
+def manageFood_editor_deactivate():
+    db = get_db()
+    c = db.cursor()
+    if request.method == "POST":
+        c.execute("UPDATE food SET active = 0 WHERE id = ?", (request.form.get("id"),),)
+        
     db.commit()
     db.close()
 

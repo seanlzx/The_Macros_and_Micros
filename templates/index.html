@@ -1,316 +1,25 @@
 {% extends "layout.html" %}
 
 {% block main %}
-    <div class="tabGroup">
-        <button>Add Meal</button>
-        <span class="marginRight15"></span>
-
-        <button>Add Food</button>
-        <button>Manage Food</button>
-        <span class="marginRight15"></span>
-
-        <button>Add Combo</button>
-        <button>Manage Combo</button>
-        <span class="marginRight15"></span>
-
-        <button>Add Category</button>
-        <button>Manage Category</button>
-        <span class="marginRight15"></span>
-
-        <div id="Add Meal">
-            <div class="greyBox">
-                <h3 class="marginTop5">Add Meal</h3>
-                <form action="/addMeal" method="post">
-                    <input
-                        class="width100"
-                        autocomplete="off"
-                        required
-                        name="name"
-                        type="text"
-                    />
-                    <textarea
-                        class="width100"
-                        autocomplete="off"
-                        name="description"
-                        rows="4"
-                        cols="50"
-                        maxlength="1000"
-                    ></textarea>
-
-                    <!--backend will combine data, hour and time and store as one value-->
-                    <input type="date" name="date" required />
-                    <input
-                        type="number"
-                        name="hour"
-                        min="00"
-                        max="23"
-                        style="width: 70px"
-                        required
-                    />
-                    <input
-                        type="number"
-                        name="minute"
-                        min="00"
-                        step="10"
-                        max="59"
-                        style="width: 70px"
-                        required
-                    />
-
-                    <div id="foodForm">
-                        <button onclick="addMealAddFood()" type="button">Add Food</button>
-                    </div>
-
-                    <input class="width100" type="submit" value="submit" />
-                </form>
-            </div>
+    <div id="tabGroup1">
+        <div class="button_container">
+            <button data-url="/addMealTab">Add Meal</button>
+            <span class="marginRight15"></span>
+    
+            <button data-url="/addFoodTab">Add Food</button>
+            <button data-url="/manageFoodTab">Manage Food</button>
+            <span class="marginRight15"></span>
+    
+            <button data-url="/addComboTab">Add Combo</button>
+            <button data-url="/manageComboTab">Manage Combo</button>
+            <span class="marginRight15"></span>
+    
+            <button data-url="/addCategoryTab">Add Category</button>
+            <button data-url="/manageCategoryTab">Manage Category</button>
+            <span class="marginRight15"></span>
         </div>
 
-        <div id="Add Food">
-            <div class="greyBox">
-                <h3 class="marginTop5">Add Food</h3>
-                <form action="/addFood" method="post">
-                    <input
-                        class="width100"
-                        autocomplete="off"
-                        required
-                        name="name"
-                        type="text"
-                    />
-                    <textarea
-                        class="width100"
-                        autocomplete="off"
-                        name="description"
-                        rows="4"
-                        cols="50"
-                        maxlength="1000"
-                    ></textarea>
-
-                    <fieldset>
-                        <legend><b>categories</b></legend>
-                        {% for header in category_nest %}
-
-                        <legend><b>{{category_nest[header]['name']}}</b></legend>
-
-                        {% for category in category_nest[header]['list'] %}
-                        <input
-                            type="checkbox"
-                            id="addFoodCategory{{category.id}}"
-                            name="category"
-                            value="{{category.name}}"
-                        /><label for="addFoodCategory{{category.id}}"
-                            >{{category.name}}</label
-                        >
-                        {% endfor %}
-                        <hr />
-                        {% endfor %}
-                    </fieldset>
-
-                    <fieldset>
-                        <legend><b>price</b> (price per 100grams)</legend>
-
-                        <input autocomplete="off" name="price" type="number" step="0.01" />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend><b>nutrients</b> (grams per 100grams)</legend>
-
-                        <p>place 0 if the value is unknown</p>
-                        {% for header in nutrient_nest %}
-                        <legend>{{nutrient_nest[header]['name']}}</legend>
-
-                        {% for nutrient in nutrient_nest[header]['list']%}
-                        <span class="nutrientSpan">
-                            <!--Note the &#013; in the title attribute value string is for newlines-->
-                            <input
-                                id="nutrient{{nutrient.id}}"
-                                class="nutrient"
-                                autocomplete="off"
-                                name="{{nutrient.name}}"
-                                type="number"
-                                step="any"
-                                title="Name: {{nutrient.name}}&#013;&#013;For {{nutrient.group_name}}&#013;    RDA: {{nutrient.rda}} grams&#013;    UL: {{nutrient.ul}} grams&#013;&#013;Description:&#013;{{nutrient.description}}"
-                            />
-                            <span id="unit{{nutrient.id}}">grams</span>
-                            <span id="unitConvertBtns{{nutrient.id}}">
-                                <button
-                                    onclick="mg2g('{{nutrient.id}}')"
-                                    title="convert milligrams to grams"
-                                    type="button"
-                                >
-                                    <b>mg</b>
-                                </button>
-                                <button
-                                    onclick="μg2g('{{nutrient.id}}')"
-                                    title="convert micrograms to grams"
-                                    type="button"
-                                >
-                                    <b>μg</b>
-                                </button>
-                            </span>
-                            <button
-                                style="display: none"
-                                id="undo_mg2g{{nutrient.id}}"
-                                onclick="undo_mg2g('{{nutrient.id}}')"
-                                type="button"
-                            >
-                                <b>undo mg👉g</b>
-                            </button>
-                            <button
-                                style="display: none"
-                                id="undo_μg2g{{nutrient.id}}"
-                                onclick="undo_μg2g('{{nutrient.id}}')"
-                                type="button"
-                            >
-                                <b>undo μg👉g</b>
-                            </button>
-                        </span>
-                        {% endfor %} {% endfor %}
-                    </fieldset>
-
-                    <br />
-                    <input class="width100" type="submit" value="submit" />
-                </form>
-            </div>
-        </div>
-
-        <div id="Manage Food">
-            <div class="greyBox">
-                <h3 class="marginTop5">Manage Food</h3>
-                <input
-                    id="manageFoodSearch"
-                    placeholder="food"
-                    list="foodList"
-                    name="food"
-                    spellcheck="false"
-                    data-ms-editor="true"
-                />
-                <button id="manageFoodSearchButton">Manage Food</button>
-
-                <div id="manageFoodResults"></div>
-            </div>
-        </div>
-
-        <div id="Add Combo">
-            <div class="greyBox">
-                <h3 class="marginTop5">Add Combo</h3>
-
-                <form action="/addCombo" method="post">
-                    <input
-                        class="width100"
-                        autocomplete="off"
-                        required
-                        name="name"
-                        type="text"
-                    />
-                    <textarea
-                        class="width100"
-                        autocomplete="off"
-                        name="description"
-                        rows="4"
-                        cols="50"
-                        maxlength="1000"
-                    ></textarea>
-
-                    <!--backend will combine data, hour and time and store as one value-->
-
-                    <div id="comboFoodForm">
-                        <button onclick="addCombo_AddFood()" type="button">Add Food</button>
-                    </div>
-
-                    <input class="width100" type="submit" value="submit" />
-                </form>
-            </div>
-        </div>
-
-        <div id="Manage Combo">
-            <div class="greyBox">
-                <h3 class="marginTop5">Manage Combo</h3>
-                <input
-                    id="manageComboSearch"
-                    placeholder="Combo"
-                    list="comboList"
-                    name="combo"
-                    spellcheck="false"
-                    data-ms-editor="true"
-                />
-                <button id="manageComboSearchButton">Manage Combo</button>
-            </div>
-        </div>
-
-        <div id="Add Category">
-            <div class="greyBox">
-                <h3 class="marginTop5">Add Category</h3>
-                <form action="/addCategory" method="post">
-                    <input
-                        class="width100"
-                        autocomplete="off"
-                        required
-                        name="name"
-                        type="text"
-                    />
-
-                    <fieldset title='Select a header for organization in "Add Meal" form'>
-                        <legend><b>category headers</b></legend>
-                        {% for header in category_nest %}
-
-                        <!--quick note: header is the header_id-->
-
-                        <input
-                            type="checkbox"
-                            id="addCategoryHeader{{header}}"
-                            name="category"
-                            value="{{category_nest[header]['name']}}"
-                            placeholder="category"
-                        />
-                        <label for="addCategoryHeader{{header}}"
-                            >{{category_nest[header]['name']}}</label
-                        >
-                        {% endfor %}
-                    </fieldset>
-
-                    <fieldset
-                        title='Parent categories of a child will be auto checked in "Add Meal" form'
-                    >
-                        <legend><b>parent categories</b></legend>
-                        {% for header in category_nest %}
-
-                        <legend><b>{{category_nest[header]['name']}}</b></legend>
-
-                        {% for category in category_nest[header]['list'] %}
-                        <input
-                            type="checkbox"
-                            id="addCategoryParent{{category.id}}"
-                            name="parent"
-                            value="{{category.name}}"
-                        /><label for="addCategoryParent{{category.id}}"
-                            >{{category.name}}</label
-                        >
-                        {% endfor %}
-                        <hr />
-                        {% endfor %}
-                    </fieldset>
-
-                    <br />
-                    <input class="width100" type="submit" value="submit" />
-                </form>
-            </div>
-        </div>
-
-        <div id="Manage Category">
-            <div class="greyBox">
-                <h3 class="marginTop5">Manage Category</h3>
-                <input
-                    id="manageCategorySearch"
-                    placeholder="category"
-                    list="categoryList"
-                    name="cateogry"
-                    spellcheck="false"
-                    data-ms-editor="true"
-                />
-                <button id="manageCategorySearchButton">Manage Category</button>
-            </div>
-        </div>
+        <div class="window_container"></div>
     </div>
 
     <div class="tabGroup">
@@ -385,17 +94,12 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
-        <script src="/static/tab.js"></script>
+        <script src="/static/dynamicTabs.js"></script>
+        <script src="/static/tabs.js"></script>
         <script src="/static/implicitAttributes.js"></script>
         <script src="/static/dynamicButtonStuff.js"></script>
 
-        <script src="/static/addMeal.js"></script>
-        <script src="/static/addFood.js"></script>
-        <script src="/static/manageFood.js"></script>
-        <script src="/static/addCombo.js"></script>
-
-        <!--remove me-->
-        <script src="/static/debugPurposesOnly.js"></script>
+        <script src="/static/addUpdateValueEvent.js"></script>
     </div>
 
 {% endblock %}

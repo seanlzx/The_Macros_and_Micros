@@ -1,0 +1,37 @@
+<div id="Add Combo">
+    <div class="greyBox">
+        <h3 class="marginTop5">Add Combo</h3>
+
+        <form action="/addCombo" method="post">
+            <input
+                class="width100"
+                autocomplete="off"
+                required
+                name="name"
+                type="text"
+            />
+            <textarea
+                class="width100"
+                autocomplete="off"
+                name="description"
+                rows="4"
+                cols="50"
+                maxlength="1000"
+            ></textarea>
+
+            <!--backend will combine data, hour and time and store as one value-->
+
+            <div id="comboFoodForm">
+                <button onclick="addCombo_AddFood()" type="button">Add Food</button>
+            </div>
+
+            <input class="width100" type="submit" value="submit" />
+        </form>
+    </div>
+</div>
+
+<script src="/static/addCombo.js"></script>
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>

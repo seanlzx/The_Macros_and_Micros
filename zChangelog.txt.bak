@@ -7,7 +7,5 @@
 						- scripts for various tab windows run appropriately
 						- inputs are saved when switching or closing tab
 						
-16:40 08/02/2023	- categoryList and foodList for inputs with datalist now load with index.html
-					- removed categoryList and foodList from loadFormFormData() function, removed 
-					references to foodList and dataList to avoid errors, (/addFoodTab had an error
-					when I forgot to remove it properly, easy fix)
+16:40 08/02/2023	categoryList and foodList for inputs with datalist now load with index.html
+					

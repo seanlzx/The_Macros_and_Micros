@@ -7,7 +7,7 @@ function generateIdNum(){
 	while (true) {
 		id = Math.floor(Math.random() * 1000);
 		if (!numbersUsed.includes(id)) break;
-        else console.log('so that just happened')
+        else console.log('one in a thousand, so that just happened')
 	}
 
     return id;

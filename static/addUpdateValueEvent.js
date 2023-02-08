@@ -1,5 +1,5 @@
 "use strict";
-function debugPurposesOnly(){
+function addUpdateValueEvent(){
     let allTextInputs = document.querySelectorAll("input[type='text']");
 
     for (let input of allTextInputs) {
@@ -34,7 +34,7 @@ function debugPurposesOnly(){
     
     for (let textarea of document.querySelectorAll("textarea")) {
         textarea.addEventListener("change", (event) => {
-            event.target.setAttribute("value", event.target.value);
+            event.target.appendChild(document.createTextNode(event.target.value));
         });
     }
     
@@ -46,7 +46,15 @@ function debugPurposesOnly(){
             else event.target.removeAttribute("checked");
         });
     }
+
+    let allDateInputs = document.querySelectorAll("input[type='date']");
+
+    for (let dateInputs of allDateInputs) {
+        dateInputs.addEventListener("change", (event) => {
+            event.target.setAttribute("value", event.target.value);
+        });
+    }
     
 }
 
-debugPurposesOnly()
+addUpdateValueEvent()

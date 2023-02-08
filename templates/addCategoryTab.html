@@ -1,0 +1,63 @@
+<div id="Add Category">
+    <div class="greyBox">
+        <h3 class="marginTop5">Add Category</h3>
+        <form action="/addCategory" method="post">
+            <input
+                class="width100"
+                autocomplete="off"
+                required
+                name="name"
+                type="text"
+            />
+
+            <fieldset title='Select a header for organization in "Add Meal" form'>
+                <legend><b>category headers</b></legend>
+                {% for header in category_nest %}
+
+                <!--quick note: header is the header_id-->
+
+                <input
+                    type="checkbox"
+                    id="addCategoryHeader{{header}}"
+                    name="category"
+                    value="{{category_nest[header]['name']}}"
+                    placeholder="category"
+                />
+                <label for="addCategoryHeader{{header}}"
+                    >{{category_nest[header]['name']}}</label
+                >
+                {% endfor %}
+            </fieldset>
+
+            <fieldset
+                title='Parent categories of a child will be auto checked in "Add Meal" form'
+            >
+                <legend><b>parent categories</b></legend>
+                {% for header in category_nest %}
+
+                <legend><b>{{category_nest[header]['name']}}</b></legend>
+
+                {% for category in category_nest[header]['list'] %}
+                <input
+                    type="checkbox"
+                    id="addCategoryParent{{category.id}}"
+                    name="parent"
+                    value="{{category.name}}"
+                /><label for="addCategoryParent{{category.id}}"
+                    >{{category.name}}</label
+                >
+                {% endfor %}
+                <hr />
+                {% endfor %}
+            </fieldset>
+
+            <br />
+            <input class="width100" type="submit" value="submit" />
+        </form>
+    </div>
+</div>
+
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>
