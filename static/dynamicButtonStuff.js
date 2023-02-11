@@ -23,3 +23,8 @@ function removeElement(id){
     console.log(element)
     element.remove();
 }
+
+function removeParentElement(elm){
+    console.log(elm.parentElement)
+    elm.parentElement.remove()
+}

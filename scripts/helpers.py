@@ -16,6 +16,8 @@ def getFormListValues(list):
         value = request.form.get(str)
         if value:
             dict[str] = value
+        else:
+            dict[str] = ""
 
     return dict
 

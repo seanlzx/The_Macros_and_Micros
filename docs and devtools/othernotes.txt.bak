@@ -20,7 +20,7 @@ conn.commit()
 
 
 from datetime import datetime
-datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 2022/11/06 23:59:59
 
 CSV to SQLite

@@ -11,3 +11,8 @@
 					- removed categoryList and foodList from loadFormFormData() function, removed 
 					references to foodList and dataList to avoid errors, (/addFoodTab had an error
 					when I forgot to remove it properly, easy fix)
+
+17:53 09/02/2023
+                    - getFormListValues now assigns an empty string if it can't get the specified form input
+                        this is to avoid errors with the dictionary being used afterwards to retrieve a nonexistent 
+                        key (especially for infoDict["description"] as description should be optional)

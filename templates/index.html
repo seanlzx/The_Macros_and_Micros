@@ -1,82 +1,69 @@
 {% extends "layout.html" %}
 
 {% block main %}
-    <div id="tabGroup1">
+    <div id="dynamicTabGroup1">
         <div class="button_container">
-            <button data-url="/addMealTab">Add Meal</button>
+            <button data-url="/addMeal_tab">Add Meal</button>
             <span class="marginRight15"></span>
     
-            <button data-url="/addFoodTab">Add Food</button>
-            <button data-url="/manageFoodTab">Manage Food</button>
+            <button data-url="/addFood_tab">Add Food</button>
+            <button data-url="/manageFood_tab">Manage Food</button>
             <span class="marginRight15"></span>
     
-            <button data-url="/addComboTab">Add Combo</button>
-            <button data-url="/manageComboTab">Manage Combo</button>
+            <button data-url="/addCombo_tab">Add Combo</button>
+            <button data-url="/manageCombo_tab">Manage Combo</button>
             <span class="marginRight15"></span>
     
-            <button data-url="/addCategoryTab">Add Category</button>
-            <button data-url="/manageCategoryTab">Manage Category</button>
+            <button data-url="/addCategory_tab">Add Category</button>
+            <button data-url="/manageCategory_tab">Manage Category</button>
             <span class="marginRight15"></span>
         </div>
 
         <div class="window_container"></div>
     </div>
 
-    <div class="tabGroup">
-        <button>sort</button>
-        <div id="sort">
+    <div id="tabGroup1">
+        <button data-tab="meal_sort">sort</button>
+        <div id="meal_sort">
             <div class="greyBox">
-                <form>
+                <!-- this form might not need the action and method attribute cause it's already in the newest and oldest button -->
                     from:
                     <input
                         autocomplete="off"
-                        name="date"
+                        name="from"
                         placeholder="dd-mm-yyyy"
                         type="date"
+                        required
                     />
                     to:
                     <input
                         autocomplete="off"
-                        name="date"
+                        name="to"
                         placeholder="dd-mm-yyyy"
                         type="date"
+                        required
                     />
                     <span class="marginRight15"></span>
 
-                    <button>newest</button>
-                    <button>oldest</button>
-                </form>
+                    <input type="button" value="newest">
+                    <input type="button" value="oldest">
             </div>
         </div>
     </div>
     <!--meals-->
-    <div id="records">
-        <h3>30 10 2022</h3>
-        <div class="record">
-            <span class="recordLeft">
-                <h3>meal 1 name<button>edit</button></h3>
+    <div id="meal_records">
 
-                <p class="description">description</p>
-
-                <span class="foodItem"> food1 </span>
-                <span class="foodItem"> food2 </span>
-                <span class="foodItem"> food3 </span>
-            </span>
-            <span class="recordRight">
-                <p>nutritional information for meal</p>
-            </span>
-        </div>
-
-        <div class="nutritionForDay">nutritional information for day</div>
+    </div>
+    <div class="nutritionForDay">
+        <p>nutritional information for day</p>
+        <p>expand</p>
     </div>
 
     <footer>
-        <a href="https://en.wikipedia.org/wiki/List_of_culinary_fruits"
-            ><p>List of fruits and their types</p></a
-        >
-        <a href="https://en.wikipedia.org/wiki/List_of_vegetables"
-            ><p>List of vegetables and their types</p></a
-        >
+        <a href="https://en.wikipedia.org/wiki/List_of_culinary_fruits">
+            <p>List of fruits and their types</p></a>
+        <a href="https://en.wikipedia.org/wiki/List_of_vegetables">
+            <p>List of vegetables and their types</p></a>
     </footer>
 
     <div class="this div is just to get rid of clutter">
@@ -98,6 +85,8 @@
         <script src="/static/tabs.js"></script>
         <script src="/static/implicitAttributes.js"></script>
         <script src="/static/dynamicButtonStuff.js"></script>
+
+        <script src="/static/meal_sort.js"></script>
 
         <script src="/static/addUpdateValueEvent.js"></script>
     </div>

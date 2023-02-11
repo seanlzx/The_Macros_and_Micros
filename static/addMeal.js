@@ -40,23 +40,50 @@ function addMealAddFood() {
 	// </div>
 	// `
 
+    let foodFormat = 
+    `
+    <div id="food${id}">
+        <input class='foodSearchInput' onchange="this.setAttribute('value', this.value)" type="text" placeholder="food" list="foodList" name="food"/>
+        <button onclick='searchForFood(this)' type="button">search</button>
+        <button onclick="removeParentElement(this)">x</button>
+        <div class="result_container"></div>
+    </div>
+    `
+
 	document.getElementById("foodForm").innerHTML =
 		document.getElementById("foodForm").innerHTML + foodFormat;
 }
 
-function searchForFood(id) {
-	let value = document.querySelector(`#food${id} input[type='text']`).value
+function searchForFood(elm) {
+    let id = elm.parentElement.id
+
+	let value = elm.parentElement.querySelector(".foodSearchInput").value
     console.log({value})
 
 	$.ajax({
-		url: "/manageFoodSearchResults",
+		url: "/addMeal_addFood_searchResults",
 		type: "get",
 		data: { search: value },
 		success: function (response) {
-			$(`#food${id} .result_container`).html(response);
+			$(`#${id} .result_container`).html(response);
 		},
 		error: function (xhr) {
 			console.log(xhr);
 		},
 	});
+}
+
+function addMeal_addFood_Selected(id, elm_id){
+    console.log({id, elm_id})
+    $.ajax({
+        url:"/addMeal_addFood_selected",
+        type: "get",
+        data: {id: id},
+        success: function(response){
+            $(`#${elm_id}`).html(response);
+        },
+        error: function(xhr){
+            console.log(xhr)
+        }
+    })
 }

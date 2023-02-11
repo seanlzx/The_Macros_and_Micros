@@ -35,11 +35,20 @@ def addFood():
         if not all(key in infoDict for key in ["name"]):
             return apology("Form insufficient info")
         
-        if not infoDict["price"].replace('.','',1).isdigit():
-            return apology("Price has to be a positive number")
+        try:
+            if not infoDict["price"].replace('.','',1).isdigit():
+                return apology("Price has to be a positive number")
+        except:
+            print("user did not submit price, no problem")
         
-        if not all(nutrientDict[nutrient].replace('.','',1).isdigit() for nutrient in nutrientDict):
-            return apology("Nutrient Input has to be a positive number")
+        try:
+            if not all(nutrientDict[nutrient].replace('.','',1).isdigit() for nutrient in nutrientDict):
+                for nutrient in nutrientDict:
+                    if nutrientDict[nutrient].replace('.', '',1).isdigit():
+                        print(nutrientDict[nutrient])
+                return apology("Nutrient Input has to be a positive number")
+        except:
+            print("user did not have submitted any nutrients, no problem")
 
         # below is the actual insert into SQL
         c.execute(
@@ -47,7 +56,7 @@ def addFood():
                  (timestamp, user_id, name, description,price) 
                  VALUES (?, ?, ?, ?, ?)""",
             (
-                datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 hardCodeUserId,
                 infoDict["name"],
                 infoDict["description"],
@@ -79,8 +88,8 @@ def addFood():
     return redirect("/")
 
 
-@food.route("/manageFoodSearchResults")
-def manageFoodSearchResults():
+@food.route("/manageFood_searchResults")
+def manageFood_searchResults():
     db = get_db()
     c = db.cursor()
 
@@ -143,12 +152,12 @@ def manageFoodSearchResults():
             """,
             (food["id"],),
         )
-
+        
         nutrients = listOfTuplesToListOfDict(raw_nutrients, ["id", "name", "quantity"])
         food["nutrients"] = nutrients
 
     db.close()
-    return render_template("manageFoodSearchResults.html", food_results=food_results)
+    return render_template("manageFood_searchResults.html", food_results=food_results)
 
 
 @food.route("/manageFoodLoadEditor")
@@ -199,7 +208,7 @@ def manageFoodLoadEditor():
     
     db.close()
     return render_template(
-        "manageFoodEditor.html",
+        "manageFood_editor.html",
         category_nest=category_nest,
         nutrient_nest=nutrient_nest,
         food_data = food_data
@@ -248,7 +257,7 @@ def manageFood_editor_submit():
                  VALUES (?, ?, ?, ?, ?, ?)""",
             (
                 infoDict["id"],
-                datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 hardCodeUserId,
                 infoDict["name"],
                 infoDict["description"],

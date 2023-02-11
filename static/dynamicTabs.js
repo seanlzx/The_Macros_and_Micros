@@ -3,10 +3,8 @@
 let prevTab = null;
 let tabData = {};
 
-function create_tab_event_listeners(tabGroup) {
-	for (let btn of document.querySelectorAll(
-		`#${tabGroup} .button_container button`
-	)) {
+function create_dynamicTab_event_listeners(tabGroup) {
+	for (let btn of document.querySelectorAll(`#${tabGroup} .button_container button`)) {
 		btn.className = "tabButton";
 	}
 
@@ -93,4 +91,4 @@ function create_tab_event_listeners(tabGroup) {
 	}
 }
 
-create_tab_event_listeners("tabGroup1");
+create_dynamicTab_event_listeners("dynamicTabGroup1");

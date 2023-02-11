@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS meal (
 CREATE TABLE meal_to_food (
     meal_id INTEGER NOT NULL,
     food_id INTEGER NOT NULL,
-    quantity_grams REAL NOT NULL,
+    quantity REAL NOT NULL,
     FOREIGN KEY (meal_id) REFERENCES meal(id),
     FOREIGN KEY (food_id) REFERENCES food(id)
 );

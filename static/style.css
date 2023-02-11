@@ -64,50 +64,50 @@ input[value="disable"]{
 	margin-top: 5px;
 }
 
-#sort p {
+#meal_sort p {
 	margin-bottom: 0px;
 }
 
-#sort {
+#meal_sort {
 	margin-bottom: 1em;
 }
 
-#records .record {
+#meal_records .record {
 	margin-bottom: 15px;
 }
 
-#records h3,
-#records p {
+#meal_records h3,
+#meal_records p {
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
 
-#records .record::after {
+#meal_records .record::after {
 	content: "";
 	display: table;
 	clear: both;
 }
-#records div {
+#meal_records div {
 	margin-left: 2em;
 }
 
-#records .foodItem {
+#meal_records .foodItem {
 	margin-right: 10px;
 	padding: 0px 5px 0px 5px;
 	background-color: #444;
 }
 
-#records .recordLeft {
+#meal_records .recordLeft {
 	float: left;
 	width: 75%;
 }
 
-#records .recordRight {
+#meal_records .recordRight {
 	float: left;
 	width: 25%;
 }
 
-#records .categories {
+#meal_records .categories {
 	color: #bbb;
 }
 
@@ -176,5 +176,9 @@ footer{
 
 .darkBox .description{
     color: #aaa;
+}
+
+button:hover, input[type="button"], input[type="submit"] {
+    cursor: pointer;
 }
 

@@ -1,0 +1,13 @@
+{% for food_result in food_results%}
+    <div class="darkBox" onclick="addMeal_addFood_Selected({{food_result.id}},this.parentElement.parentElement.id)" title="id: {{food_result.id}} &#013;{% for nutrient in food_result.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">
+        <div><span class="name">{{food_result.name}}</sp> <span class="username">{{food_result.username}}</span> <span class="timestamp">{{food_result.timestamp}}</span></div>
+        <div class="categories">
+            {% for category in food_result.categories %}
+                {{category.name}},
+            {% endfor %}
+        </div>
+        <div class="description">
+            {{food_result.description}}
+        </div>
+    </div>
+{% endfor %}

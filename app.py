@@ -1,16 +1,19 @@
 # pprint just to print things nicely
+from pprint import pprint
 
 from flask import Flask, render_template
 
+from dynamicTabGroup1 import dynamicTabGroup1
 from food import food
+from meal import meal
 from scripts.helpers import *
-from tabGroup1 import tabGroup1
 
 DATABASE = "nutrition.db"
 
 app = Flask(__name__)
 app.register_blueprint(blueprint = food, url_prefix="")
-app.register_blueprint(blueprint = tabGroup1, url_prefix="")
+app.register_blueprint(blueprint = meal, url_prefix="")
+app.register_blueprint(blueprint = dynamicTabGroup1, url_prefix="")
 
 # development variables, should eventually get rid of the hardcode
 hardCodeUserId = 0

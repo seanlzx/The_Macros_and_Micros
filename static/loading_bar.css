@@ -1,0 +1,15 @@
+.loading_bar, .loading_bar * {
+    height: 10px;
+    /* for some reason inline-flex is the best, block gives newline, span is invincible unless theres a text element inside, inline-span has some weirdness */
+    display:inline-flex;
+}
+.loading_bar {
+    width: 100px;
+    background-color: #222;
+}
+.loading_bar .upon_rda {
+    background-color: #fff;
+}
+.loading_bar .upon_ul {
+    background-color: #f55;
+}

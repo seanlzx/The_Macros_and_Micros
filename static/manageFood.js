@@ -4,7 +4,7 @@ document.querySelector("#manageFoodSearchButton").addEventListener("click", ()=>
     let manageFoodSearch = document.querySelector("#manageFoodSearch")
 
     $.ajax({
-        url:"/manageFoodSearchResults",
+        url:"/manageFood_searchResults",
         type: "get",
         data: {search: manageFoodSearch.value},
         success: function(response){
@@ -28,11 +28,6 @@ function manageFoodLoadEditor(id){
             console.log(xhr)
         }
     })
-    // load the inputs via database tables nutrients, categories
-
-    // load the value of the inputs via the id, 
-
-    // add save changes and disable button
 }
 
 function editor_mg2g(id){
