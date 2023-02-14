@@ -1,4 +1,19 @@
 <b>{{food_data.name}}</b>
-<input value={{food_data.id}} placeholder="foodId" name="foodId" title="foodId" readonly>
-<input class='foodQuantity' onchange="this.setAttribute('value', this.value)"  placeholder="quantity (grams)" type='number' name="foodQuantity" step='1' required>
+<input
+	value="{{food_data.id}}"
+	placeholder="foodId"
+	name="foodId"
+	title="foodId"
+    hidden
+	readonly
+/>
+<input
+	class="foodQuantity"
+	onchange="this.setAttribute('value', this.value)"
+	placeholder="quantity (grams)"
+	type="number"
+	name="foodQuantity"
+	step="1"
+	required
+/>
 <button onclick="removeParentElement(this)">x</button>

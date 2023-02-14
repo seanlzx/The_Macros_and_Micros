@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import timedelta
 from os import path
 from pathlib import Path
 
@@ -124,3 +125,6 @@ def loadFoodFormData(c):
     
     return dict
 
+def daterange(date1, date2):
+    for n in range(int ((date2 - date1).days)+1):
+        yield date1 + timedelta(n)

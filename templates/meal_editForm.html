@@ -1,0 +1,91 @@
+<div class="greyBox">
+	<form action="/meal_edit" method="post">
+		<input name="id" value="{{meal.id}}" hidden readonly />
+		<input
+			class="width100"
+			autocomplete="off"
+			required
+			value="{{meal.name}}"
+			name="name"
+			type="text"
+		/>
+		<textarea
+			class="width100"
+			autocomplete="off"
+			name="description"
+			rows="4"
+			cols="50"
+			maxlength="1000"
+		>
+{{meal.description}}</textarea
+		>
+
+		<!--backend will combine data, hour and time and store as one value-->
+		<input type="date" name="date" value="{{meal.date}}" required />
+		<input
+			type="number"
+			name="hour"
+			min="00"
+			max="23"
+			style="width: 70px"
+			value="{{meal.hour}}"
+			required
+		/>
+		<input
+			type="number"
+			name="minute"
+			min="00"
+			step="10"
+			max="59"
+			style="width: 70px"
+			value="{{meal.minute}}"
+			required
+		/>
+
+		<div id="meal_editForm{{meal.id}}">
+			<p>If quantity unknown place 0 next to name</p>
+			<button onclick="meal_editForm_addFood({{meal.id}})" type="button">
+				Add Food
+			</button>
+			<!--food ELEMENT id use mealid + foodId + quantity + the_order(in case a meal has 
+                two food elements with the same food_id and quantity)-->
+			{% for food in meal.foods %}
+			<div id="food{{meal.id}}{{food.id}}{{food.quantity}}{{loop.index}}">
+				<b>{{food.name}}</b>
+				<input
+					value="{{food.id}}"
+					placeholder="foodId"
+					name="foodId"
+					title="foodId"
+                    hidden
+					readonly
+				/>
+				<input
+					class="foodQuantity"
+					onchange="this.setAttribute('value', this.value)"
+					placeholder="quantity (grams)"
+					type="number"
+					name="foodQuantity"
+					step="1"
+					value="{{food.quantity}}"
+					required
+				/>
+				<button onclick="removeParentElement(this)">x</button>
+			</div>
+			{% endfor %}
+		</div>
+
+		<input class="width50" type="submit" value="update" />
+	</form>
+	<form action="/meal_edit_deactivate" method="post">
+		<input name="id" value="{{meal.id}}" readonly hidden />
+		<input class="width50" type="submit" value="deactivate" />
+	</form>
+    <button class="width50" onclick="this.parentElement.remove()">cancel</button>
+</div>
+
+<script src="/static/meal_edit.js"></script>
+<script>
+	runDisUponLoadingOfForm();
+	addUpdateValueEvent();
+</script>

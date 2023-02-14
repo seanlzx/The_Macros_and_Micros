@@ -1,5 +1,5 @@
 .loading_bar, .loading_bar * {
-    height: 10px;
+    height: 17px;
     /* for some reason inline-flex is the best, block gives newline, span is invincible unless theres a text element inside, inline-span has some weirdness */
     display:inline-flex;
 }
