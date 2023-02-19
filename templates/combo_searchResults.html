@@ -1,0 +1,41 @@
+{% for combo in combo_results %}
+    <div class="record" title="id: {{combo.id}}" id="combo{{combo.id}}">
+        <div class="darkBox" onclick="combo_loadForm('{{combo.id}}', '{{container_id}}', '{{foodForm_id}}')"> <!--might consider changing the class-->
+            <span class="name">
+                {{combo.name}}
+                <span class="username">{{combo.username}}</span>
+            </span>
+            <br>
+            {% for food in combo.foods %}
+                <span class="foodItem" title="id: {{food.id}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
+            {% endfor %}
+
+            <p class="description">{{combo.description}}</p>
+        </div>
+    </div>
+    <div id="tabGroup_nutritionalInfo_combo{{combo.id}}">
+        <button style="width:100%;" data-tab="nutrient{{combo.id}}">{{combo.name}} nutritional information</button>
+        
+        <div id="nutrient{{combo.id}}">
+            <div class="greyBox">
+                {% for header in nutrient_headers %}
+                    <h4>{{header.name}}</h4>
+                    {% for nutrient in header.nutrients %}
+                        <span style="display:inline-block;width:300px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{combo.nutrients[nutrient.nutrient_id]}}{% else %}0{% endif %} grams &#013;rda: {{nutrient.rda}} grams &#013;ul: {{nutrient.ul}} grams &#013;description: {{nutrient.description}}">{{nutrient.name}}
+                            <span class="loading_bar" data-actual="{{combo.nutrients[nutrient.nutrient_id]}}" data-rda="{{nutrient.rda}}" data-ul="{{nutrient.ul}}">
+                                <span class="upon_rda">
+                                    <span class="upon_ul"></span>
+                                </span>
+                            </span>
+                        </span>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<script src="/static/loading_bar.js"></script>
+
+{% for combo in combo_results %}
+    <script>create_tab_event_listeners("tabGroup_nutritionalInfo_combo{{combo.id}}")</script>
+{% endfor %}

@@ -1,5 +1,13 @@
 "use strict";
 function addUpdateValueEvent(){
+    let allHiddenInputs = document.querySelectorAll("input[type='hidden']");
+
+    for (let input of allHiddenInputs) {
+        input.addEventListener("change", (event) => {
+            event.target.setAttribute("value", event.target.value);
+        });
+    }
+
     let allTextInputs = document.querySelectorAll("input[type='text']");
 
     for (let input of allTextInputs) {

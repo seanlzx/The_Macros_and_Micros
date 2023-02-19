@@ -1,0 +1,90 @@
+<div id="Edit Combo">
+    <div class="greyBox">
+        <h3 class="marginTop5">Edit Combo</h3>
+        <div id="tabGroup_nutritionalInfo_combo{{combo.id}}">
+            <button style="width:100%;" data-tab="nutrient{{combo.id}}">{{combo.name}} nutritional information</button>
+            
+            <div id="nutrient{{combo.id}}">
+                <div class="greyBox">
+                    {% for header in nutrient_headers %}
+                        <h4>{{header.name}}</h4>
+                        {% for nutrient in header.nutrients %}
+                            <span style="display:inline-block;width:300px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{combo.nutrients[nutrient.nutrient_id]}}{% else %}0{% endif %} grams &#013;rda: {{nutrient.rda}} grams &#013;ul: {{nutrient.ul}} grams &#013;description: {{nutrient.description}}">{{nutrient.name}}
+                                <span class="loading_bar" data-actual="{{combo.nutrients[nutrient.nutrient_id]}}" data-rda="{{nutrient.rda}}" data-ul="{{nutrient.ul}}">
+                                    <span class="upon_rda">
+                                        <span class="upon_ul"></span>
+                                    </span>
+                                </span>
+                            </span>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <form action="/editCombo" method="post">
+            <input name="id" value={{combo.id}} hidden readonly>
+
+            <input
+                class="width100"
+                autocomplete="off"
+                required
+                value="{{combo.name}}"
+                name="name"
+                type="text"
+            />
+            <textarea
+                class="width100"
+                autocomplete="off"
+                name="description"
+                rows="4"
+                cols="50"
+                maxlength="1000"
+            >{{combo.description}}</textarea>
+
+            <!--backend will combine data, hour and time and store as one value-->
+
+            <div id="comboFoodForm">
+                <button onclick="addFoodSearch('comboFoodForm')" type="button">Add Food</button>
+                {% for food in combo.foods %}
+                    <div id="food{{combo.id}}{{food.id}}{{food.quantity}}{{loop.index}}">
+                        <b>{{food.name}}</b>
+                        <input
+                            value="{{food.id}}"
+                            placeholder="foodId"
+                            name="foodId"
+                            title="foodId"
+                            hidden
+                            readonly
+                        />
+                        <input
+                            class="foodQuantity"
+                            onchange="this.setAttribute('value', this.value)"
+                            placeholder="quantity (grams)"
+                            type="number"
+                            name="foodQuantity"
+                            step="1"
+                            value="{{food.quantity}}"
+                            required
+                        />
+                        <button onclick="removeParentElement(this)">x</button>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <input class="width100" type="submit" value="update" />
+        </form>
+        <form action="/combo_edit_deactivate" method="post">
+            <input name="id" value="{{combo.id}}" readonly hidden />
+            <input class="width50" type="submit" value="deactivate" />
+        </form>
+        <button class="width50" onclick="this.parentElement.parentElement.remove()">cancel</button>
+    </div>
+</div>
+
+<script src="/static/addCombo.js"></script>
+<script src="/static/loading_bar.js"></script>
+<script>create_tab_event_listeners("tabGroup_nutritionalInfo_combo{{combo.id}}")</script>
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>

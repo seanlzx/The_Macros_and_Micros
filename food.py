@@ -1,4 +1,5 @@
 # pprint just to print things nicely
+import json
 import pprint
 from datetime import datetime
 
@@ -178,8 +179,6 @@ def manageFoodLoadEditor():
     # load values, the conversion to string is not necessary but just to get rid of the stupid.replace('.','',1).isdigit() underline
     id = str(request.args.get("id"))
 
-    print(f"id: {id}")
-
     # find out why.replace('.','',1).isdigit is underlines
     if not id.replace('.','',1).isdigit():
         return apology("id was not a positive number")
@@ -204,14 +203,32 @@ def manageFoodLoadEditor():
         WHERE food_id = ?;                    
     """, (id,),)
     food_data["nutrients"] = {nutrient[0]: nutrient[1] for nutrient in raw_nutrients}
-    pprint.pprint(food_data)
+  
+    ctp_sql_string ="""
+        SELECT parent_id, child_id 
+        FROM category_to_parent
+        WHERE parent_id NOT IN (SELECT id FROM category WHERE active = 0)
+        AND child_id NOT IN (SELECT id FROM category WHERE active = 0)
+    """
+    
+    category_to_parent = listOfTuplesToListOfDict(
+        c.execute(ctp_sql_string), ["parent_id", "child_id"]
+    )
+
+    category_to_parent_dict = {}
+    for row in category_to_parent:
+        if row["child_id"] not in category_to_parent_dict:
+            category_to_parent_dict[row["child_id"]] = [row["parent_id"]]
+        else:
+            category_to_parent_dict[row["child_id"]].append(row["parent_id"])
     
     db.close()
     return render_template(
         "manageFood_editor.html",
         category_nest=category_nest,
         nutrient_nest=nutrient_nest,
-        food_data = food_data
+        food_data = food_data,
+        ctp_json=json.dumps(category_to_parent_dict)
     )
 
 

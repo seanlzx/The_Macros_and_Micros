@@ -30,6 +30,7 @@
                     id="addFoodCategory{{category.id}}"
                     name="category"
                     value="{{category.name}}"
+                    onclick="categoryParentCheck(this,'addFoodCategory')"
                 /><label for="addFoodCategory{{category.id}}"
                     >{{category.name}}</label
                 >
@@ -105,6 +106,9 @@
         </form>
     </div>
 </div>
+<!--if it's stupid but it works than it's not stupid-->
+<span id="ctp_json" data-ctpJSON="{{ctp_json}}"></span>
+<script src="/static/categoryParentCheck.js"></script>
 <script src="/static/addFood.js"></script>
 <script>
     runDisUponLoadingOfForm()

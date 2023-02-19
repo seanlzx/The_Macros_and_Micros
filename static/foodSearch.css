@@ -1,0 +1,18 @@
+.div_checkbox, .div_checkbox_checked{
+    padding: 1px 6px;
+    display: inline-block;
+    border-style:solid;
+    cursor:pointer;
+}
+
+.div_checkbox{
+    background-color:#222;
+    border-width:2px;
+    border-color:#000;
+}
+
+.div_checkbox_checked{
+    background-color:#444;
+    border-width:4px;
+    border-color:#000;
+}

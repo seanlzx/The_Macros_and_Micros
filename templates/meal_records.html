@@ -25,11 +25,11 @@
             <span class="recordLeft">
                 <h3>{{meal.name}} {{meal.time_of_meal}} <button onclick="meal_loadEditForm({{meal.id}})">edit</button></h3>
 
-                <p class="description">{{meal.description}}</p>
-
                 {% for food in meal.foods %}
-                <span class="foodItem" title="id: {{food.id}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
+                    <span class="foodItem" title="id: {{food.id}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
                 {% endfor %}
+                
+                <p class="description">{{meal.description}}</p>
             </span>
             <!-- <span class="recordRight">
                 <p>nutritional information for meal</p>

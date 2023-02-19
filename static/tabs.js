@@ -1,15 +1,20 @@
 "use strict";
 
 function create_tab_event_listeners(tabGroup) {
-	let btn_collection = document.querySelectorAll(`#${tabGroup} > button`);
-	let div_collection = document.querySelectorAll(`#${tabGroup} > div`);
+	let btn_collection = document.querySelectorAll(`#${tabGroup} > button[data-tab]`);
+	let div_array = []
+    for (let btn of btn_collection){
+        div_array.push(document.querySelector(`#${tabGroup} > #${btn.getAttribute("data-tab")}`))
+    }
 
 	for (let btn of btn_collection) {
 		btn.className = "tabButton";
 
 		btn.addEventListener("click", (event) => {
+            event.preventDefault()
+
 			if (event.target.className == "tabButton") {
-				for (let div of div_collection) {
+				for (let div of div_array) {
 					div.className = "tab";
 				}
                 for (let btn of btn_collection){
@@ -31,8 +36,8 @@ function create_tab_event_listeners(tabGroup) {
 		});
 	}
 
-	for (let div of div_collection) {
-		div.className = "tab";
+	for (let div of div_array) {      
+	    div.className = "tab";
 	}
 }
 

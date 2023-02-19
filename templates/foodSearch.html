@@ -1,0 +1,77 @@
+<div id="tabGroup_{{id}}_{{foodForm_id}}_search">
+    <input class='foodSearchInput' onchange="this.setAttribute('value', this.value)" type="text" placeholder="food" list="foodList" name="food"/>
+    <button onclick='searchForFood(this)' type="button">search</button>
+    <button data-tab="tabGroup_{{id}}_{{foodForm_id}}_filters">filters</button>
+    <button onclick="removeParentElement(this)">x</button>
+
+    <div id="tabGroup_{{id}}_{{foodForm_id}}_filters" data-filter>
+        <button data-tab="categories">Categories</button>
+        <button data-tab="combos">Combos</button>
+        <button data-tab="nutrients">Nutrients</button>
+
+        <input type="text" name="username" placeholder="username" list="users">
+
+        <input type="text" name="keywords" placeholder="keywords" title="words in the description" list="users">
+
+        <span>
+            <span>
+                <span class="div_checkbox_checked" style="user-select:none" onclick="check_radio_neighbor(this)">newest</span>
+                <input type="radio" name="order" value="newest" style="opacity:0;width:0px;margin:0px" checked>
+            </span>
+            <span>
+                <span class="div_checkbox" style="user-select:none" onclick="check_radio_neighbor(this)">oldest</span>
+                <input type="radio" name="order" value="oldest" style="opacity:0;width:0px;margin:0px">
+            </span>
+            <span>
+                <span class="div_checkbox" style="user-select:none" onclick="check_radio_neighbor(this)">a-z</span>
+                <input type="radio" name="order" value="a-z" style="opacity:0;width:0px;margin:0px">
+            </span>
+            <span>
+                <span class="div_checkbox" style="user-select:none" onclick="check_radio_neighbor(this)">z-a</span>
+                <input type="radio" name="order" value="z-a" style="opacity:0;width:0px;margin:0px">
+            </span>
+        </span>
+
+        <div id="categories">
+            {% for header in categories_headers_nest%}
+                <h4 style="margin-bottom:0px; margin-top:10px;">{{header.name}}</h4>
+                {% for category in header.categories %} 
+                <span>
+                    <span title="id: {{category.id}}&#13;user: {{category.username}}" class="div_checkbox" style="user-select:none" onclick="check_checkbox_neighbor(this)">{{category.name}}</span>
+                    <input type="checkbox" name="categories" value="{{category.id}}" style="opacity:0">
+                </span>
+                {% endfor %} 
+            {% endfor %}
+        </div>
+
+        <div id="combos">
+            {% for combo in combos %}
+            <span>
+                <span title="id: {{combo.id}}&#13;user: {{combo.username}}" class="div_checkbox" style="user-select:none" onclick="check_checkbox_neighbor(this)">{{combo.name}}</span>
+                <input type="checkbox" name="combos" value="{{combo.id}}" style="opacity:0">
+            </span>
+            {% endfor %}
+        </div>
+        
+        <div id="nutrients">
+            {% for header in nutrients_headers_nest%}
+                <h4 style="margin-bottom:0px; margin-top:10px;">{{header.name}}</h4>
+                {% for nutrient in header.nutrients %} 
+                <span>
+                    <span title="id: {{nutrient.id}}&#13;user: {{nutrient.username}}" class="div_checkbox" style="user-select:none" onclick="check_checkbox_neighbor(this)">{{nutrient.name}}</span>
+                    <input type="checkbox" name="nutrients" value="{{nutrient.id}}" style="opacity:0">
+                </span>
+                {% endfor %} 
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+
+    <div class="result_container"></div>
+</div>
+
+<script>
+    create_tab_event_listeners("tabGroup_{{id}}_{{foodForm_id}}_filters")
+    create_tab_event_listeners("tabGroup_{{id}}_{{foodForm_id}}_search")
+</script>

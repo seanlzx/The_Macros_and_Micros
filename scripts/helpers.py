@@ -8,6 +8,7 @@ from flask import g, render_template, request
 hardCodeUserId = 0
 hardCodeDriGroupName = "male 19-30"
 
+#the below 2 lines (parent... and DATABASE...) might be useless
 parent = Path(path.dirname(path.abspath(__file__))).parent.absolute()
 DATABASE = path.join(parent,"nutrition.db")
 
@@ -128,3 +129,61 @@ def loadFoodFormData(c):
 def daterange(date1, date2):
     for n in range(int ((date2 - date1).days)+1):
         yield date1 + timedelta(n)
+        
+def loadSearchFilterInfo(c):
+    dict = {}
+
+    dict["categories_headers_nest"] = listOfTuplesToListOfDict(
+        c.execute("SELECT id, name FROM category_header"), ["id", "name"]
+    )
+
+    for header in dict["categories_headers_nest"]:
+        raw = c.execute(
+            """
+            SELECT c.id AS id, c.name AS name, c.user_id AS user_id, u.name AS username
+            FROM category c
+            JOIN user u
+            ON u.id = c.user_id
+            WHERE c.active = 1 
+            AND c.category_header_id = ?;
+        """,
+            (header["id"],),
+        )
+        header["categories"] = listOfTuplesToListOfDict(
+            raw, ["id", "name", "user_id", "username"]
+        )
+
+    dict["combos"] = listOfTuplesToListOfDict(
+        c.execute(
+            """
+        SELECT c.id AS id, c.name AS name, u.id AS user_id, u.name AS username
+        FROM combo c
+        JOIN user u
+        ON c.user_id = u.id
+        WHERE c.active=1
+    """
+        ),
+        ["id", "name", "user_id", "username"],
+    )
+
+    dict["nutrients_headers_nest"] = listOfTuplesToListOfDict(
+        c.execute("SELECT id, name FROM nutrient_header"), ["id", "name"]
+    )
+
+    for header in dict["nutrients_headers_nest"]:
+        raw = c.execute(
+            """
+            SELECT n.id AS id, n.name AS name, u.id AS user_id, u.name AS username
+            FROM nutrient n
+            JOIN user u
+            ON n.user_id = u.id
+            WHERE n.active=1
+            AND n.nutrient_header_id = ?;
+        """,
+            (header["id"],),
+        )
+
+        header["nutrients"] = listOfTuplesToListOfDict(
+            raw, ["id", "name", "user_id", "username"]
+        )
+    return dict

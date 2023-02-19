@@ -54,16 +54,14 @@
     <div id="meal_records">
 
     </div>
-    <div class="nutritionForDay">
-        <p>nutritional information for day</p>
-        <p>expand</p>
-    </div>
 
     <footer>
+        <h3>Useful Links</h3>
         <a href="https://en.wikipedia.org/wiki/List_of_culinary_fruits">
             <p>List of fruits and their types</p></a>
         <a href="https://en.wikipedia.org/wiki/List_of_vegetables">
             <p>List of vegetables and their types</p></a>
+
     </footer>
 
     <div class="this div is just to get rid of clutter">
@@ -79,6 +77,18 @@
             {% endfor %}
         </datalist>
 
+        <datalist id="comboList">
+            {% for combo in comboList %}
+            <option value="{{combo}}"></option>
+            {% endfor %}
+        </datalist>
+
+        <datalist id="users">
+            {% for user in users %}
+            <option value="{{user.name}}"></option>
+            {% endfor %}
+        </datalist>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
         <script src="/static/dynamicTabs.js"></script>
@@ -88,6 +98,8 @@
 
         <script src="/static/meal_sort.js"></script>
         <script src="/static/meal_edit.js"></script>
+        
+        <script src="/static/foodSearch.js"></script>
 
         <script src="/static/addUpdateValueEvent.js"></script>
     </div>

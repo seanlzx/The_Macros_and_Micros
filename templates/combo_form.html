@@ -1,0 +1,40 @@
+<div id="{{combo.id}} Combo">
+	<div class="greyBox">
+		<h3 style="margin-bottom: 5px" class="marginTop5">Combo: {{combo.name}}</h3>
+		<p style="margin-top: 0px">{{combo.description}}</p>
+
+		<span
+			id="hiddenComboContainer{{foodForm_id}}{{combo.id}}"
+			style="display: none"
+		>
+			{% for food in combo.foods %}
+			<span
+				data-food-id="{{food.id}}"
+				data-food-name="{{food.name}}"
+				data-food-quantity="{{food.quantity}}"
+			></span>
+			{% endfor %}
+		</span>
+		<input
+			type="button"
+			onclick="comboForm_addAll('{{foodForm_id}}', 'hiddenComboContainer{{foodForm_id}}{{combo.id}}')"
+			value="Add All"
+		/>
+		{% for food in combo.foods %}
+		<div id="food{{combo.id}}{{food.id}}{{food.quantity}}{{loop.index}}">
+			<b>{{food.quantity}} grams {{food.name}}</b>
+			<input
+				type="button"
+				onclick="comboForm_add('{{foodForm_id}}','{{food.id}}','{{food.name}}','{{food.quantity}}')"
+				value="Add"
+			/>
+		</div>
+		{% endfor %}
+		<input
+			type="button"
+			class="width50"
+			onclick="this.parentElement.parentElement.remove()"
+			value="cancel"
+		/>
+	</div>
+</div>

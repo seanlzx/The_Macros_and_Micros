@@ -91,7 +91,7 @@ input[value="disable"]{
 	margin-left: 2em;
 }
 
-#meal_records .foodItem {
+#meal_records .foodItem, .record .foodItem{
 	margin-right: 10px;
 	padding: 0px 5px 0px 5px;
 	background-color: #444;
@@ -142,7 +142,7 @@ footer{
 
 }
 
-.darkbox, .darkBox *{
+.darkBox, .darkBox *{
     background-color:#222
 }
 

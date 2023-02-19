@@ -38,17 +38,41 @@
                 required
             />
 
-            <div id="foodForm">
-                <p>If quantity unknown place 0 next to name</p>
-                <button onclick="addMealAddFood()" type="button">Add Food</button>
+            <!--this empty p tag cause <br> isnt creatiner spacing for some reason-->
+
+            <div id="tabGroup_addMealCombo">
+                <button data-tab="addMeal_comboSearch_container">Search Combo</button>
+
+                <div id="addMeal_comboSearch_container">
+                    <div class="greyBox">
+                        <input
+                            id="addMeal_comboSearch"
+                            list="comboList"
+                            name="combo"
+                            spellcheck="false"
+                            data-ms-editor="true"
+                        />
+                        <input type="button" id="addMeal_comboSearchBtn" onclick="comboSearch('addMeal_comboSearch','addMeal_combo_container', 'foodForm')" type="button" value="Search Combo">
+                        <div id="addMeal_combo_container"></div>
+                    </div>
+                </div>
             </div>
+
+            <div id="foodForm">
+                <button onclick="addFoodSearch('foodForm')" type="button">Add Food</button>
+            </div>
+
+            
+            <p>If quantity unknown place 0 next to name</p>
 
             <input class="width100" type="submit" value="submit" />
         </form>
     </div>
 </div>
+<script src="/static/comboSearch.js"></script>
 <script src="/static/addMeal.js"></script>
 <script>
+    create_tab_event_listeners("tabGroup_addMealCombo")
     runDisUponLoadingOfForm()
     addUpdateValueEvent();
 </script>

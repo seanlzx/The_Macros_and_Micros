@@ -42,38 +42,60 @@
 			required
 		/>
 
+        <!--this empty p tag cause <br> isnt creating spacing for some reason-->
+        <p></p>
+
+        <div id="tabGroup_editMealCombo{{meal.id}}">
+            <button data-tab="editMeal_comboSearch_container{{meal.id}}">Search Combo</button>
+
+            <div id="editMeal_comboSearch_container{{meal.id}}">
+                <div class="greyBox">
+                    <input
+                        id="editMeal_comboSearch{{meal.id}}"
+                        list="comboList"
+                        name="combo"
+                        spellcheck="false"
+                        data-ms-editor="true"
+                    />
+                    <input type="button" id="editMeal_comboSearchBtn{{meal.id}}" onclick="comboSearch('editMeal_comboSearch{{meal.id}}','editMeal_combo_container{{meal.id}}', 'meal_editForm{{meal.id}}')" type="button" value="Search Combo">
+                    <div id="editMeal_combo_container{{meal.id}}"></div>
+                </div>
+            </div>
+        </div>
+
 		<div id="meal_editForm{{meal.id}}">
-			<p>If quantity unknown place 0 next to name</p>
-			<button onclick="meal_editForm_addFood({{meal.id}})" type="button">
+			<button onclick="addFoodSearch('meal_editForm{{meal.id}}')" type="button">
 				Add Food
 			</button>
 			<!--food ELEMENT id use mealid + foodId + quantity + the_order(in case a meal has 
                 two food elements with the same food_id and quantity)-->
 			{% for food in meal.foods %}
-			<div id="food{{meal.id}}{{food.id}}{{food.quantity}}{{loop.index}}">
-				<b>{{food.name}}</b>
-				<input
-					value="{{food.id}}"
-					placeholder="foodId"
-					name="foodId"
-					title="foodId"
-                    hidden
-					readonly
-				/>
-				<input
-					class="foodQuantity"
-					onchange="this.setAttribute('value', this.value)"
-					placeholder="quantity (grams)"
-					type="number"
-					name="foodQuantity"
-					step="1"
-					value="{{food.quantity}}"
-					required
-				/>
-				<button onclick="removeParentElement(this)">x</button>
-			</div>
+                <div id="food{{meal.id}}{{food.id}}{{food.quantity}}{{loop.index}}">
+                    <b>{{food.name}}</b>
+                    <input
+                        value="{{food.id}}"
+                        placeholder="foodId"
+                        name="foodId"
+                        title="foodId"
+                        hidden
+                        readonly
+                    />
+                    <input
+                        class="foodQuantity"
+                        onchange="this.setAttribute('value', this.value)"
+                        placeholder="quantity (grams)"
+                        type="number"
+                        name="foodQuantity"
+                        step="1"
+                        value="{{food.quantity}}"
+                        required
+                    />
+                    <button onclick="removeParentElement(this)">x</button>
+                </div>
 			{% endfor %}
 		</div>
+
+        <p>If quantity unknown place 0 next to name</p>
 
 		<input class="width50" type="submit" value="update" />
 	</form>
@@ -83,9 +105,9 @@
 	</form>
     <button class="width50" onclick="this.parentElement.remove()">cancel</button>
 </div>
-
-<script src="/static/meal_edit.js"></script>
+<script src="/static/comboSearch.js"></script>
 <script>
+    create_tab_event_listeners("tabGroup_editMealCombo{{meal.id}}")
 	runDisUponLoadingOfForm();
 	addUpdateValueEvent();
 </script>
