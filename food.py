@@ -499,12 +499,13 @@ def manageFood_editor_submit():
             )
 
         for nutrient in nutrientDict:
-            c.execute(
-                """INSERT INTO food_to_nutrient
-                    (food_id, nutrient_id, quantity) VALUES (?, ?, ?)
-                    """,
-                (food_id, nutrientToIdDict[nutrient], nutrientDict[nutrient]),
-            )
+            if nutrientDict[nutrient]:
+                c.execute(
+                    """INSERT INTO food_to_nutrient
+                        (food_id, nutrient_id, quantity) VALUES (?, ?, ?)
+                        """,
+                    (food_id, nutrientToIdDict[nutrient], nutrientDict[nutrient]),
+                )
 
     db.commit()
     db.close()

@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from sqlite3 import OperationalError
 
@@ -23,17 +24,7 @@ for command in sqlCommandList:
 
 # must be updated whenever a new initial_data csv is created
 # OMIT the .csv at the end
-table_list = [
-    'category_header',
-    'category_to_parent',
-    'category',
-    'dri',
-    'nutrient_header',
-    'nutrient',
-    'food',
-    'food_to_nutrient',
-    'user'
-]
+table_list = [file_string.replace(".csv", "") for file_string in list(filter(lambda file_string: ".csv" in file_string, os.listdir("initial_data")))]
 
 for table in table_list:
     data = pd.read_csv(f'initial_data/{table}.csv')

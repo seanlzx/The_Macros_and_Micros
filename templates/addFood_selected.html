@@ -13,8 +13,8 @@
 	placeholder="quantity (grams)"
 	type="number"
 	name="foodQuantity"
-	step="1"
+    step="any"
 	required
     min="0"
 />
-<button onclick="removeParentElement(this)">x</button>
+<button onclick="if(confirm('Are you sure you want to remove {{food_data.name}}')) {removeParentElement(this)}">x</button>
