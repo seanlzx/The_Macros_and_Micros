@@ -13,6 +13,9 @@
 
         <input type="text" name="keywords" placeholder="keywords" title="words in the description" list="users">
 
+        <br>
+        order:
+
         <span>
             <span>
                 <span class="div_checkbox_checked" style="user-select:none" onclick="check_radio_neighbor(this)">newest</span>
@@ -45,6 +48,7 @@
         </div>
 
         <div id="combos">
+            <br>
             {% for combo in combos %}
             <span>
                 <span title="id: {{combo.id}}&#13;user: {{combo.username}}" class="div_checkbox" style="user-select:none" onclick="check_checkbox_neighbor(this)">{{combo.name}}</span>

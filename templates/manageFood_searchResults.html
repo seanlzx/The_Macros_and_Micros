@@ -1,13 +1,23 @@
 {% for food_result in food_results%}
-    <div class="darkBox" onclick="manageFoodLoadEditor({{food_result.id}})" title="id: {{food_result.id}} &#013;{% for nutrient in food_result.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">
-        <div><span class="name">{{food_result.name}}</sp> <span class="username">{{food_result.username}}</span> <span class="timestamp">{{food_result.timestamp}}</span></div>
-        <div class="categories">
-            {% for category in food_result.categories %}
-                {{category.name}},
-            {% endfor %}
-        </div>
-        <div class="description">
-            {{food_result.description}}
-        </div>
-    </div>
+<div
+	class="darkBox"
+	onclick="manageFoodLoadEditor({{food_result.id}})"
+	title="id: {{food_result.id}} &#013;{% for nutrient in food_result.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}"
+>
+	<div>
+		<span class="name">{{food_result.name}}</span>
+		<span class="username">{{food_result.username}}</span>
+		<span class="timestamp">{{food_result.timestamp}}</span>
+        <span><b>${{food_result.price}} per 100grams</b></span>
+	</div>
+    {% if food_result.nutrient_name %}
+        <div>{{food_result.quantity_per_dollar}} grams of {{food_result.nutrient_name}} per dollar</div>
+        <div>{{food_result.nutrient_per_100_grams}} grams of {{food_result.nutrient_name}} per 100 grams of {{food_result.name}}</div>
+        <div>{{food_result.nutrient_per_kcal}} grams of {{food_result.nutrient_name}} per 100 kcal</div>
+    {% endif %}
+	<div class="categories">
+		{% for category in food_result.categories %} {{category.name}}, {% endfor %}
+	</div>
+	<div class="description">{{food_result.description}}</div>
+</div>
 {% endfor %}

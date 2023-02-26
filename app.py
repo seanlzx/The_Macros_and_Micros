@@ -278,7 +278,7 @@ def addMeal_addFood_searchResults():
     order = request.args.get("order")
 
     # early declaration just to ensure it's not unbound
-    food_results = {}
+    food_results = []
 
     sql_string_selectFrom = """
         SELECT f.id AS id, f.timestamp AS timestamp, f.name AS name, f.description AS description, u.name AS username 
@@ -431,7 +431,10 @@ def addMeal_addFood_searchResults():
         food["nutrients"] = nutrients
 
     db.close()
-    return render_template("addFood_searchResults.html", food_results=food_results)
+    if food_results:
+        return render_template("addFood_searchResults.html", food_results=food_results)
+    else:
+        return render_template("search_produced_noResults.html")
 
 @app.route("/addFood_selected")
 def addFood_selected():

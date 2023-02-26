@@ -83,7 +83,6 @@ function searchForFood(elm) {
 }
 
 function addFood_Selected(id, elm_id){
-    console.log({id, elm_id})
     $.ajax({
         url:"/addFood_selected",
         type: "get",

@@ -1,21 +1,320 @@
 <div id="Manage Food">
-    <div class="greyBox">
-        <h3 class="marginTop5">Manage Food</h3>
-        <input
-            id="manageFoodSearch"
-            placeholder="food"
-            list="foodList"
-            name="food"
-            spellcheck="false"
-            data-ms-editor="true"
-        />
-        <button id="manageFoodSearchButton">Search Food</button>
+	<div class="greyBox">
+		<div id="tabGroup_manageFood_searchFilter_container">
+			<h3 class="marginTop5">Manage Food</h3>
+			<input
+				id="manageFoodSearch"
+				placeholder="food"
+				list="foodList"
+				name="food"
+				spellcheck="false"
+				data-ms-editor="true"
+			/>
+			<button id="manageFoodSearchButton" onclick="mf_searchForFood(this)">Search Food</button>
+			<button data-tab="tabGroup_manageFood_searchFilter">
+				filters
+			</button>
+			<div id="tabGroup_manageFood_searchFilter" data-filter>
+				<button data-tab="categories">Categories</button>
+				<button data-tab="combos">Combos</button>
+				<button data-tab="nutrients">Nutrients</button>
 
-        <div id="manageFoodResults"></div>
-    </div>
+				<input
+					type="text"
+					name="username"
+					placeholder="username"
+					list="users"
+					title="username"
+				/>
+
+				<input
+					type="text"
+					name="keywords"
+					placeholder="keywords"
+					title="words in the description"
+					list="users"
+				/>
+
+				<div id="categories">
+					{% for header in categories_headers_nest%}
+					<h4 style="margin-bottom: 0px; margin-top: 10px">{{header.name}}</h4>
+					{% for category in header.categories %}
+					<span>
+						<span
+							title="id: {{category.id}}&#13;user: {{category.username}}"
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_checkbox_neighbor(this)"
+							>{{category.name}}</span
+						>
+						<input
+							type="checkbox"
+							name="categories"
+							value="{{category.id}}"
+							style="opacity: 0"
+						/>
+					</span>
+					{% endfor %} {% endfor %}
+				</div>
+
+				<div id="combos">
+					<br />
+					{% for combo in combos %}
+					<span>
+						<span
+							title="id: {{combo.id}}&#13;user: {{combo.username}}"
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_checkbox_neighbor(this)"
+							>{{combo.name}}</span
+						>
+						<input
+							type="checkbox"
+							name="combos"
+							value="{{combo.id}}"
+							style="opacity: 0"
+						/>
+					</span>
+					{% endfor %}
+				</div>
+
+				<div id="nutrients">
+					{% for header in nutrients_headers_nest%}
+					<h4 style="margin-bottom: 0px; margin-top: 10px">{{header.name}}</h4>
+					{% for nutrient in header.nutrients %}
+					<span>
+						<span
+							title="id: {{nutrient.id}}&#13;user: {{nutrient.username}}"
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_checkbox_neighbor(this)"
+							>{{nutrient.name}}</span
+						>
+						<input
+							type="checkbox"
+							name="nutrients"
+							value="{{nutrient.id}}"
+							style="opacity: 0"
+						/>
+					</span>
+					{% endfor %} {% endfor %}
+				</div>
+
+                <br />
+
+				order:
+				<span>
+					<span>
+						<span
+							class="div_checkbox_checked"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>newest</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="newest"
+							style="opacity: 0; width: 0px; margin: 0px"
+							checked
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>oldest</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="oldest"
+							style="opacity: 0; width: 0px; margin: 0px"
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>a-z</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="a-z"
+							style="opacity: 0; width: 0px; margin: 0px"
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>z-a</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="z-a"
+							style="opacity: 0; width: 0px; margin: 0px"
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>price highest per gram</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="price_highest"
+							style="opacity: 0; width: 0px; margin: 0px"
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>price lowest per gram</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="price_lowest"
+							style="opacity: 0; width: 0px; margin: 0px"
+						/>
+					</span>
+
+					<br />
+					Sort by
+                    <span id="nutrient_for_sorting_span">nutrient</span>
+                    <input
+                        type="text"
+                        name="nutrient_for_sorting"
+                        placeholder="nutrient"
+                        title="nutrient for sorting field is required if the sort by nutrients options are selected"
+                        list="nutrients_datalist"
+                        style="display:none;"
+                        oninput="nutrient_for_sorting_input(this)"
+                        onfocus="nutrient_for_sorting_input(this)"
+                    /><b>:</b>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>highest <span style="background-color:inherit" class="nutrient_for_sorting_text">nutrient</span> per dollar</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="highest_nutrient_per_dollar"
+							style="opacity: 0; width: 0px; margin: 0px"
+                            data-nutrient-sort-radio
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>lowest <span style="background-color:inherit" class="nutrient_for_sorting_text">nutrient</span> per dollar</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="lowest_nutrient_per_dollar"
+							style="opacity: 0; width: 0px; margin: 0px"
+                            data-nutrient-sort-radio
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>highest <span style="background-color:inherit" class="nutrient_for_sorting_text">nutrient</span> per kcal</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="highest_nutrient_per_kcal"
+							style="opacity: 0; width: 0px; margin: 0px"
+                            data-nutrient-sort-radio
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>lowest <span style="background-color:inherit" class="nutrient_for_sorting_text">nutrient</span> per kcal</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="lowest_nutrient_per_kcal"
+							style="opacity: 0; width: 0px; margin: 0px"
+                            data-nutrient-sort-radio
+						/>
+					</span>
+                    <span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>highest <span style="background-color:inherit" class="nutrient_for_sorting_text">nutrient</span> per gram</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="highest_nutrient_per_gram"
+							style="opacity: 0; width: 0px; margin: 0px"
+                            data-nutrient-sort-radio
+						/>
+					</span>
+					<span>
+						<span
+							class="div_checkbox"
+							style="user-select: none"
+							onclick="mf_check_radio_neighbor(this)"
+							>lowest <span style="background-color:inherit" class="nutrient_for_sorting_text">nutrient</span> per gram</span
+						>
+						<input
+							type="radio"
+							name="order"
+							value="lowest_nutrient_per_gram"
+							style="opacity: 0; width: 0px; margin: 0px"
+                            data-nutrient-sort-radio
+						/>
+					</span>
+				</span>
+			</div>
+
+            <br>
+
+			<div id="manageFoodResults"></div>
+		</div>
+	</div>
 </div>
+<datalist id="nutrients_datalist">
+    {% for header in nutrients_headers_nest%}
+        {% for nutrient in header.nutrients %}
+            <option value="{{nutrient.name}}"></option>
+        {% endfor %}
+    {% endfor %}
+</datalist>
+<div id="hacky-nutrient" data-nutrientList="{{nutrient_list}}"></div>
 <script src="/static/manageFood.js"></script>
 <script>
-    runDisUponLoadingOfForm()
-    addUpdateValueEvent();
+	runDisUponLoadingOfForm();
+	addUpdateValueEvent();
+	create_tab_event_listeners("tabGroup_manageFood_searchFilter");
+	create_tab_event_listeners("tabGroup_manageFood_searchFilter_container");
+
 </script>

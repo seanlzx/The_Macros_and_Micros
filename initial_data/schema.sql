@@ -9,7 +9,6 @@ CREATE TABLE food (
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-CREATE TABLE sqlite_sequence(name, seq);
 CREATE UNIQUE INDEX food_idx_id ON food (id);
 
 CREATE TABLE category (

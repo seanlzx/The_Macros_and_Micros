@@ -29,7 +29,10 @@ table_list = [
     'category',
     'dri',
     'nutrient_header',
-    'nutrient'
+    'nutrient',
+    'food',
+    'food_to_nutrient',
+    'user'
 ]
 
 for table in table_list:
