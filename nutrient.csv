@@ -1,0 +1,149 @@
+id,timestamp,name,description,nutrient_header_id,active,user_id
+0,"2022-11-06 23:59:59",calories,,0,1,1
+1,"2022-11-06 23:59:59",carbohydrates,,0,1,1
+2,"2022-11-06 23:59:59",fiber,,0,1,1
+3,"2022-11-06 23:59:59",protein,,0,1,1
+4,"2022-11-06 23:59:59",cholestrol,"There are HDLs (good ones) and LDLs (bad ones)",1,1,1
+5,"2022-11-06 23:59:58",total_fat,,1,1,1
+6,"2022-11-06 23:59:59",monounsaturated_fat,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
+Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds.",1,1,1
+7,"2022-11-06 23:59:59",polyunsaturated_fat,"Unsaturated fats, which are liquid at room temperature, are considered beneficial fats because they can improve blood cholesterol levels, ease inflammation, stabilize heart rhythms, and play a number of other beneficial roles. 
+Unsaturated fats are predominantly found in foods from plants, such as vegetable oils, nuts, and seeds.",1,1,1
+8,"2022-11-06 23:59:59",saturated_fat,"Though decades of dietary advice suggested saturated fat was harmful, in recent years that idea has begun to evolve. Several studies suggest that eating diets high in saturated fat do not raise the risk of heart disease.",1,1,1
+9,"2022-11-06 23:59:59",trans_fat,"Trans fatty acids, more commonly called trans fats, are made by heating liquid vegetable oils in the presence of hydrogen gas and a catalyst, a process called hydrogenation.
+Partially hydrogenating vegetable oils makes them more stable and less likely to become rancid. This process also converts the oil into a solid, which makes them function as margarine or shortening.
+Trans fats are the worst type of fat for the heart, blood vessels, and rest of the body because they:
+Raise bad LDL and lower good HDL",1,1,1
+10,"2022-11-06 23:59:59",omega_3,"These are essential fats the body can't make them from scratch but must get them from food. 
+They are an integral part of cell membranes throughout the body and affect the function of the cell receptors in these membranes. They provide the starting point for making hormones that regulate blood clotting, contraction and relaxation of artery walls, and inflammation. 
+They also bind to receptors in cells that regulate genetic function. Likely due to these effects, omega-3 fats have been shown to help prevent heart disease and stroke, may help control lupus, eczema, and rheumatoid arthritis, and may play protective roles in cancer and other conditions.",1,1,1
+11,"2022-11-06 23:59:59",vitamin_A,"There are two types of vitamin A: preformed (mostly found in animal products) and beta-carotene (produces dark pigments in plant foods). 
+Preformed
+Beta-carotene
+Benefits:
+Protects eye health
+Provides immune support
+Fight inflammation
+Supports skin health and cell growth
+Helps prevent cancer",2,1,1
+12,"2022-11-06 23:59:57",vitamin_B1,"Also known as Thiamin. Needed for healthy skin, hair, muscles, and brain.",3,1,1
+13,"2022-11-06 23:59:57",vitamin_B2,"Also known as Riboflavin. Needed for healthy skin, hair, blood and brain.",3,1,1
+14,"2022-11-06 23:59:57",vitamin_B3,"Also known as Niacin. Essential for healthy skin, blood cells, brain, and nervous system.",3,1,1
+15,"2022-11-06 23:59:57",vitamin_B5,"Also known as Pantothenic Acid. Aids in the formation of lipids, neurotransmitters, steroid hormones, and hemoglobin.",3,1,1
+16,"2022-11-06 23:59:57",vitamin_B6,"Also known as Pyridocal. 
+Reduces risk of heart disease.
+Aids in the regulation of sleep, appetite, and mood
+Improves cognitive abilities
+Increase immune function",3,1,1
+17,"2022-11-06 23:59:59",vitamin_B12,"Also known as Cobalamin.
+Lowers risk of heart disease
+Assists in making new cells
+Helps break down fatty acids and amino acids
+Protects nerve cells
+Helps make red blood cells",3,1,1
+18,"2022-11-06 23:59:59",vitamin_C,"Lowers risk of some cancers
+May protect against cataracts in the long term
+Helps make serotonin and norepinephrine
+Acts as an antioxidant
+Bolsters immune system",2,1,1
+19,"2022-11-06 23:59:59",vitamin_D,"Also known as Calciferol.
+Helps with the formation and strengthening of bones",2,1,1
+20,"2022-11-06 23:59:59",vitamin_E,"Alpha-tocopherol.
+Acts as an antioxidant
+Protects vitamin A and certain lipids from damage
+May help prevent dementia",2,1,1
+21,"2022-11-06 23:59:59",vitamin_K,"Supports blood clotting
+May help prevent hip fractures",2,1,1
+22,"2022-11-06 23:59:59",choline,"Aids in many nerve and brain activities
+Plays a role in metabolizing and transporting fats",2,1,1
+23,"2022-11-06 23:59:59",total_folate,"Vital for new cell creation
+Especially important for prenatal child development during pregnancy
+May reduce heart disease risk
+May reduce risk for colon cancer",2,1,1
+24,"2022-11-06 23:59:59",calcium,"Builds and protects bones and teeth
+Helps with muscle contractions and relaxation
+Aids blood clotting
+Helps maintain healthy blood pressure",4,1,1
+25,"2022-11-06 23:59:59",chloride,"Balances fluids in the body
+Essential to digestion",4,1,1
+26,"2022-11-06 23:59:59",chromium,"Helps maintain normal blood glucose levels",4,1,1
+27,"2022-11-06 23:59:59",copper,"Plays an important role in iron metabolism
+Helps make red blood cells",4,1,1
+28,"2022-11-06 23:59:59",fluoride,"Encourages strong bone formation
+Prevents dental cavities",4,1,1
+29,"2022-11-06 23:59:59",iodine,"Helps set body temperature
+Influences nerve and muscle function, reproduction, and growth
+Prevents goiter",4,1,1
+30,"2022-11-06 23:59:59",iron,"Helps ferry oxygen throughout the body
+Needed for chemical reactions in the body
+Necessary for making amino acids, collagen, neurotransmitters, and hormones",4,1,1
+31,"2022-11-06 23:59:59",magnesium,"Works with calcium in muscle contraction, blood clotting, and regulation of blood pressure
+Helps build bones and teeth",4,1,1
+32,"2022-11-06 23:59:59",manganese,"Helps form bones
+Helps metabolize amino acids, cholesterol, and carbohydrates",4,1,1
+33,"2022-11-06 23:59:59",phosphorus,"Helps build and protect bones and teeth
+Helps convert food into energy and shuttles nutrients into and out of cells",4,1,1
+34,"2022-11-06 23:59:59",potassium,"Balances fluids in the body
+Helps maintain steady heartbeat
+Needed for muscle contractions
+Lowers blood pressure
+May benefit bones",4,1,1
+35,"2022-11-06 23:59:59",selenium,"Antioxidant (neutralizes unstable molecules that can damage cells)
+Helps regulate thyroid hormone activity",4,1,1
+36,"2022-11-06 23:59:59",sodium,"Balances fluids in the body
+Impacts blood pressure (modest reductions can lower blood pressure considerably)",4,1,1
+37,"2022-11-06 23:59:59",sulfur,"Needed for healthy skin, hair, and nails",4,1,1
+38,"2022-11-06 23:59:59",zinc,"Helps form many enzymes and proteins and create new cells
+Boosts immune system
+Needed for taste and smell
+Expedites wound healing
+With antioxidants, may help delay the progression of age-related macular degeneration",4,1,1
+39,"2022-11-06 23:59:59",creatine,"Tonic of the gods. 
+
+Adenosine triphosphate (ATP) is an organic compound that provides energy to drive many processes in living cells, such as muscle contraction, nerve impulse propagation, condensate dissolution, and chemical synthesis. Found in all known forms of life, ATP is often referred to as the ""molecular unit of currency"" of intracellular energy transfer. When consumed in metabolic processes, it converts either to adenosine diphosphate (ADP) or to adenosine monophosphate (AMP). Other processes regenerate ATP. The human body recycles its own body weight equivalent in ATP each day. It is also a precursor to DNA and RNA, and is used as a coenzyme.
+
+Creatine causes you to hold a bit more water INSIDE muscle fiber cells. This is NOT the same as water bloating, outside the muscle fiber. This is cell volumization, inside the cell.
+
+From the perspective of biochemistry, ATP is classified as a nucleoside triphosphate, which indicates that it consists of three components: a nitrogenous base (adenine), the sugar ribose, and the triphosphate.
+
+Can improve brain and bone health
+Should avoid taking with caffeine, as the effects of creatine maybe blunted by high doses of caffeine. So take them at different Times",5,1,1
+40,"2022-11-06 23:59:59",caffeine,"A Central Nervous System stimulant that may reduce fatigue and drowsiness. Generally improve reaction time, wakefulness, concentration and motor coordination. Has been used as second-line treatment for ADHD.
+
+A proven Ergogenic Aid. Improves aerobic and anaerobic performance. Especially Aerobic. Decreases onset of muscle fatigue and central fatigue. Increase basal metabolic rate. Prior to aerobic exercise, increases fat oxidation particularly in people with low physical fitness.
+
+Should have with water as high doses (250mg-300mg) may cause short-term stimulation of urine for individuals who have been deprived of caffeine. May decrease coordination and increase jiteriness.",5,1,1
+41,"2022-11-06 23:59:59",good_bacteria," best eaten on an empty stomach",5,1,1
+42,"2022-11-06 23:59:59",mercury,"not good",5,1,1
+43,"2022-11-06 23:59:59",nitrates_and_nitrites,"not good",5,1,1
+44,"2022-11-06 23:59:59",artificial_food_colors,"not good",5,1,1
+45,"2022-11-06 23:59:58",vitamin_B7,"Also known as biotin",3,1,1
+46,"2022-11-06 23:59:59",molybdenum,,4,1,1
+47,"2022-11-06 23:59:59","Linoleic_acid
+",,1,1,1
+48,"2022-11-06 23:59:59","A-linolenic_acid
+",,1,1,1
+49,"2022-11-06 23:59:59",nickel,,4,1,1
+50,"2022-11-06 23:59:59",boron,,4,1,1
+51,"2022-11-06 23:59:59",arsenic,,4,1,1
+52,"2022-11-06 23:59:59",Silicon,,4,1,1
+53,"2022-11-06 23:59:59",sulfate,,4,1,1
+54,"2022-11-06 23:59:59",vanadium,,4,1,1
+55,"2022-11-06 23:59:59",total_sugar,https://en.wikipedia.org/wiki/Sugar,0,1,1
+56,"2022-11-06 23:59:59",glucose,"Glucose is a simple sugar, or monosaccharide. It’s your body’s preferred carb-based energy source.  
+Monosaccharides are made up of one single unit of sugar and thus cannot be broken down into simpler compounds.  
+They’re the building blocks of carbohydrates.  
+In foods, glucose is most commonly bound to another simple sugar to form either polysaccharide starches or disaccharides, such as sucrose and lactose.  
+It’s often added to processed foods in the form of dextrose, which is extracted from corn or wheat.  
+Glucose is less sweet than both fructose and sucrose",0,1,1
+57,"2022-11-06 23:59:59",fructose,"Fructose, or 'fruit sugar,' is a monosaccharide like glucose.  
+It’s naturally found in fruit, honey, agave, and most root vegetables. Moreover, it’s commonly added to processed foods in the form of high fructose corn syrup.  
+Fructose is sourced from sugar cane, sugar beets, and corn. High -fructose corn syrup is made from cornstarch and contains more fructose than glucose, compared with regular corn syrup.  
+Of the three sugars, fructose has the sweetest taste but the least impact on your blood sugar.",0,1,1
+58,"2022-11-06 23:59:59",sucrose,"Sucrose is the scientific name for table sugar.  
+Sugars are categorized as monosaccharides or disaccharides. Disaccharides are made up of two linked monosaccharides and are broken back down into monosaccharides during digestion.  
+Sucrose is a disaccharide consisting of one glucose molecule and one fructose molecule, or 50% glucose and 50% fructose.  
+It’s a naturally occurring carbohydrate found in many fruits, vegetables, and grains, but it’s also added to many processed foods, such as candy, ice cream, breakfast cereals, canned foods, soda, and other sweetened beverages.  
+Table sugar and the sucrose found in processed foods are commonly extracted from sugar cane or sugar beets.  
+Sucrose tastes less sweet than fructose alone but sweeter than glucose alone.",0,1,1
+59,"2022-11-06 23:59:59",alcohol,,5,1,1

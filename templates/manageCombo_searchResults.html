@@ -5,9 +5,11 @@
                 {{combo.name}}
                 <span class="username">{{combo.username}}</span>
             </span>
+            <span style="color:#aaa">{{combo.timestamp}}</span>
+            <strong>${{combo.price}}</strong>
             <br>
             {% for food in combo.foods %}
-                <span class="foodItem" title="id: {{food.id}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
+                <span class="foodItem" title="id: {{food.id}} &#013;{{food.price}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
             {% endfor %}
 
             <p class="description">{{combo.description}}</p>

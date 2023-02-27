@@ -80,18 +80,22 @@ def manageCombo_searchResults():
     
     for combo in combo_results:
         raw_food = c.execute("""
-            SELECT f.id AS id, f.name AS name, ctf.quantity AS quantity, f.description AS description
-            FROM food f
-            JOIN combo_to_food ctf
-            ON f.id = ctf.food_id
-            WHERE ctf.combo_id = ?;
+        SELECT f.id AS id, f.name AS name, ctf.quantity AS quantity, f.description AS description, ROUND(f.price * (ctf.quantity/100.0), 2) AS price
+        FROM food f
+        JOIN combo_to_food ctf
+        ON f.id = ctf.food_id
+        WHERE ctf.combo_id = ?;
         """, (combo["id"],),)
         
-        combo["foods"] = listOfTuplesToListOfDict(raw_food, ["id", "name", "quantity", "description"])
+        combo["foods"] = listOfTuplesToListOfDict(raw_food, ["id", "name", "quantity", "description", "price"])
         
         combo["nutrients"] = {}
         
+        combo["price"] = 0
+        
         for food in combo["foods"]:
+            combo["price"] += food["price"]
+            
             raw_nutrients = c.execute(
                 """
                 SELECT n.id AS id, n.name AS name, ftn.quantity * (?/100.0) AS quantity 
@@ -103,14 +107,13 @@ def manageCombo_searchResults():
                 (food["quantity"],food["id"],),
             )
             
-            nutrients = listOfTuplesToListOfDict(raw_nutrients, ["id", "name", "quantity"])
-            food["nutrients"] = nutrients
+            food["nutrients"] = listOfTuplesToListOfDict(raw_nutrients, ["id", "name", "quantity"])
             
             for nutrient in food["nutrients"]:
                 if nutrient["id"] in combo["nutrients"]:
                     combo["nutrients"][nutrient["id"]] += nutrient["quantity"]
                 else:
-                    combo["nutrients"][nutrient["id"]] = nutrient["quantity"] 
+                    combo["nutrients"][nutrient["id"]] = nutrient["quantity"]
     
     nutrient_headers = listOfTuplesToListOfDict(c.execute("SELECT id, name FROM nutrient_header;"), ["id", "name"])
     

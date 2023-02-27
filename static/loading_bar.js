@@ -13,7 +13,9 @@ for (let loading_bar of document.querySelectorAll(".loading_bar")) {
     if (actual){
         if (rda) {
             let white_width = total_width * (actual / rda);
-            white_width < total_width || (white_width = total_width);
+            if (white_width >= total_width){
+                red_bar.style.backgroundColor = "#f55";
+            }
             white_bar.style.width = white_width + "px";
         } 
         // else {

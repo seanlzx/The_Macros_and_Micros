@@ -52,3 +52,9 @@ a good way to go about planning a project
 		for queries to data base, first make use of prints in the backend
 	than can nicen up the html, add styling, and whatever fancy JS tricks
 	can worry about indexes for the database later
+
+
+sqlite> .headers on
+sqlite> .mode csv
+sqlite> .output selected_data.csv
+sqlite> SELECT book_id,
