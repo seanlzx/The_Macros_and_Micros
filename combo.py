@@ -130,7 +130,10 @@ def manageCombo_searchResults():
         header["nutrients"] = listOfTuplesToListOfDict(raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"])
      
     db.close()
-    return render_template("manageCombo_searchResults.html", combo_results=combo_results, nutrient_headers= nutrient_headers)
+    if combo_results:
+        return render_template("manageCombo_searchResults.html", combo_results=combo_results, nutrient_headers= nutrient_headers)
+    else:
+        return render_template("search_produced_noResults.html")
 
 @combo.route("/combo_LoadEditorForm")
 def combo_LoadEditorForm():

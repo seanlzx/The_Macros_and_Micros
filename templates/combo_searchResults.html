@@ -22,13 +22,19 @@
                 {% for header in nutrient_headers %}
                     <h4>{{header.name}}</h4>
                     {% for nutrient in header.nutrients %}
-                        <span style="display:inline-block;width:300px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{combo.nutrients[nutrient.nutrient_id]}}{% else %}0{% endif %} grams &#013;rda: {{nutrient.rda}} grams &#013;ul: {{nutrient.ul}} grams &#013;description: {{nutrient.description}}">{{nutrient.name}}
+                        <span style="display:inline-block;width:400px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{combo.nutrients[nutrient.nutrient_id]}}{% else %}0{% endif %} grams &#013;rda: {{nutrient.rda}} grams &#013;ul: {{nutrient.ul}} grams &#013;description: {{nutrient.description}}">{{nutrient.name}}
                             <span class="loading_bar" data-actual="{{combo.nutrients[nutrient.nutrient_id]}}" data-rda="{{nutrient.rda}}" data-ul="{{nutrient.ul}}">
                                 <span class="upon_rda">
                                     <span class="upon_ul"></span>
                                 </span>
                             </span>
-                        </span>
+                            {% if combo.nutrients[nutrient.nutrient_id] and nutrient.rda %}
+                            <b>{{(combo.nutrients[nutrient.nutrient_id]/nutrient.rda * 100)|round|int}} % of RDA</b>,
+                        {% endif %} 
+                        {% if combo.nutrients[nutrient.nutrient_id] and nutrient.ul %}
+                            <b>{{(combo.nutrients[nutrient.nutrient_id]/nutrient.ul * 100)|round|int}} % of UL</b>
+                        {% endif %}
+                        </span> 
                     {% endfor %}
                 {% endfor %}
             </div>

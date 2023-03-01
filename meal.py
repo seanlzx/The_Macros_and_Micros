@@ -173,7 +173,10 @@ def meal_sort(order):
         header["nutrients"] = listOfTuplesToListOfDict(raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"])
                 
     db.close()
-    return render_template("meal_records.html", meals=meals, nutrient_headers=nutrient_headers)
+    if meals:
+        return render_template("meal_records.html", meals=meals, nutrient_headers=nutrient_headers)
+    else:
+        return render_template("search_produced_noResults.html")
 
 @meal.route("/meal_loadEditForm")
 def meal_loadEditForm():
