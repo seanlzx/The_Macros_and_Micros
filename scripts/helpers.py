@@ -126,6 +126,10 @@ def loadFoodFormData(c):
     
     return dict
 
+def get_dri_group(c):
+    c.execute("SELECT dri_group FROM user WHERE id=?",(hardCodeUserId,))
+    return c.fetchall()[0][0]
+
 def daterange(date1, date2):
     for n in range(int ((date2 - date1).days)+1):
         yield date1 + timedelta(n)
@@ -187,3 +191,24 @@ def loadSearchFilterInfo(c):
             raw, ["id", "name", "user_id", "username"]
         )
     return dict
+
+def return_g_mg_mcg(raw_n):
+    if not raw_n:
+        return "none"
+    raw_n = float(raw_n)
+
+    n = 0
+    unit = ""
+    if raw_n >= 1:
+        n = raw_n
+        unit = "g"
+    elif raw_n >=0.001:
+        n = raw_n * 1000
+        unit = "mg"
+    elif raw_n:
+        n = raw_n * 1000000
+        unit = "μg"
+    
+    return str(round(n, 2)) + f" {unit}";
+
+

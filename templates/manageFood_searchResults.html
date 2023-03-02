@@ -2,7 +2,7 @@
 <div
 	class="darkBox"
 	onclick="manageFoodLoadEditor({{food_result.id}})"
-	title="id: {{food_result.id}} &#013;{% for nutrient in food_result.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}"
+	title="id: {{food_result.id}} &#013;{% for nutrient in food_result.nutrients %}{{nutrient.name}}: {{return_g_mg_mcg(nutrient.quantity)}}&#013;{% endfor %}"
 >
 	<div>
 		<span class="name">{{food_result.name}}</span>

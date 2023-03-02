@@ -9,21 +9,21 @@
             <strong>${{combo.price}}</strong>
             <br>
             {% for food in combo.foods %}
-                <span class="foodItem" title="id: {{food.id}} &#013;{{food.price}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{nutrient.quantity}}g&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
+                <span class="foodItem" title="id: {{food.id}} &#013;{{food.price}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{return_g_mg_mcg(nutrient.quantity)}}&#013;{% endfor %}">{{food.quantity}} {{food.name}}</span>
             {% endfor %}
 
             <p class="description">{{combo.description}}</p>
         </div>
     </div>
     <div id="tabGroup_nutritionalInfo_combo{{combo.id}}">
-        <button style="width:100%;" data-tab="nutrient{{combo.id}}">{{combo.name}} nutritional information</button>
+        <button style="width:100%;" data-tab="nutrient{{combo.id}}"  onclick="setTimeout(()=>loading_bar_init(), 100)">{{combo.name}} nutritional information</button>
         
         <div id="nutrient{{combo.id}}">
             <div class="greyBox">
                 {% for header in nutrient_headers %}
                     <h4>{{header.name}}</h4>
                     {% for nutrient in header.nutrients %}
-                        <span style="display:inline-block;width:400px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{combo.nutrients[nutrient.nutrient_id]}}{% else %}0{% endif %} grams &#013;rda: {{nutrient.rda}} grams &#013;ul: {{nutrient.ul}} grams &#013;description: {{nutrient.description}}">{{nutrient.name}}
+                        <span style="display:inline-block;width:400px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{return_g_mg_mcg(combo.nutrients[nutrient.nutrient_id])}}{% else %}0 g{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}">{{nutrient.name}}
                             <span class="loading_bar" data-actual="{{combo.nutrients[nutrient.nutrient_id]}}" data-rda="{{nutrient.rda}}" data-ul="{{nutrient.ul}}">
                                 <span class="upon_rda">
                                     <span class="upon_ul"></span>

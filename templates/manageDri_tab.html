@@ -1,0 +1,21 @@
+<div id="Manage DRI">
+    <div class="greyBox">
+        <h3 class="marginTop5">Manage DRI</h3>
+        <input
+            id="manageDriSearch"
+            placeholder="DRI"
+            list="driList"
+            name="dri"
+            spellcheck="false"
+            data-ms-editor="true"
+        />
+        <button id="manageDriSearchButton">Search DRI</button>
+
+        <div id="manageDriResults"></div>
+    </div>
+</div>
+<script src="/static/manageDri.js"></script>
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>

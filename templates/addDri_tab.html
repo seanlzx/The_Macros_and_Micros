@@ -1,0 +1,125 @@
+<div id="Add DRI">
+    <div class="greyBox">
+        <h3 class="marginTop5">Add DRI</h3>
+        <form action="/addDri" method="post">
+            <input
+                class="width100"
+                autocomplete="off"
+                required
+                name="name"
+                type="text"
+            />
+
+			<fieldset>
+				<legend><b>nutrients</b></legend>
+
+				{% for header in nutrient_nest %}
+				<legend><b>{{nutrient_nest[header]['name']}}</b></legend>
+
+				{% for nutrient in nutrient_nest[header]['list']%}
+				<span class="nutrientSpan" style="margin-right:0px">
+					<!--Note the &#013; in the title attribute value string is for newlines-->
+                    {{nutrient.name}}: 
+					<input
+						id="rda_nutrient{{nutrient.id}}"
+						class="nutrient"
+						autocomplete="off"
+						name="rda_{{nutrient.id}}"
+						type="number"
+                        min="0"
+						step="any"
+						title="RDA"
+					/>
+					<span id="rda_unit{{nutrient.id}}">grams</span>
+					<span id="rda_unitConvertBtns{{nutrient.id}}">
+						<button
+							onclick="rda_mg2g('{{nutrient.id}}')"
+							title="convert milligrams to grams"
+							type="button"
+						>
+							<b>mg</b>
+						</button>
+						<button
+							onclick="rda_μg2g('{{nutrient.id}}')"
+							title="convert micrograms to grams"
+							type="button"
+						>
+							<b>μg</b>
+						</button>
+					</span>
+					<button
+						style="display: none"
+						id="rda_undo_mg2g{{nutrient.id}}"
+						onclick="rda_undo_mg2g('{{nutrient.id}}')"
+						type="button"
+					>
+						<b>undo mg👉g</b>
+					</button>
+					<button
+						style="display: none"
+						id="rda_undo_μg2g{{nutrient.id}}"
+						onclick="rda_undo_μg2g('{{nutrient.id}}')"
+						type="button"
+					>
+						<b>undo μg👉g</b>
+					</button>
+				</span>
+                <span class="nutrientSpan" style="margin-right: 30px">
+					<!--Note the &#013; in the title attribute value string is for newlines-->
+					<input
+						id="ul_nutrient{{nutrient.id}}"
+						class="nutrient"
+						autocomplete="off"
+						name="ul_{{nutrient.id}}"
+						type="number"
+                        min="0"
+						step="any"
+						title="UL"
+					/>
+					<span id="ul_unit{{nutrient.id}}">grams</span>
+					<span id="ul_unitConvertBtns{{nutrient.id}}">
+						<button
+							onclick="ul_mg2g('{{nutrient.id}}')"
+							title="convert milligrams to grams"
+							type="button"
+						>
+							<b>mg</b>
+						</button>
+						<button
+							onclick="ul_μg2g('{{nutrient.id}}')"
+							title="convert micrograms to grams"
+							type="button"
+						>
+							<b>μg</b>
+						</button>
+					</span>
+					<button
+						style="display: none"
+						id="ul_undo_mg2g{{nutrient.id}}"
+						onclick="ul_undo_mg2g('{{nutrient.id}}')"
+						type="button"
+					>
+						<b>undo mg👉g</b>
+					</button>
+					<button
+						style="display: none"
+						id="ul_undo_μg2g{{nutrient.id}}"
+						onclick="ul_undo_μg2g('{{nutrient.id}}')"
+						type="button"
+					>
+						<b>undo μg👉g</b>
+					</button>
+				</span>
+				{% endfor %} {% endfor %}
+			</fieldset>
+
+            <br />
+            <input class="width100" type="submit" value="submit" />
+        </form>
+    </div>
+</div>
+<script src="/static/addDri.js"></script>
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>

@@ -2,7 +2,7 @@
 	<div class="greyBox">
 		<h3 class="marginTop5">Edit Combo</h3>
 		<div id="tabGroup_nutritionalInfo_combo{{combo.id}}">
-			<button style="width: 100%" data-tab="nutrient{{combo.id}}">
+			<button style="width: 100%" data-tab="nutrient{{combo.id}}"  onclick="setTimeout(()=>loading_bar_init(), 100)">
 				{{combo.name}} nutritional information
 			</button>
 
@@ -13,7 +13,7 @@
 					{% for nutrient in header.nutrients %}
 					<span
 						style="display: inline-block; width: 400px"
-						title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{combo.nutrients[nutrient.nutrient_id]}}{% else %}0{% endif %} grams &#013;rda: {{nutrient.rda}} grams &#013;ul: {{nutrient.ul}} grams &#013;description: {{nutrient.description}}"
+						title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{return_g_mg_mcg(combo.nutrients[nutrient.nutrient_id])}}{% else %}0{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}"
 						>{{nutrient.name}}
 						<span
 							class="loading_bar"
@@ -91,7 +91,7 @@
 				{% endfor %}
 			</div>
 
-			<input class="width100" type="submit" value="update" />
+			<input class="width50" type="submit" value="update" />
 		</form>
 		<form action="/combo_edit_deactivate" method="post">
 			<input name="id" value="{{combo.id}}" readonly hidden />

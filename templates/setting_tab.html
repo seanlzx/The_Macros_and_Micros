@@ -1,0 +1,201 @@
+<div id="Edit Setting">
+	<div class="greyBox">
+		<h3 class="marginTop5">Edit Settings</h3>
+		<form action="/editSetting" method="post">
+			<input name="id" value="{{setting.id}}" hidden readonly />
+			<input name="user_type" value="{{setting.user_type}}" hidden readonly />
+			name:
+			<input
+				autocomplete="off"
+				required
+				value="{{setting.name}}"
+				name="name"
+				type="text"
+			/>
+			<br /><br />
+			weight:
+			<input
+				autocomplete="off"
+				required
+				value="{{setting.weight}}"
+				name="weight"
+				type="number"
+				step="0.1"
+				min="0"
+			/>KG <br /><br />
+			height:
+			<input
+				autocomplete="off"
+				required
+				value="{{setting.height}}"
+				name="height"
+				type="number"
+				step="0.1"
+				min="0"
+			/>M <br /><br />
+			gender:
+			<input
+				autocomplete="off"
+				required
+				value="{{setting.gender}}"
+				name="gender"
+				type="text"
+			/>
+			<br /><br />
+			age:
+			<input
+				autocomplete="off"
+				required
+				value="{{setting.age}}"
+				name="age"
+				type="number"
+				step="1"
+				min="0"
+			/>
+			<br /><br />
+			<span>
+				<input id="from_current" name="from_current" type="checkbox" value="current"
+				onclick="readonlyInput(this)" {% if setting.from_date == "curr" %}
+				checked {% endif %} >
+				<label for="from_current">from date startup with current date</label>
+				<br />
+				<span style="margin-right: 20px"></span>startup from date: <input
+				autocomplete="off" required {% if setting.from_date != "curr" %}
+				value="{{setting.from_date}}" {% endif %} name="from_date" type="date" {% if
+				setting.from_date == "curr" %} style="opacity:0.3" readonly 
+                {% else %}
+                    required
+                {% endif %}
+				/>
+			</span>
+
+			<br /><br />
+
+			<span>
+				<input id="to_current" name="to_current" type="checkbox" value="current"
+				onclick="readonlyInput(this)" {% if setting.to_date == "curr" %} checked
+				{% endif %} >
+				<label for="to_current">to date startup with current date</label>
+				<br />
+				<span style="margin-right: 20px"></span>startup to date: <input
+				autocomplete="off" required {% if setting.to_date != "curr" %}
+				value="{{setting.to_date}}" {% endif %} name="to_date" type="date" {% if
+				setting.to_date == "curr" %} style="opacity:0.3" readonly 
+                {% else %}
+                    required
+                {% endif %} />
+			</span>
+			<br /><br />
+			<div id="setting_dri_containter">
+				{% if setting.dri_group %} DRI group:
+				<input
+					type="text"
+					name="dri_group"
+					value="{{setting.dri_group}}"
+					required
+					readonly
+				/><input
+					type="button"
+					onclick="bring_back_search()"
+					value="change dri"
+				/>
+				{% else %} Search:
+				<input
+					id="dri_search_input"
+					autocomplete="off"
+					required
+					list="driList"
+					name="dri_search"
+					type="text"
+					required
+				/><input
+					type="button"
+					onclick="setting_dri_search()"
+					value="Search DRI"
+				/>
+				<div id="setting_dri_search_results"></div>
+				{% endif %}
+			</div>
+			<br /><br />
+			<input id="setting_tab_submit_btn" class="width50" type="submit" value="update" />
+		</form>
+		<!--<form action="/combo_edit_deactivate" method="post">
+			<input name="id" value="{{setting.id}}" readonly hidden />
+			<input class="width50" type="submit" value="deactivate" />
+		</form>-->
+		<button class="width50" onclick="this.parentElement.parentElement.remove()">
+			cancel
+		</button>
+	</div>
+</div>
+
+<script>
+	"use strict";
+	function readonlyInput(checkbox) {
+		let dateInput = checkbox.parentElement.querySelector("input[type='date']");
+
+		if (checkbox.checked) {
+			dateInput.style.opacity = "0.3";
+			dateInput.readOnly = true;
+            dateInput.required = false;
+		} else {
+			dateInput.style.opacity = "1";
+			dateInput.readOnly = false;
+            dateInput.required = true;
+		}
+	}
+
+	function setting_dri_search() {
+		let search_input = document.querySelector("#dri_search_input").value;
+
+		$.ajax({
+			url: "/setting_dri_search",
+			type: "get",
+			data: {
+				search_input,
+			},
+			success: function (response) {
+				$("#setting_dri_search_results").html(response);
+			},
+			error: function (xhr) {
+				console.log(xhr);
+			},
+		});
+	}
+
+	function setting_dri_search_select(dri_group) {
+		let dri_container = document.querySelector("#setting_dri_containter");
+
+		dri_container.innerHTML = `
+            DRI group: <input type="text" name="dri_group" value="${dri_group}" readonly><input type="button" onclick="bring_back_search()" value="change dri">
+        `;
+	}
+
+	function bring_back_search() {
+		let dri_container = document.querySelector("#setting_dri_containter");
+
+		dri_container.innerHTML = `
+            Search: <input
+            id="dri_search_input"
+            autocomplete="off"
+            required
+            list="driList"
+            name="dri"
+            type="text"
+            required
+            /><input type="button" onclick="setting_dri_search()" value="Search DRI">
+            <div id="setting_dri_search_results"></div>
+        `;
+	}
+
+    document.getElementById("setting_tab_submit_btn").addEventListener("click", event =>{
+        if (document.getElementById("dri_search_input")){
+            event.preventDefault() 
+            alert("Select a DRI")
+        }
+      })
+</script>
+<script>
+	runDisUponLoadingOfForm();
+	addUpdateValueEvent();
+</script>

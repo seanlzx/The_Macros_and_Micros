@@ -1,0 +1,5 @@
+{% for dri in dri_results%}
+    <div class="darkBox" style="height:40px" onclick="setting_dri_search_select('{{dri.name}}')">
+        <div><span class="name">{{dri.name}}</sp> <span class="username">{{dri.username}}</span> <span class="timestamp">{{dri.timestamp}}</span></div>
+    </div>
+{% endfor %}

@@ -97,3 +97,45 @@ def addCategory_tab():
 @dynamicTabGroup1.route("/manageCategory_tab")
 def manageCategory_tab():
     return render_template("manageCategory_tab.html")
+
+@dynamicTabGroup1.route("/addNutrient_tab")
+def addNutrient_tab():
+    db = get_db()
+    c = db.cursor()
+
+    headers = listOfTuplesToListOfDict(c.execute("SELECT id, name FROM nutrient_header"), ["id", "name"])
+
+    db.close()
+    return render_template("addNutrient_tab.html", headers=headers)
+
+
+@dynamicTabGroup1.route("/manageNutrient_tab")
+def manageNutrient_tab():
+    return render_template("manageNutrient_tab.html")
+
+@dynamicTabGroup1.route("/addDri_tab")
+def addDri_tab():
+    db = get_db()
+    c = db.cursor()
+
+    foodFormData = loadFoodFormData(c)
+    nutrient_nest = foodFormData["nutrient_nest"]
+    
+    db.close()
+    return render_template("addDri_tab.html", nutrient_nest=nutrient_nest)
+
+
+@dynamicTabGroup1.route("/manageDri_tab")
+def manageDri_tab():
+    return render_template("manageDri_tab.html")
+
+@dynamicTabGroup1.route("/setting_tab")
+def setting_tab():
+    db = get_db()
+    c = db.cursor()
+    
+    raw = c.execute("SELECT id, name, weight, height, gender, age, from_date, to_date, dri_group, user_type FROM user WHERE id = ?", (hardCodeUserId,),)
+    setting = listOfTuplesToListOfDict(raw, ["id", "name", "weight", "height", "gender", "age", "from_date", "to_date", "dri_group", "user_type"])[0]
+    
+    db.close()
+    return render_template("setting_tab.html", setting=setting)

@@ -87,7 +87,7 @@ input[value="disable"]{
 	display: table;
 	clear: both;
 }
-#meal_records div {
+#meal_records > div {
 	margin-left: 2em;
 }
 

@@ -1,0 +1,50 @@
+<div id="Add Nutrient">
+    <div class="greyBox">
+        <h3 class="marginTop5">Add Nutrient</h3>
+        <form action="/addNutrient" method="post">
+            <input
+                class="width100"
+                autocomplete="off"
+                required
+                name="name"
+                type="text"
+            />
+
+            <textarea
+                class="width100"
+                autocomplete="off"
+                name="description"
+                rows="4"
+                cols="50"
+                maxlength="1000"
+            ></textarea>
+
+            <fieldset title='Select a header for organization in "Add Meal" form'>
+                <legend><b>Nutrient headers</b></legend>
+                {% for header in headers %}
+
+                <!--quick note: header is the header_id-->
+
+                <input
+                    type="radio"
+                    id="addNutrientHeader{{header.id}}"
+                    name="header"
+                    value="{{header.id}}"
+                    placeholder="nutrient"
+                />
+                <label for="addNutrientHeader{{header.id}}"
+                    >{{header.name}}</label
+                >
+                {% endfor %}
+            </fieldset>
+
+            <br />
+            <input class="width100" type="submit" value="submit" />
+        </form>
+    </div>
+</div>
+
+<script>
+    runDisUponLoadingOfForm()
+    addUpdateValueEvent();
+</script>

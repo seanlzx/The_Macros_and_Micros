@@ -1,5 +1,5 @@
 {% for category in category_results%}
-    <div class="darkBox" onclick="manageCategoryLoadEditor({{category.id}})" title="id: {{category.id}}">
+    <div class="darkBox" style="height:60px" onclick="manageCategoryLoadEditor({{category.id}})" title="id: {{category.id}}">
         <div><span class="name">{{category.name}}</sp> <span class="username">{{category.username}}</span> <span class="timestamp">{{category.timestamp}}</span></div>
         <div class="categories">
             {% for parent in category.parents %}

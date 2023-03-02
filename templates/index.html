@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 
 {% block main %}
+    <a href="{{ url_for('index') }}" style="text-docoration:none;">
+        <h1>The Macros and Micros</h1>
+    </a>
+
     <div id="dynamicTabGroup1">
         <div class="button_container">
             <button data-url="/addMeal_tab">Add Meal</button>
@@ -16,6 +20,18 @@
     
             <button data-url="/addCategory_tab">Add Category</button>
             <button data-url="/manageCategory_tab">Manage Category</button>
+            <span class="marginRight15"></span>
+
+            <!--
+            <button data-url="/addNutrient_tab">Add Nutrient</button>
+            <button data-url="/manageNutrient_tab">Manage Nutrient</button>
+            <span class="marginRight15"></span>-->
+
+            <button data-url="/addDri_tab">Add DRI</button>
+            <button data-url="/manageDri_tab">Manage DRI</button>
+            <span class="marginRight15"></span>
+
+            <button data-url="/setting_tab">Settings</button>
             <span class="marginRight15"></span>
         </div>
 
@@ -33,6 +49,7 @@
                         name="from"
                         placeholder="dd-mm-yyyy"
                         type="date"
+                        value="{{sort_date.from_date}}"
                         required
                     />
                     to:
@@ -41,6 +58,7 @@
                         name="to"
                         placeholder="dd-mm-yyyy"
                         type="date"
+                        value="{{sort_date.to_date}}"
                         required
                     />
                     <span class="marginRight15"></span>
@@ -61,17 +79,16 @@
         <p>Recommended Dietary Intake <b>(RDA)</b> is basically the <b>minimum</b></p> 
         <p>Upper Limit <b>(UL)</b> is indeed the upper limit</p>
         
-        <p><b>Ignore sugar</b>, cause the only information on recommended minimums and maximums on sugar I can find relate to ADDED sugars and not actual sugar
-        that said though sugars from fruits, milk or whatever are finE for the most part, know your own body</p>
+        <p>Dietary Reference Intakes <b>(DRI)</b> can refer to RDAs and ULs for a specified group(gender, weightclass, age)</p>
+
+        <p><b>sugar doesn't really have a UL</b>, cause the only information on recommended ULs on sugar I can find relate to ADDED sugars and not actual sugar</p>
         
-        <p><b>magneisum data is weird</b>, the limits on magnesium relates to supplementary sources, <b>there should be no problem with overdosing if your magnesium sources
+        <p><b>magneisum data is weird</b>, the limits on magnesium relates to supplementary sources, <b>there should be no problem with "overdosing" if your magnesium sources
         are from food</b></p>
         
         <p>you should <b>not worry too much</b> if you have a little bit of <b>overdose</b> on <b>calcium</b> and <b>b3</b> just google the symptoms, if you actually notice them, than do something about it</p>
         
-        <p><b>dont worry</b> about some of the <b>weirder sounding nutrients</b> (like molybdenum, linolelick my balls), the reason why theres no ratios on them, is because the food data was not available, likely because <b>there aren't many cases of deficiencies for them. who tested the food nutrient</b></p>
-        
-        <p>note potassium is however really important, however for some reason potassium food data is usually excluded so, might be ok if you're a bit below RDA</p>
+        <p><b>dont worry</b> about some of the <b>weirder sounding nutrients</b> (like molybdenum, Linoliec_acid...), the reason why theres no ratios on them, is because the food data was not available, likely because <b>there aren't many cases of deficiencies for them.</b></p>
         
         <p>The RDA(minimum) and UL(maximum) for this nutrients are for fairly active males 19-30, if you're especially active you should have more omega 3, protein, calories, carbs, potassium(again note that data tend to be incomplete), vitamin D...</p>
         
@@ -83,6 +100,7 @@
         <a href="https://en.wikipedia.org/wiki/List_of_vegetables">
             <p>List of vegetables and their types</p></a>
 
+        <p>Most of the food data was extracted from NCCDB, USDA, CRDB</P
     </footer>
 
     <div class="this div is just to get rid of clutter">
@@ -110,6 +128,12 @@
             {% endfor %}
         </datalist>
 
+        <datalist id="driList">
+            {% for dri in driList %}
+            <option value="{{dri}}"></option>
+            {% endfor %}
+        </datalist>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
         <script src="/static/dynamicTabs.js"></script>
@@ -124,9 +148,23 @@
 
         <script src="/static/addUpdateValueEvent.js"></script>
 
-        <script>
-            document.querySelector("#meal_sort input[name='from']").valueAsDate = new Date();
-            document.querySelector("#meal_sort input[name='to']").valueAsDate = new Date();
+        <script defer>
+            init_from = document.querySelector("#meal_sort input[name='from']").value
+            init_to = document.querySelector("#meal_sort input[name='to']").value
+
+            console.log({init_from})
+            $.ajax({
+                type:'get',
+                url:'/meal_sort/ASC',
+                data:{
+                    from:init_from,
+                    to:init_to
+                },
+                success:function(response)
+                {
+                    $("#meal_records").html(response);
+                }
+            })
         </script>
     </div>
 
