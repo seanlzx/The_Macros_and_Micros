@@ -39,10 +39,10 @@ function loading_bar_init(){
             // let textSpan = document.createElement("span")
             // textSpan.appendChild(textNode)
             // loading_bar.parentElement.append(textSpan)
-            if (!rda && !ul){
-                loading_bar.style.backgroundColor = "#555"
-                loading_bar.innerHTML = "&nbsp;no RDA and U</span>"
-            }
+        }
+        if (!rda && !ul){
+            loading_bar.style.backgroundColor = "#555"
+            loading_bar.innerHTML = "&nbsp;no RDA and U</span>"
         }
     }
 }

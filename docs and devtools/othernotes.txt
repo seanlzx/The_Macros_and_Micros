@@ -56,5 +56,6 @@ a good way to go about planning a project
 
 sqlite> .headers on
 sqlite> .mode csv
+
 sqlite> .output selected_data.csv
 sqlite> SELECT book_id,

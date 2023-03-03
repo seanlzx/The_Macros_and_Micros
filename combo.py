@@ -7,7 +7,7 @@ from scripts.helpers import *
 
 # this is hardcoded for now
 hardCodeUserId = 0
-hardCodeDriGroupName = "male 19-30"
+
 
 combo = Blueprint("combo", __name__, template_folder="templates")
 
@@ -126,7 +126,7 @@ def manageCombo_searchResults():
         WHERE n.nutrient_header_id = ?
         AND d.active = 1 AND n.active = 1
         AND d.group_name = ?;
-        """, (header["id"], hardCodeDriGroupName))
+        """, (header["id"], get_dri_group(c)))
         header["nutrients"] = listOfTuplesToListOfDict(raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"])
      
     db.close()
@@ -193,7 +193,7 @@ def combo_LoadEditorForm():
         WHERE n.nutrient_header_id = ?
         AND d.active = 1 AND n.active = 1
         AND d.group_name = ?;
-        """, (header["id"], hardCodeDriGroupName))
+        """, (header["id"], get_dri_group(c)))
         header["nutrients"] = listOfTuplesToListOfDict(raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"])
 
     db.close()

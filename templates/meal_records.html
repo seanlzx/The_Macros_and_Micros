@@ -1,88 +1,128 @@
 {% for date in meals %}
-    <h3>{{date}}</h3>
-    <div id="tabGroup_nutritionalInfo_date{{date}}">
-        <button style="width:100%;" data-tab="nutrient{{date}}"  onclick="setTimeout(()=>loading_bar_init(), 100)">{{date}} nutritional information</button>
-        
-        <div id="nutrient{{date}}">
-            <div class="greyBox">
-                {% for header in nutrient_headers %}
-                    <h4>{{header.name}}</h4>
-                    {% for nutrient in header.nutrients %}
-                        <span style="display:inline-block;width:400px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in meals[date].nutrients %}{{return_g_mg_mcg(meals[date].nutrients[nutrient.nutrient_id])}}{% else %}0 g{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}">{{nutrient.name}}
-                            <span class="loading_bar" data-actual="{{meals[date].nutrients[nutrient.nutrient_id]}}" data-rda="{{nutrient.rda}}" data-ul="{{nutrient.ul}}">
-                                <span class="upon_rda">
-                                    <span class="upon_ul"></span>
-                                </span>
-                            </span>
-                            {% if meals[date].nutrients[nutrient.nutrient_id] and nutrient.rda %}
-                                <b>{{(meals[date].nutrients[nutrient.nutrient_id]/nutrient.rda * 100)|round|int}} % of RDA</b>,
-                            {% endif %} 
-                            {% if meals[date].nutrients[nutrient.nutrient_id] and nutrient.ul %}
-                                <b>{{(meals[date].nutrients[nutrient.nutrient_id]/nutrient.ul * 100)|round|int}} % of UL</b>
-                            {% endif %}
-                        </span>
-                    {% endfor %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% for meal in meals[date].meals %}
-        <div class="record" title="id: {{meal.id}}" id="meal{{meal.id}}">
-            <span class="recordLeft">
-                <h3>{{meal.name}} {{meal.time_of_meal}} <button onclick="meal_loadEditForm({{meal.id}})">edit</button></h3>
+<h3>{{returnDayOfWeek(date)}} {{date}}</h3>
+<div id="tabGroup_nutritionalInfo_date{{date}}" style="margin-left:0px;">
+	<button
+		style="width: 100%"
+		data-tab="nutrient{{date}}"
+		onclick="setTimeout(()=>loading_bar_init(), 100)"
+	>
+    {{returnDayOfWeek(date)}} {{date}} nutritional information
+	</button>
 
-                {% for food in meal.foods %}
-                    <span class="foodItem" title="id: {{food.id}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{return_g_mg_mcg(nutrient.quantity)}}&#013;{% endfor %}">{{food.quantity}} grams {{food.name}}</span>
-                {% endfor %}
-                
-                <p class="description">{{meal.description}}</p>
-            </span>
-            <!-- <span class="recordRight">
+	<div id="nutrient{{date}}">
+		<div class="greyBox">
+			{% for header in nutrient_headers %}
+			<h4>{{header.name}}</h4>
+			{% for nutrient in header.nutrients %}
+			<span
+				style="display: inline-block; width: 500px"
+				title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in meals[date].nutrients %}{{return_g_mg_mcg(meals[date].nutrients[nutrient.nutrient_id])}}{% else %}0 g{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}"
+				>{{nutrient.name}} <b>{{return_g_mg_mcg(meals[date].nutrients[nutrient.nutrient_id])}}</b>
+				<span
+					class="loading_bar"
+					data-actual="{{meals[date].nutrients[nutrient.nutrient_id]}}"
+					data-rda="{{nutrient.rda}}"
+					data-ul="{{nutrient.ul}}"
+				>
+					<span class="upon_rda">
+						<span class="upon_ul"></span>
+					</span>
+				</span>
+				{% if meals[date].nutrients[nutrient.nutrient_id] and nutrient.rda %}
+				<b
+					>RDA: {{(meals[date].nutrients[nutrient.nutrient_id]/nutrient.rda *
+					100)|round|int}}%</b
+				>, {% endif %} {% if meals[date].nutrients[nutrient.nutrient_id] and
+				nutrient.ul %}
+				<b
+					>UL: {{(meals[date].nutrients[nutrient.nutrient_id]/nutrient.ul *
+					100)|round|int}}%</b
+				>
+				{% endif %}
+			</span>
+			{% endfor %} {% endfor %}
+		</div>
+	</div>
+</div>
+{% for meal in meals[date].meals %}
+<div class="record" title="id: {{meal.id}}" id="meal{{meal.id}}">
+	<span class="recordLeft">
+		<h3>
+			{{meal.name}} {{meal.time_of_meal}}
+			<button onclick="meal_loadEditForm({{meal.id}})">edit</button>
+		</h3>
+
+		{% for food in meal.foods %}
+		<span
+			class="foodItem"
+			title="id: {{food.id}} &#013;&#013;{% for nutrient in food.nutrients %}{{nutrient.name}}: {{return_g_mg_mcg(nutrient.quantity)}}&#013;{% endfor %}"
+			>{{food.quantity}} grams {{food.name}}</span
+		>
+		{% endfor %}
+
+		<p class="description">{{meal.description}}</p>
+	</span>
+	<!-- <span class="recordRight">
                 <p>nutritional information for meal</p>
                 <p>expand</p>
             </span> -->
-            <div class="editor_container">
-            </div>
-        </div>
-        <div id="tabGroup_nutritionalInfo_meal{{meal.id}}">
-            <button style="width:100%;" data-tab="nutrient{{meal.id}}"  onclick="setTimeout(()=>loading_bar_init(), 100)">{{meal.name}} nutritional information</button>
-            
-            <div id="nutrient{{meal.id}}">
-                <div class="greyBox">
-                    {% for header in nutrient_headers %}
-                        <h4>{{header.name}}</h4>
-                        {% for nutrient in header.nutrients %}
-                            <span style="display:inline-block;width:400px;" title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in meal.nutrients %}{{return_g_mg_mcg(meal.nutrients[nutrient.nutrient_id])}}{% else %}0 g{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}">{{nutrient.name}}
-                                <span class="loading_bar" data-actual="{{meal.nutrients[nutrient.nutrient_id]}}" data-rda="{{nutrient.rda}}" data-ul="{{nutrient.ul}}">
-                                    <span class="upon_rda">
-                                        <span class="upon_ul"></span>
-                                    </span>
-                                </span>
-                                {% if meal.nutrients[nutrient.nutrient_id] and nutrient.rda %}
-                                    <b>{{(meal.nutrients[nutrient.nutrient_id]/nutrient.rda * 100)|round|int}} % of RDA</b>,
-                                {% endif %} 
-                                {% if meal.nutrients[nutrient.nutrient_id] and nutrient.ul %}
-                                    <b>{{(meal.nutrients[nutrient.nutrient_id]/nutrient.ul * 100)|round|int}} % of UL</b>
-                                {% endif %}
-                            </span>
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-{% endfor %}
+	<div class="editor_container"></div>
+</div>
+<div id="tabGroup_nutritionalInfo_meal{{meal.id}}">
+	<button
+		style="width: 100%"
+		data-tab="nutrient{{meal.id}}"
+		onclick="setTimeout(()=>loading_bar_init(), 100)"
+	>
+		{{meal.name}} nutritional information
+	</button>
+
+	<div id="nutrient{{meal.id}}">
+		<div class="greyBox">
+			{% for header in nutrient_headers %}
+			<h4>{{header.name}}</h4>
+			{% for nutrient in header.nutrients %}
+			<span
+				style="display: inline-block; width: 500px"
+				title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in meal.nutrients %}{{return_g_mg_mcg(meal.nutrients[nutrient.nutrient_id])}}{% else %}0 g{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}"
+				>{{nutrient.name}} <b>{{return_g_mg_mcg(meal.nutrients[nutrient.nutrient_id])}}</b>
+				<span
+					class="loading_bar"
+					data-actual="{{meal.nutrients[nutrient.nutrient_id]}}"
+					data-rda="{{nutrient.rda}}"
+					data-ul="{{nutrient.ul}}"
+				>
+					<span class="upon_rda">
+						<span class="upon_ul"></span>
+					</span>
+				</span>
+				{% if meal.nutrients[nutrient.nutrient_id] and nutrient.rda %}
+				<b
+					>RDA: {{(meal.nutrients[nutrient.nutrient_id]/nutrient.rda *
+					100)|round|int}}%</b
+				>, {% endif %} {% if meal.nutrients[nutrient.nutrient_id] and
+				nutrient.ul %}
+				<b
+					>UL: {{(meal.nutrients[nutrient.nutrient_id]/nutrient.ul *
+					100)|round|int}}%</b
+				>
+				{% endif %}
+			</span>
+			{% endfor %} {% endfor %}
+		</div>
+	</div>
+</div>
+{% endfor %} {% endfor %}
 <script src="/static/loading_bar.js"></script>
 
 <!--so had an issue with loading_bar cause if it's display is none while the width is being modified by JS, there'll be an issue
 this is a pretty hacky way to fix the problem-->
-{% for date in meals %}
-    {% for meal in meals[date].meals %}
-        <script>create_tab_event_listeners("tabGroup_nutritionalInfo_meal{{meal.id}}")</script>
-    {% endfor %}
-    <script>create_tab_event_listeners("tabGroup_nutritionalInfo_date{{date}}")</script>
+{% for date in meals %} {% for meal in meals[date].meals %}
+<script>
+	create_tab_event_listeners("tabGroup_nutritionalInfo_meal{{meal.id}}");
+</script>
 {% endfor %}
-
-
-
-
+<script>
+	create_tab_event_listeners("tabGroup_nutritionalInfo_date{{date}}");
+</script>
+{% endfor %}

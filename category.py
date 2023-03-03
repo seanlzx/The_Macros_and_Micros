@@ -7,7 +7,7 @@ from scripts.helpers import *
 
 # this is hardcoded for now
 hardCodeUserId = 0
-hardCodeDriGroupName = "male 19-30"
+
 
 category = Blueprint("category", __name__, template_folder="templates")
 

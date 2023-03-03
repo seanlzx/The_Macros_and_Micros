@@ -4,7 +4,7 @@
     display:inline-flex;
 }
 .loading_bar {
-    width: 100px;
+    width: 120px;
     background-color: #222;
 }
 .loading_bar .upon_rda {

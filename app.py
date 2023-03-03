@@ -29,7 +29,7 @@ app.register_blueprint(blueprint=setting, url_prefix="")
 
 # development variables, should eventually get rid of the hardcode
 hardCodeUserId = 0
-hardCodeDriGroupName = "male 19-30"
+
 
 
 @app.teardown_appcontext
@@ -174,7 +174,7 @@ def loadCombos():
         AND d.active = 1 AND n.active = 1
         AND d.group_name = ?;
         """,
-            (header["id"], hardCodeDriGroupName),
+            (header["id"], get_dri_group(c)),
         )
         header["nutrients"] = listOfTuplesToListOfDict(
             raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"]
@@ -263,7 +263,7 @@ def combo_loadForm():
     #     AND d.active = 1 AND n.active = 1
     #     AND d.group_name = ?;
     #     """,
-    #         (header["id"], hardCodeDriGroupName),
+    #         (header["id"], get_dri_group(c)),
     #     )
     #     header["nutrients"] = listOfTuplesToListOfDict(
     #         raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"]
@@ -501,5 +501,28 @@ def addFood_selected():
     db.close()
     return render_template("addFood_selected.html", food_data=food_data)
 
+def return_g_mg_mcg(raw_n):
+    if not raw_n:
+        return "none"
+    raw_n = float(raw_n)
+
+    n = 0
+    unit = ""
+    if raw_n >= 1:
+        n = raw_n
+        unit = "g"
+    elif raw_n >=0.001:
+        n = raw_n * 1000
+        unit = "mg"
+    elif raw_n:
+        n = raw_n * 1000000
+        unit = "μg"
+    
+    return str(round(n, 2)) + f" {unit}";
 
 app.jinja_env.globals.update(return_g_mg_mcg=return_g_mg_mcg)
+
+def returnDayOfWeek(date_string):
+    return datetime.strptime(date_string, "%Y-%m-%d").strftime('%A')
+
+app.jinja_env.globals.update(returnDayOfWeek=returnDayOfWeek)

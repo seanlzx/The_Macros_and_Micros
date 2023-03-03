@@ -6,7 +6,7 @@ from flask import Blueprint, redirect, render_template, request
 from scripts.helpers import *
 
 # this is hardcoded for now
-hardCodeDriGroupName = "male 19-30"
+
 hardCodeUserId = 0
 
 meal = Blueprint("meal", __name__, template_folder="templates")
@@ -169,7 +169,7 @@ def meal_sort(order):
         WHERE n.nutrient_header_id = ?
         AND d.active = 1 AND n.active = 1
         AND d.group_name = ?;
-        """, (header["id"], hardCodeDriGroupName))
+        """, (header["id"], get_dri_group(c)))
         header["nutrients"] = listOfTuplesToListOfDict(raw_dri_list, ["nutrient_id", "name", "rda", "ul", "description"])
                 
     db.close()

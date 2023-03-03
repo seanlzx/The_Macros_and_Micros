@@ -6,7 +6,7 @@ from pathlib import Path
 from flask import g, render_template, request
 
 hardCodeUserId = 0
-hardCodeDriGroupName = "male 19-30"
+
 
 #the below 2 lines (parent... and DATABASE...) might be useless
 parent = Path(path.dirname(path.abspath(__file__))).parent.absolute()
@@ -110,7 +110,7 @@ def loadFoodFormData(c):
 			WHERE dri.group_name = ?
             ORDER BY n.timestamp, n.id; 
             """,
-        (hardCodeDriGroupName,),
+        (get_dri_group(c),),
     )
 
     header_nutrient_dri_join_dict_list = listOfTuplesToListOfDict(
@@ -192,23 +192,7 @@ def loadSearchFilterInfo(c):
         )
     return dict
 
-def return_g_mg_mcg(raw_n):
-    if not raw_n:
-        return "none"
-    raw_n = float(raw_n)
 
-    n = 0
-    unit = ""
-    if raw_n >= 1:
-        n = raw_n
-        unit = "g"
-    elif raw_n >=0.001:
-        n = raw_n * 1000
-        unit = "mg"
-    elif raw_n:
-        n = raw_n * 1000000
-        unit = "μg"
     
-    return str(round(n, 2)) + f" {unit}";
 
 

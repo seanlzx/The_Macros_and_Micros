@@ -2,7 +2,11 @@
 	<div class="greyBox">
 		<h3 class="marginTop5">Edit Combo</h3>
 		<div id="tabGroup_nutritionalInfo_combo{{combo.id}}">
-			<button style="width: 100%" data-tab="nutrient{{combo.id}}"  onclick="setTimeout(()=>loading_bar_init(), 100)">
+			<button
+				style="width: 100%"
+				data-tab="nutrient{{combo.id}}"
+				onclick="setTimeout(()=>loading_bar_init(), 100)"
+			>
 				{{combo.name}} nutritional information
 			</button>
 
@@ -12,9 +16,9 @@
 					<h4>{{header.name}}</h4>
 					{% for nutrient in header.nutrients %}
 					<span
-						style="display: inline-block; width: 400px"
+						style="display: inline-block; width: 500px"
 						title="id: {{nutrient.nutrient_id}} &#013;consumed: {% if nutrient.nutrient_id in combo.nutrients %}{{return_g_mg_mcg(combo.nutrients[nutrient.nutrient_id])}}{% else %}0{% endif %} &#013;rda: {{return_g_mg_mcg(nutrient.rda)}} &#013;ul: {{return_g_mg_mcg(nutrient.ul)}} &#013;description: {{nutrient.description}}"
-						>{{nutrient.name}}
+						>{{nutrient.name}} <b>{{return_g_mg_mcg(combo.nutrients[nutrient.nutrient_id])}}</b>
 						<span
 							class="loading_bar"
 							data-actual="{{combo.nutrients[nutrient.nutrient_id]}}"
@@ -25,12 +29,17 @@
 								<span class="upon_ul"></span>
 							</span>
 						</span>
-                        {% if combo.nutrients[nutrient.nutrient_id] and nutrient.rda %}
-                            <b>{{(combo.nutrients[nutrient.nutrient_id]/nutrient.rda * 100)|round|int}} % of RDA</b>,
-                        {% endif %} 
-                        {% if combo.nutrients[nutrient.nutrient_id] and nutrient.ul %}
-                            <b>{{(combo.nutrients[nutrient.nutrient_id]/nutrient.ul * 100)|round|int}} % of UL</b>
-                        {% endif %}
+						{% if combo.nutrients[nutrient.nutrient_id] and nutrient.rda %}
+						<b>
+                            RDA: {{(combo.nutrients[nutrient.nutrient_id]/nutrient.rda *
+							100)|round|int}}%</b
+						>, {% endif %} {% if combo.nutrients[nutrient.nutrient_id] and
+						nutrient.ul %}
+						<b>
+                            UL: {{(combo.nutrients[nutrient.nutrient_id]/nutrient.ul *
+							100)|round|int}}%</b
+						>
+						{% endif %}
 					</span>
 					{% endfor %} {% endfor %}
 				</div>
