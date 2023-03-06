@@ -1,6 +1,6 @@
-<div id="Add DRI">
+<div id="Create DRI">
     <div class="greyBox">
-        <h3 class="marginTop5">Add DRI</h3>
+        <h3 class="marginTop5">Create DRI</h3>
         <form action="/addDri" method="post">
             <input
                 class="width100"
@@ -25,6 +25,7 @@
 						class="nutrient"
 						autocomplete="off"
 						name="rda_{{nutrient.id}}"
+                        placeholder="RDA"
 						type="number"
                         min="0"
 						step="any"
@@ -71,6 +72,7 @@
 						class="nutrient"
 						autocomplete="off"
 						name="ul_{{nutrient.id}}"
+                        placeholder="UL"
 						type="number"
                         min="0"
 						step="any"

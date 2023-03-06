@@ -1,6 +1,6 @@
-<div id="Add DRI">
+<div id="Manage DRI">
     <div class="greyBox">
-        <h3 class="marginTop5">Add DRI</h3>
+        <h3 class="marginTop5">Manage DRI</h3>
         <form action="/dri_editor_submit" method="post">
             <input
                 class="width100"
@@ -35,6 +35,7 @@
 						class="nutrient"
 						autocomplete="off"
 						name="rda_{{nutrient.id}}"
+                        placeholder="RDA"
 						type="number"
                         value="{{nutrient.rda}}"
                         min="0"
@@ -84,6 +85,7 @@
 						name="ul_{{nutrient.id}}"
 						type="number"
                         value="{{nutrient.ul}}"
+                        placeholder="UL"
                         min="0"
 						step="any"
 						title="UL"
@@ -126,7 +128,7 @@
 			</fieldset>
 
             <br />
-            <input class="width50" type="submit" value="submit" />
+            <input class="width50" type="submit" value="update" />
         </form>
         <button class="width50" onclick="this.parentElement.parentElement.remove()">
 			cancel

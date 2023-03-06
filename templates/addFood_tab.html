@@ -1,6 +1,6 @@
 <div id="Add Food">
 	<div class="greyBox">
-		<h3 class="marginTop5">Add Food</h3>
+		<h3 class="marginTop5">Create Food</h3>
 		<form action="/addFood" method="post">
 			<input
 				class="width100"
@@ -46,7 +46,6 @@
 			<fieldset>
 				<legend><b>nutrients</b> (grams per 100grams)</legend>
 
-				<p>place 0 if the value is unknown</p>
 				{% for header in nutrient_nest %}
 				<legend>{{nutrient_nest[header]['name']}}</legend>
 

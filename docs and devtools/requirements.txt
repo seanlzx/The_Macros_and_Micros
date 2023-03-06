@@ -1,4 +1,0 @@
-python
-flask
-
-the app was developed on chrome

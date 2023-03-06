@@ -63,7 +63,6 @@ def manageCategory_searchResults():
 
     category_results = {}
 
-    print(input)
 
     raw_category_results = ()
     if input:
@@ -81,7 +80,6 @@ def manageCategory_searchResults():
             """,
             (f"%{input}%",),
         )
-        print(raw_category_results)
     else:
         raw_category_results = c.execute(
             """
@@ -100,7 +98,6 @@ def manageCategory_searchResults():
         raw_category_results,
         ["id", "timestamp", "name", "category_header_id", "header_name", "username"],
     )
-    print(category_results)
 
     for category in category_results:
         raw_parent = c.execute(
@@ -116,7 +113,6 @@ def manageCategory_searchResults():
 
         category["parents"] = listOfTuplesToListOfDict(raw_parent, ["id", "name"])
 
-    print(category_results)
 
     db.close()
     return render_template(

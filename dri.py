@@ -123,7 +123,6 @@ def manageDriLoadEditor():
             
             if len(info) > 0:
                 rda_and_ul = info[0]
-                print(rda_and_ul)
                 nutrient["rda"] = rda_and_ul[0]
                 #use a shortcircuit to make 0 and alternative
                 nutrient["ul"] = rda_and_ul[1]  

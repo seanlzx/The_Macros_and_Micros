@@ -1,9 +1,13 @@
 id,timestamp,user_id,name,description,active
-1,"2023-02-26 16:48:36",0,Breakfast,"equal parts oatmeal and horlicks mix before pouring water, enough boiled water to to ensure the mixture is evenly soaked, leave on counter (~20 minutes) to ensure the oatmeal is softened to desirable texture.
+1,2023-02-26 16:48:36,0,Breakfast,"equal parts oatmeal and horlicks mix before pouring water, enough boiled water to to ensure the mixture is evenly soaked, leave on counter (~20 minutes) to ensure the oatmeal is softened to desirable texture.
 
 Have almond soy milk on the side, may add some to the oatmeal and Horlick mixture.",1
-2,"2023-02-26 19:54:27",0,supper,"yogurt mixed with blueberries, sunflower seeds, and elusiyogurt mixed with blueberries, sunflower seeds, egusi seeds and chia seeds. with nuts and milk on side.",1
-3,"2023-02-26 20:07:00",0,dinner,"with 40grams of sardines, a good dash of pepper, half teaspoon of turmeric, salt, stir than add eggs and stir again, 
+2,2023-02-26 19:54:27,0,supper,"yogurt mixed with blueberries, sunflower seeds, and elusiyogurt mixed with blueberries, sunflower seeds, egusi seeds and chia seeds. with nuts and milk on side.",1
+3,2023-02-26 20:07:00,0,dinner,"with 40grams of sardines, a good dash of pepper, half teaspoon of turmeric, salt, stir than add eggs and stir again, 
 just break the yolks and distribute it a litte, than add a slice of cheese to the top.
 
 citrus fruits, apple and creatine on the side",1
+4,2023-02-27 14:42:50,0,Gerald's Breakfast,,1
+5,2023-02-27 14:44:38,0,Gerald's lunch,,1
+6,2023-02-27 14:46:25,0,gerald's snack,,1
+7,2023-02-27 14:48:26,0,gerald's dinner,,1

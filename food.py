@@ -187,7 +187,7 @@ def manageFood_searchResults():
         sql_string_HAVINGorAND = "AND"
 
     if nutrients:
-        sql_string_where += "AND ftn.nutrient_id in (?"
+        sql_string_where += "AND ftn.quantity > 0 AND ftn.nutrient_id in (?"
         parameters_list.append(int(nutrients[0]))
         for nutrient in nutrients[1:]:
             sql_string_where += ", ?"
@@ -216,7 +216,7 @@ def manageFood_searchResults():
         JOIN nutrient n ON n.id = ftn.nutrient_id
         """
 
-        sql_string_where += "AND n.id = ?"
+        sql_string_where += "AND n.id = ? "
         parameters_list.append(nutrientToIdDict[nutrient_for_sorting_value])
         
         header_list.extend(["nutrient_name",
@@ -252,10 +252,11 @@ def manageFood_searchResults():
     elif order == "lowest_nutrient_per_gram":
         sql_string_order = "ORDER BY ftn.quantity"
 
-    print("sql statement")
-    print(sql_string_from + sql_string_where + sql_string_group + sql_string_order)
-    print("tuple")
-    print(tuple(parameters_list))
+    print(sql_string_select
+        + sql_string_from
+        + sql_string_where
+        + sql_string_group
+        + sql_string_order)
 
     raw_food_results = c.execute(
         sql_string_select

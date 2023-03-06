@@ -1,5 +1,5 @@
 id,timestamp,user_id,name,description,price,active
-16,2023-02-24 23:14:30,0,apple,"price is derived from sheng shiong 5 for $3.45
+16,2023-03-03 12:53:33,0,apple,"price is derived from sheng shiong 5 for $3.45
 
 An apple is an edible fruit produced by an apple tree (Malus domestica). Apple trees are 
 cultivated worldwide and are the most widely grown species in the genus Malus. The tree 
@@ -11,8 +11,7 @@ cultures, including Norse, Greek, and European Christian tradition.
 Apples grown from seed tend to be very different from those of their parents, and the resultant 
 fruit frequently lacks desired characteristics. Generally, apple cultivars are propagated by 
 clonal grafting onto rootstocks. Apple trees grown without rootstocks tend to be larger and 
-much slower to fruit after planting. Rootstocks are used to control the speed of growth and 
-the size of the resulting tree, allowing for easie",0.46,1
+much slower to fruit after planting. contains antioxidants",0.46,1
 17,2023-02-24 23:08:59,0,avocado,"price derived from shengsiong 3 for $5.95 deal
 
 The avocado (Persea americana) is a medium-sized, evergreen tree in the laurel family (Lauraceae). 
@@ -117,28 +116,32 @@ Horlicks is a sweet malted milk hot drink powder developed by founders James and
 27,2023-02-25 00:41:54,0,oatmeal quick cooking,"price derive from 1.35 kg bag from sheng siong
 
 Oatmeal is a preparation of oats that have been de-husked, steamed, and flattened, or a coarse flour of hulled oat grains (groats) that have either been milled (ground) or steel-cut. Ground oats are also called white oats. Steel-cut oats are known as coarse oatmeal, Irish oatmeal, or pinhead oats. Rolled oats were traditionally thick old-fashioned oats, but can be made thinner or smaller, and may be categorized as quick oatmeal or instant oatmeal depending on the cooking time required, which is determined by the size of the oats and the amount of precooking.",0.51,1
-28,2023-02-25 00:46:55,0,orange,"price derived fron sheng siong Egypt navel orange 5 for $2.55 deal
-An orange is a fruit of various citrus species in the family Rutaceae (see list of plants known as orange); it primarily refers to Citrus × sinensis,[1] which is also called sweet orange, to distinguish it from the related Citrus × aurantium, referred to as bitter orange. The sweet orange reproduces asexually (apomixis through nucellar embryony); varieties of sweet orange arise through mutations.[2][3][4][5]",0.39,1
+28,2023-03-03 12:51:31,0,orange,"price derived fron sheng siong Egypt navel orange 5 for $2.55 deal
+An orange is a fruit of various citrus species in the family Rutaceae (see list of plants known as orange); it primarily refers to Citrus × sinensis,[1] which is also called sweet orange, to distinguish it from the related Citrus × aurantium, referred to as bitter orange. The sweet orange reproduces asexually (apomixis through nucellar embryony); varieties of sweet orange arise through mutations.
+
+contains antioxidants",0.39,1
 29,2023-02-25 00:54:18,0,peanut,"The peanut (Arachis hypogaea), also known as the groundnut,[2] goober (US),[3] pindar (US)[3] or monkey nut (UK), is a legume crop grown mainly for its edible seeds. It is widely grown in the tropics and subtropics, important to both small and large commercial producers. It is classified as both a grain legume[4] and, due to its high oil content, an oil crop.[5] World annual production",0.94,1
 30,2023-02-25 00:58:34,0,power beans almond,"The peanut (Arachis hypogaea), also known as the groundnut,[2] goober (US),[3] pindar (US)[3] or monkey nut (UK), is a legume crop grown mainly for its edible seeds. It is widely grown in the tropics and subtropics, important to both small and large commercial producers. It is classified as both a grain legume[4] and, due to its high oil content, an oil crop.[5] World annual production",0.18,1
 31,2023-02-25 01:08:54,0,pumpkin seed,"A pumpkin seed, also known in North America as a pepita (from the Mexican Spanish: pepita de calabaza, ""little seed of squash""), is the edible seed of a pumpkin or certain other cultivars of squash. The seeds are typically flat and asymmetrically oval, have a white outer husk, and are light green in color after the husk is removed. Some pumpkin cultivars are huskless, and are grown only fo",2.15,1
-32,2023-02-25 20:45:37,0,rice short grain,"
-Rice is the seed of the grass species Oryza sativa (Asian rice) or less commonly O. glaberrima (African rice). The name wild rice is usually used for species of the genera Zizania and Porteresia, both wild and domesticated",0.22,1
+32,2023-03-03 23:35:40,0,cooked rice short grain,"Rice is the seed of the grass species Oryza sativa (Asian rice) or less commonly O. glaberrima (African rice). The name wild rice is usually used for species of the genera Zizania and Porteresia, both wild and domesticated",0.07,1
 33,2023-02-25 21:18:40,0,sardines,"note the nutrient information source miay not be accurate, the protein, calories, total fat and omega 3 content are straight from the can label
 Sardines (""pilchards"") are a nutrient-rich, small, oily fish widely consumed by humans and as forage fish by larger fish species, seabirds and marine mammals. Sardines are a source of omega-3 fatty acids. Sardines are often served in cans, but can also be eaten grilled, pickled, or smoked when fresh.",1.03,1
 34,2023-02-26 15:57:02,0,sunflower seed,"The sunflower seed is the seed of the sunflower (Helianthus annuus). There are three types of commonly used sunflower seeds: linoleic (most common), high oleic, and sunflower oil seeds. Each variety has its own unique levels of monounsaturated, saturated, and polyunsaturated fats. The information in this article refers mainly to the linoleic variety.",0.87,1
 35,2023-02-26 18:05:20,0,turmeric,"Turmeric is a common spice and a major ingredient in curry powder. Curcumin is a major component of turmeric, and the activities of turmeric are commonly attributed to curcuminoids (curcumin and closely related substances). Curcumin gives turmeric its yellow color.",0.93,1
-36,2023-02-26 15:59:24,0,white pepper,None,0.99,1
-37,2023-02-26 17:32:16,0,yogurt,"Yogurt (UK: /ˈjɒɡət/; US: /ˈjoʊɡərt/,[1] from Turkish: yoğurt, also spelled yoghurt, yogourt or yoghourt) is a food produced by bacterial fermentation of milk.[2] The bacteria used to make yogurt are known as yogurt cultures. Fermentation of sugars in the milk by these bacteria produces lactic acid, which acts on milk protein to give yogurt its texture and characteristic tart flavor.[2] Cow's milk is the milk most commonly used to make yogurt. Milk from water buffalo, goats, ewes, mares, camels, and yaks are also used to produce yogurt. The milk used may be homogenized or not. It may be pasteurized or raw. Each type of milk produces substantially different results.",0.63,1
+36,2023-02-23 15:59:24,0,white pepper,None,0.99,1
+37,2023-03-03 12:52:33,0,yogurt,"Yogurt (UK: /ˈjɒɡət/; US: /ˈjoʊɡərt/,[1] from Turkish: yoğurt, also spelled yoghurt, yogourt or yoghourt) is a food produced by bacterial fermentation of milk.[2] The bacteria used to make yogurt are known as yogurt cultures. Fermentation of sugars in the milk by these bacteria produces lactic acid, which acts on milk protein to give yogurt its texture and characteristic tart flavor.[2] Cow's milk is the milk most commonly used to make yogurt. Milk from water buffalo, goats, ewes, mares, camels, and yaks are also used to produce yogurt. The milk used may be homogenized or not. It may be pasteurized or raw. Each type of milk produces substantially different results.",0.63,1
 38,2023-02-26 20:19:23,0,sliced cheese,"Modern American cheese is a type of processed cheese developed in the 1910s made from cheddar, Colby, or similar cheeses. It is mild with a creamy and salty flavor, has a medium-firm consistency, and has a low melting point. It is typically yellow or white in color; yellow American cheese is seasoned and colored with annatto.",1.09,1
 42,2023-02-27 11:17:52,0,beef,"Ground meat, called mince or minced meat outside North America, is meat finely chopped by a meat grinder or a chopping knife. A common type of ground meat is ground beef, but many other types of meats are prepared in a similar fashion, including pork, veal, lamb, goat meat, and poultry.",1.65,1
-43,2023-02-27 11:24:53,0,"yoplait, greek style yoghurt, natural","Here in Australia, you're likely to find two varieties on the shelves — Greek yoghurt, and ""Greek-style"" yoghurt.
+43,2023-03-03 23:46:34,0,"yoplait, greek style yoghurt, natural","Here in Australia, you're likely to find two varieties on the shelves — Greek yoghurt, and ""Greek-style"" yoghurt.
 
-Despite the similar names (and similar branding), it's important to realise they're not the same. One contains more kilojoules but is more natural, and the other has less kilojoules but more preservatives — so, which is better for you?",0,1
-44,2023-02-24 11:11:11,0,beetroot (TBA description categories price),,0,1
-45,2023-02-24 11:11:11,0,carrot (TBA description categories price),,0,1
-46,2023-02-24 11:11:11,0,corn (TBA description categories price),,0,1
-47,2023-02-24 11:11:11,0,salmon (TBA description categories price),,0,1
-48,2023-02-24 11:11:11,0,spinach (TBA description categories price),,0,1
-49,2023-02-24 11:11:11,0,tuna (TBA description categories price),,0,1
-50,2023-02-24 11:11:11,0,milk whole,,0,1
+Despite the similar names (and similar branding), it's important to realise they're not the same. One contains more kilojoules but is more natural, and the other has less kilojoules but more preservatives — so, which is better for you?",1.0,1
+44,2023-02-01 23:32:28,0,beetroot (TBA description categories),None,0.33,1
+45,2023-02-03 23:34:04,0,carrot (TBA description),None,0.21,1
+46,2023-02-03 23:45:56,0,corn (TBA description categories),"the price derives from shengsiong, which packages the corn with the cob,
+
+cob can be eaten after boiling",1.1,1
+47,2023-02-04 00:09:09,0,salmon (TBA description),None,2.6,1
+48,2023-02-04 00:06:51,0,spinach (TBA description),None,0.37,1
+49,2023-02-04 00:02:04,0,tuna (TBA description categories),None,1.41,1
+50,2023-02-03 23:48:16,0,protein shake for gerald (deleteme),Price varies throughout the year,5.36,1
+51,2023-02-03 23:37:17,0,milk whole,nil,0.34,1

@@ -1,3 +1,3 @@
-id,name,timestamp,weight,height,gender,age,user_type,active
-0,peter,20230224,122.0,182.0,m,0,0,1
-1,ali,20230224,98.0,191.0,m,18,0,1
+id,name,timestamp,weight,height,gender,age,user_type,active,from_date,to_date,dri_group
+0,peter,2023-03-03 02:22:38,122,182,m,42,0,1,2023-02-24,curr,male 19-30
+1,ali,2023-03-03 02:22:38,98,191,m,18,0,1,2023-01-01,2023-01-01,male 19-30

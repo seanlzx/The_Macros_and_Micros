@@ -41,8 +41,6 @@ function mf_searchForFood(elm) {
 		document.querySelector("#hacky-nutrient").getAttribute("data-nutrientList")
 	);
 
-	console.log({ nutrient_array: nutrient_array });
-
 	// if nutrient_for_sorting.required than send it
 
 	if (

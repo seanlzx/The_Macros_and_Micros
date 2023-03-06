@@ -20,11 +20,9 @@ function valueUpdate(id){
 
 function removeElement(id){
     let element = document.getElementById(id) ;
-    console.log(element)
     element.remove();
 }
 
 function removeParentElement(elm){
-    console.log(elm.parentElement)
     elm.parentElement.remove()
 }

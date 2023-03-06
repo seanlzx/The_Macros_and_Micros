@@ -204,9 +204,6 @@ def meal_loadEditForm():
         WHERE meal_id = ?;
     """, (id,))
     meal["foods"] = listOfTuplesToListOfDict(raw_foods, ["id", "name", "quantity"])
-
-    
-    pprint.pprint(meal)
     
     db.close()
     return render_template("meal_editForm.html", meal=meal)

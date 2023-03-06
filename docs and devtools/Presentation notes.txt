@@ -1,7 +1,0 @@
-when presenting the add food, 
-    as you can see we have a bunch of categories, we provide administrators with an interface to add categories
-    let's say I want to add KFC resteraunt, and for meal type, we want to add teatime
-
-    we just go to...
-
-    and just like everything in the website, the data we see is dynamically shown without reloading the page

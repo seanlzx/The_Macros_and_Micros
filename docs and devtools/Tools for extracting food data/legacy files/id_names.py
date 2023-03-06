@@ -1,3 +1,4 @@
+import pprint
 import sqlite3
 from datetime import datetime
 
@@ -17,20 +18,20 @@ def listOfTuplesToListOfDict(listOfTuples, listOfKeys):
 sqliteConnection = ""
 
 try:
-    sqliteConnection = sqlite3.connect("nutrition.db")
+    sqliteConnection = sqlite3.connect("../nutrition.db")
     c = sqliteConnection.cursor()
     
-    rows_raw = c.execute("SELECT id, timestamp FROM nutrient")
-
-    rows = listOfTuplesToListOfDict(rows_raw, ["id", "timestamp"])
+    raw_nutrients = c.execute("SELECT id, name FROM nutrient")
     
-    for row in rows:
-        t = row["timestamp"].split(" ")
-        t = t[0].split("/") + t[1].split(":")
-        t = f"{t[0]}-{t[1]}-{t[2]} {t[3]}:{t[4]}:{t[5]}"
-        c.execute("UPDATE nutrient SET timestamp = ? WHERE id = ?", (t, row["id"]))
-    
-    sqliteConnection.commit()
+    nutrient_list = []
+    for _tuple in raw_nutrients:
+        _dict = {}
+        _dict["id"] = _tuple[0]
+        _dict["name_list"] = []
+        _dict["name_list"].append(_tuple[1])
+        nutrient_list.append(_dict)
+        
+    pprint.pprint(nutrient_list)
 except sqlite3.Error as error:
     print(error)
     

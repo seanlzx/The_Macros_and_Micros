@@ -6,10 +6,10 @@ from sqlite3 import OperationalError
 import pandas as pd
 
 # if nutrition.db doesn't exist, it's created implicitly
-conn = sqlite3.connect("nutrition.db")
+conn = sqlite3.connect(f"nutrition.db")
 c = conn.cursor()
 
-file = open(f"{datetime.today().strftime('%Y-%m-%d %H:%M:%S')} initial_data/schema.sql", 'r')
+file = open(f"initial_data/schema.sql", 'r')
 sqlSchemaText = file.read()
 file.close()
 

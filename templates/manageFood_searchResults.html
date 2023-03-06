@@ -11,9 +11,9 @@
         <span><b>${{food_result.price}} per 100grams</b></span>
 	</div>
     {% if food_result.nutrient_name %}
-        <div>{{food_result.quantity_per_dollar}} grams of {{food_result.nutrient_name}} per dollar</div>
-        <div>{{food_result.nutrient_per_100_grams}} grams of {{food_result.nutrient_name}} per 100 grams of {{food_result.name}}</div>
-        <div>{{food_result.nutrient_per_kcal}} grams of {{food_result.nutrient_name}} per 100 kcal</div>
+        <div>{{return_g_mg_mcg(food_result.quantity_per_dollar)}} grams of {{food_result.nutrient_name}} per dollar</div>
+        <div>{{return_g_mg_mcg(food_result.nutrient_per_100_grams)}} grams of {{food_result.nutrient_name}} per 100 grams of {{food_result.name}}</div>
+        <div>{{return_g_mg_mcg(food_result.nutrient_per_kcal)}} grams of {{food_result.nutrient_name}} per 100 kcal</div>
     {% endif %}
 	<div class="categories">
 		{% for category in food_result.categories %} {{category.name}}, {% endfor %}

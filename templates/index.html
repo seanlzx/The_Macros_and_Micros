@@ -7,19 +7,19 @@
 
     <div id="dynamicTabGroup1">
         <div class="button_container">
-            <button data-url="/addMeal_tab">Add Meal</button>
+            <button data-url="/addMeal_tab">Create Meal</button>
             <span class="marginRight15"></span>
     
-            <button data-url="/addFood_tab">Add Food</button>
-            <button data-url="/manageFood_tab">Manage Food</button>
+            <button data-url="/addFood_tab">Create Food</button>
+            <button data-url="/manageFood_tab">Manage Foods</button>
             <span class="marginRight15"></span>
     
-            <button data-url="/addCombo_tab">Add Combo</button>
-            <button data-url="/manageCombo_tab">Manage Combo</button>
+            <button data-url="/addCombo_tab">Create Combo</button>
+            <button data-url="/manageCombo_tab">Manage Combos</button>
             <span class="marginRight15"></span>
     
-            <button data-url="/addCategory_tab">Add Category</button>
-            <button data-url="/manageCategory_tab">Manage Category</button>
+            <button data-url="/addCategory_tab">Create Category</button>
+            <button data-url="/manageCategory_tab">Manage Categories</button>
             <span class="marginRight15"></span>
 
             <!--
@@ -27,8 +27,8 @@
             <button data-url="/manageNutrient_tab">Manage Nutrient</button>
             <span class="marginRight15"></span>-->
 
-            <button data-url="/addDri_tab">Add DRI</button>
-            <button data-url="/manageDri_tab">Manage DRI</button>
+            <button data-url="/addDri_tab">Create DRI</button>
+            <button data-url="/manageDri_tab">Manage DRIs</button>
             <span class="marginRight15"></span>
 
             <button data-url="/setting_tab">Settings</button>
@@ -76,7 +76,7 @@
     <footer>
         <h3><b>general notes (Reminder, not a food scientist, just a programmer who did a lot of research)</b></h3>
  
-        <p>Recommended Dietary Intake <b>(RDA)</b> is basically the <b>minimum</b></p> 
+        <p>Recommended Dietary Allowance <b>(RDA)</b> is basically the <b>Amount</b> you should aim for</p> 
         <p>Upper Limit <b>(UL)</b> is indeed the upper limit</p>
         
         <p>Dietary Reference Intakes <b>(DRI)</b> can refer to RDAs and ULs for a specified group(gender, weightclass, age)</p>
@@ -152,7 +152,6 @@
             init_from = document.querySelector("#meal_sort input[name='from']").value
             init_to = document.querySelector("#meal_sort input[name='to']").value
 
-            console.log({init_from})
             $.ajax({
                 type:'get',
                 url:'/meal_sort/DESC',

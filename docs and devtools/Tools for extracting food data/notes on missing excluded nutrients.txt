@@ -1,0 +1,19 @@
+this are a list of nutrients that nutri calc database has that cronometer 
+does not keep track of, note in parenthesis the nutri calc database RDA 
+and UL details except mercury for some reason:
+cronometer does not contain
+chloride  (has rda) (have upper limit)
+sulfur 
+creatine 
+good_bacteria 
+mercury  (have upper limit BUT not in database)
+nitrates_and_nitrites 
+artificial_food_colors 
+linoleic_acid (has rda)
+a-linolenic_acid (has rda)
+nickel  (have upper limit)
+boron  (have upper limit)
+arsenic 
+silicon 
+sulfate 
+vanadium (have upper limit)

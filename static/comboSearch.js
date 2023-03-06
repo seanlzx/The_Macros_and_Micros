@@ -39,7 +39,6 @@ function comboForm_addAll(foodForm_id, comboElement_id){
     let span_data_list = document.querySelectorAll(`#${comboElement_id} span`)
 
     for (let span of span_data_list){
-        console.log(span)
         comboForm_add(
             foodForm_id,
             span.getAttribute("data-food-id"),

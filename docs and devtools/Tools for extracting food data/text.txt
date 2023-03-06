@@ -1,0 +1,7 @@
+This tools are the tools I used personally for the project to scrape data from various sources.
+
+Since they were only for personal developmental use, their super unituitive and complicated to use.
+
+I did have plans to make a much easier way to scrape food data, and possibly integrate it with, however since I'll be taking a break from this project indefinitely, and on the off chance anyone desires too, you may use this tools to scrape from the USDA's food database and cronometer.
+
+Do note the the USDA's database requires and API key.

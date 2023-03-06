@@ -334,7 +334,6 @@ def addMeal_addFood_searchResults():
     # the [0] is because the initial request is a string with .split(""), which even if the string is empty will lead to [""] which is considered a true condition
     if input[0]:
         sql_string_where += "AND (f.name LIKE ? "
-        print("adding to sql query string input: ", input)
         parameters_list.append("%" + input[0] + "%")
         if len(input) > 1:
             for item in input[1:]:
@@ -344,7 +343,6 @@ def addMeal_addFood_searchResults():
 
     if keywords[0]:
         sql_string_where += "AND (f.description LIKE ? "
-        print("adding to sql query string keywords: ", keywords)
         parameters_list.append("%" + keywords[0] + "%")
         if len(keywords) > 1:
             for keyword in keywords[1:]:
@@ -378,7 +376,7 @@ def addMeal_addFood_searchResults():
 
     if nutrients:
         sql_string_selectFrom += "JOIN food_to_nutrient ftn ON ftn.food_id = f.id "
-        sql_string_where += "AND ftn.nutrient_id in (?"
+        sql_string_where += "AND ftn.quantity > 0 AND ftn.nutrient_id in (?"
         parameters_list.append(int(nutrients[0]))
         for nutrient in nutrients[1:]:
             sql_string_where += ", ?"
@@ -389,7 +387,6 @@ def addMeal_addFood_searchResults():
 
     if username:
         sql_string_where += "AND u.name LIKE ? "
-        print("adding to sql query string username: ", username)
         parameters_list.append(username)
 
     if order == "newest":
@@ -400,13 +397,6 @@ def addMeal_addFood_searchResults():
         sql_string_order = "ORDER BY f.name"
     elif order == "z-a":
         sql_string_order = "ORDER BY f.name DESC"
-
-    print("sql statement")
-    print(
-        sql_string_selectFrom + sql_string_where + sql_string_group + sql_string_order
-    )
-    print("tuple")
-    print(tuple(parameters_list))
 
     # is an empty tuple the possible cause of no results??????
     raw_food_results = c.execute(
@@ -486,7 +476,6 @@ def addFood_selected():
     # load values, the conversion to string is not necessary but just to get rid of the stupid.replace('.','',1).isdigit() underline
     id = str(request.args.get("id"))
 
-    print(f"id: {id}")
 
     raw_information = c.execute(
         """

@@ -74,6 +74,42 @@ CREATE INDEX food_to_nutrient_idx_quantity ON food_to_nutrient (quantity);
 CREATE TABLE combo (
     id INTEGER PRIMARY KEY NOT NULL,
     timestamp TEXT NOT NULL,
+    user_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    active INTEGER NOT NULL DEFAULT 1,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+CREATE INDEX combo_idx_timestamp ON combo (timestamp);
+CREATE INDEX combo_idx_name ON combo (name);
+CREATE TABLE combo_to_food (
+    combo_id INTEGER NOT NULL,
+    food_id INTEGER NOT NULL,
+    quantity INTEGER,
+    FOREIGN KEY (combo_id) REFERENCES combo(id),
+    FOREIGN KEY (food_id) REFERENCES food(id)
+);
+CREATE TABLE meal (
+    id INTEGER NOT NULL,
+    timestamp TEXT NOT NULL,
+    user_id INTEGER NOT NULL,
+    name TEXT,
+    description TEXT,
+    time_of_meal TEXT,
+    active INTEGER NOT NULL DEFAULT 1,
+    PRIMARY KEY(id AUTOINCREMENT),
+    FOREIGN KEY(user_id) REFERENCES user(id)
+);
+CREATE TABLE meal_to_food (
+    meal_id INTEGER NOT NULL,
+    food_id INTEGER NOT NULL,
+    quantity REAL NOT NULL,
+    FOREIGN KEY (meal_id) REFERENCES meal(id),
+    FOREIGN KEY (food_id) REFERENCES food(id)
+);
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
     timestamp TEXT NOT NULL,
     weight real NOT NULL,
     height real NOT NULL,
@@ -81,6 +117,7 @@ CREATE TABLE combo (
     age INTEGER NOT NULL,
     user_type INTEGER NOT NULL,
     active INTEGER NOT NULL DEFAULT 1, 
-    from_date TEXT NOT NULL DEFAULT "curr", 
-    to_date TEXT NOT NULL DEFAULT "curr", 
-    dri_group TEXT NOT NULL DEFAULT "male 19-30");
+    from_date TEXT NOT NULL, 
+    to_date TEXT NOT NULL, 
+    dri_group TEXT NOT NULL DEFAULT "male 19-30"
+);

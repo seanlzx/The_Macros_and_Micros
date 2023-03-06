@@ -1,0 +1,10 @@
+python
+flask
+pandas
+datetime
+pprint
+json
+re
+BeautifulSoup
+requests
+sqlite3
