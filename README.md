@@ -135,15 +135,15 @@ setup.py initialises a new database with data from [/docs and devtools/initial_d
 
 ### getting data from various sources
 
-(./Extracting USDA database)[docs%20and%20devtools/Tools%20for%20extracting%20food%20data] contains a bunch of tools i used to extract/ scrape data from various sources. I kind of hacked my way through making these tools for personal/developmental use though, so their pretty unituitive to use, if I ever continue this project, I'll consider making a better way to extract food data from various sources, or even integrating the tool within the web app itself.
+[./Extracting USDA database](docs%20and%20devtools/Tools%20for%20extracting%20food%20data) contains a bunch of tools i used to extract/ scrape data from various sources. I kind of hacked my way through making these tools for personal/developmental use though, so their pretty unituitive to use, if I ever continue this project, I'll consider making a better way to extract food data from various sources, or even integrating the tool within the web app itself.
 
-To use (cronometer_scraper.py)[docs%20and%20devtools/Tools%20for%20extracting%20food%20data/cronometer_scraper.py], you'll have to manually save the cronometer html page into the the (cronometer_html_pages)["docs and devtools/Tools for extracting food data/cronometer_html_pages"] folder.
+To use [cronometer_scraper.py](docs%20and%20devtools/Tools%20for%20extracting%20food%20data/cronometer_scraper.py), you'll have to manually save the cronometer html page into the the [cronometer_html_pages](docs%20and%20devtools/Tools%20for%20extracting%20food%20data/cronometer_html_pages) folder.
 
-Once you run (cronometer_scraper.py)[docs%20and%20devtools/Tools%20for%20extracting%20food%20data/cronometer_scraper.py] it will produce a "\<insert current time\> food.csv" and a "\<insert current time\>  food_to_nutrient.csv" file, the columns from the newly created files can be transferred into the ends of the corresponding file within initial_data folder.
+Once you run [cronometer_scraper.py](docs%20and%20devtools/Tools%20for%20extracting%20food%20data/cronometer_scraper.py) it will produce a "\<insert current time\> food.csv" and a "\<insert current time\>  food_to_nutrient.csv" file, the columns from the newly created files can be transferred into the ends of the corresponding file within initial_data folder.
 
 When you run setup.py a "\<insert current time\> nutrient.db" file should be created, just rename the file "nutrient.db" and replace the "nutrient.db" in the main folder
 
-There is also a tool to (extract from the USDA database)[docs%20and%20devtools/Tools%20for%20extracting%20food%20data/legacy%20files/extract_usda_components.py], however it's currently incomplete and even then, would require a USDA API key.
+There is also a tool to [extract from the USDA database](docs%20and%20devtools/Tools%20for%20extracting%20food%20data/legacy%20files/extract_usda_components.py), however it's currently incomplete and even then, would require a USDA API key.
 
 
 
